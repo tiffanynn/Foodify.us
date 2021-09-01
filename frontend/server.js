@@ -38,10 +38,6 @@ app.route("/").get((req, res) => {
   res.send("Hello World From Foodify Backend Server :)");
 });
 
-app.get((req, res) => {
-  res.send("HELLO WORLD FROM FOODIFY SERVER");
-});
-
 app.listen(port, () => {
   console.log(`Server is running on port: ${port}`);
 });
