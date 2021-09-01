@@ -35,7 +35,7 @@ const mainRouter = require("./backend/routes/mainRouter");
 
 //SERVER API GET REQUEST EXAMPLE:
 app.route("/").get((req, res) => {
-  res.send("Hello World From Foodify Backend Server :)");
+  res.send("Hello World From Foodify Backend Server! :)");
 });
 
 app.listen(port, () => {
