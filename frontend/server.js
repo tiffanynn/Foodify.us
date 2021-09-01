@@ -33,6 +33,11 @@ connection.once("open", () => {
 const mainRouter = require("./backend/routes/mainRouter");
 //app.use("/REPLACE ME WITH A SINGLE ROUTE", mainRouter);
 
+//SERVER API GET REQUEST EXAMPLE:
+app.route("/").get((req, res) => {
+  res.send("Hello World From Foodify Backend Server :)");
+});
+
 app.get((req, res) => {
   res.send("HELLO WORLD FROM FOODIFY SERVER");
 });
