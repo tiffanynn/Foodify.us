@@ -41,3 +41,14 @@ app.route("/").get((req, res) => {
 app.listen(port, () => {
   console.log(`Server is running on port: ${port}`);
 });
+
+
+//REGISTER PAGE: 
+app.get('/register', (req, res) => {
+  res.render('Register.js')
+})
+
+//LOGIN PAGE: 
+app.get('/login', (req, res) => {
+  res.render('Login.js')
+})
