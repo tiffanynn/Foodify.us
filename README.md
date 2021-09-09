@@ -7,5 +7,11 @@ Foodify.us is an application that generates recipes recommendations based on use
 ## Required Installation
 Download Node.js: https://nodejs.org/en/download/
 
-## Cmds to run the project 
+## Cmds to install manually (not included in the bundle)
+npm install 
+npm install cors --save
+npm install -g nodemon
+npm install --save react-router-dom
+
+## Cmds to run the project from bundle
 Please read over frontend/README.md
