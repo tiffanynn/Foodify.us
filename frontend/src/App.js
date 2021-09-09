@@ -17,12 +17,12 @@ import './App.css';
 //     const {isLogginActive} = this.state;
 //     return(
 //       <div className="App">
-//         <div className="Login">
-//           <div className="container">
-//             {isLogginActive && <Login containerRef={(ref) => this.current = ref}/>}
-//             {!isLogginActive && <Register containerRef={(ref) => this.current = ref}/>}
-//           </div>
-//         </div>
+        // <div className="Login">
+        //   <div className="container">
+        //     {isLogginActive && <Login containerRef={(ref) => this.current = ref}/>}
+        //     {!isLogginActive && <Register containerRef={(ref) => this.current = ref}/>}
+        //   </div>
+        // </div>
 //       </div>
 //     )
 //   }
@@ -41,6 +41,7 @@ function App() {
           <Switch>
             <Route path="/register" exact component={() => <Register />} />
             <Route path="/login" exact component={() => <Login />} />
+            
           </Switch>
         </Router>
       </header>
