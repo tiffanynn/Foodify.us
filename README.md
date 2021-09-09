@@ -12,6 +12,7 @@ npm install
 npm install cors --save
 npm install -g nodemon
 npm install --save react-router-dom
+npm install react-bootstrap@next bootstrap@5.1.0
 
 ## Cmds to run the project from bundle
 Please read over frontend/README.md
