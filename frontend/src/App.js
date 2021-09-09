@@ -36,15 +36,16 @@ function App() {
         <p>
           Welcome to Foodify.us Home page!
         </p>
+        <Router>
+          <Navigation />
+          <Switch>
+            <Route path="/register" exact component={() => <Register />} />
+            <Route path="/login" exact component={() => <Login />} />
+          </Switch>
+        </Router>
       </header>
-      <Router>
-        <Navigation />
-        <Switch> 
-          <Route path="/register" exact component={() => <Register />} />
-          <Route path="/login" exact component={() => <Login />} />
-        </Switch>
-        <Footer />
-      </Router>
+      <Footer />
+
     </div>
   );
 }
