@@ -1,0 +1,55 @@
+#recipe_page{
+    background: #E5E5E5;
+}
+
+.top_section{
+    position: absolute;
+    width: 751px;
+    height: 84px;
+    left: 645px;
+    top: 0px;
+
+    mix-blend-mode: normal;
+}
+
+.post{
+    position: absolute;
+    width: 1046px;
+    height: 700px;
+    left: 219px;
+    top: 152px;
+}
+
+.post_pic{
+    position: absolute;
+    width: 630px;
+    height: 524.25px;
+    left: 219px;
+    top: 282px;
+}
+
+.user_sidebar{
+    position: absolute;
+    width: 120px;
+    height: 193px;
+    left: 54px;
+    top: 154px;
+
+}
+
+.actions{
+    position: absolute;
+    width: 1025px;
+    height: 150px;
+    left: 219px;
+    top: 863px;
+}
+
+.reviews{
+    position: absolute;
+    width: 1025px;
+    height: 1000px;
+    left: 219px;
+    top: 990px;
+
+}
