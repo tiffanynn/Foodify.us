@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { Home, Login, Register, Navigation, Footer } from "./pages";
 
 import "./App.css";
+import Profile from "./pages/Profile";
 
 // class App extends React.Component {
 //   constructor(props) {
@@ -40,6 +41,7 @@ function App() {
             <Route path="/" exact component={() => <Home />} />
             <Route path="/register" exact component={() => <Register />} />
             <Route path="/login" exact component={() => <Login />} />
+            <Route path="/profile" exact component={() => <Profile />} />
           </Switch>
         </Router>
       </header>

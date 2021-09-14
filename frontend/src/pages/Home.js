@@ -1,5 +1,6 @@
 // import logo from './logo.svg';
 import React from "react";
+import Cards from "./Cards"
 
 // class Home extends React.Component {
 //   constructor(props) {
@@ -28,6 +29,7 @@ function Home() {
   return (
     <div>
       <p>Welcome to Foodify.us Home page!</p>
+      <Cards />
     </div>
   );
 }
