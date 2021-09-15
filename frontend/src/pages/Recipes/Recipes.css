@@ -1,5 +1,17 @@
 #recipe_page{
     background: #E5E5E5;
+    color: black;
+    width: 100%;
+    padding: 20px;
+}
+
+.MuiButton-follow{
+    color: #19B47C;
+    border-radius: 50%;
+}
+
+.MuiButton-outlined{
+    color: #19B47C;
 }
 
 .top_section{
@@ -53,3 +65,4 @@
     top: 990px;
 
 }
+

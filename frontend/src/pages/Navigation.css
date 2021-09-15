@@ -1,0 +1,21 @@
+.title{
+    color: #1DE19B;
+    display: inline-block;
+}
+
+.appbar-grid{
+    width: 100%;
+}
+
+#login-btn{
+    background-color: none;
+    color: white;
+    text-transform: none;
+}
+
+#signup-btn{
+    background-color: white;
+    color: black;
+    text-transform: none;
+
+}

@@ -1,8 +1,11 @@
 import "./Recipes.css"
+import React from "react"
+import RecipeInfo from "./RecipeInfo.js"
 
-
-<div id = "recipe_page">
-    <div id ="post">
-        <div id = "post_pic"></div>
-    </div>
-</div>
+export default function Recipe(){
+    return(
+        <div id = "recipe_page">
+            <RecipeInfo></RecipeInfo>
+        </div>
+        )
+}

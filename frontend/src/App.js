@@ -2,6 +2,7 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { Home, Login, Register, Navigation, Footer } from "./pages";
+import Recipe  from "./pages/Recipes/Recipes.js";
 
 import "./App.css";
 import Profile from "./pages/Profile";
@@ -42,6 +43,7 @@ function App() {
             <Route path="/register" exact component={() => <Register />} />
             <Route path="/login" exact component={() => <Login />} />
             <Route path="/profile" exact component={() => <Profile />} />
+            <Route path="/recipe" exact component={() => <Recipe />} />
           </Switch>
         </Router>
       </header>
