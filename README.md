@@ -18,6 +18,8 @@ npm install --save react-router-dom
 
 npm install react-bootstrap@next bootstrap@5.1.0
 
+npm install @material-ui/core
 
+npm install @material-ui/icons
 ## Cmds to run the project from bundle
 Please read over frontend/README.md
