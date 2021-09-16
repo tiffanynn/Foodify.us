@@ -28,7 +28,7 @@ import Cards from "./Cards"
 function Home() {
   return (
     <div>
-      <p>Welcome to Foodify.us Home page!</p>
+      {/* <p>Welcome to Foodify.us Home page!</p> */}
       <Cards />
     </div>
   );
