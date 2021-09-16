@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Component} from 'react';
 import './style.css';
 import{withRouter} from "react-router-dom";
 
@@ -11,24 +11,26 @@ export class Login extends React.Component {
 
     render() {
         return (
-            <div className="base-container" ref={this.props.containerRef}>
-                <h1>Let's continue what we started</h1>
-                <div className="content">
-                    <div className="form">
-                        <div className="form-group">
-                            <label htmlFor="email">Email</label>
-                            <input type="text" name="email" placeholder="Email"></input>
-                        </div>
-                        <div className="form-group">
-                            <label htmlFor="password">Password</label>
-                            <input type="text" name="password" placeholder="Password"></input>
+            <form> 
+                <div className="base-container" ref={this.props.containerRef}>
+                    <h1>Let's continue what we started</h1>
+                    <div className="content">
+                        <div className="form">
+                            <div className="form-group">
+                                <label htmlFor="email">Email</label>
+                                <input type="text" name="email" placeholder="Email"></input>
+                            </div>
+                            <div className="form-group">
+                                <label htmlFor="password">Password</label>
+                                <input type="text" name="password" placeholder="Password"></input>
+                            </div>
                         </div>
                     </div>
+                    <div className="sumbit">
+                        <button type="button" className="btn">Login</button>
+                    </div>
                 </div>
-                <div className="sumbit">
-                    <button type="button" className="btn">Login</button>
-                </div>
-            </div>
+            </form>
         );
     }
 
