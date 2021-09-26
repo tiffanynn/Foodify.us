@@ -1,5 +1,5 @@
 import React, { useContext, useRef } from 'react';
-import { Card, Form, Button, FormGroup } from 'react-bootstrap';
+import { Container, Card, Form, Button, FormGroup } from 'react-bootstrap';
 import { Link } from "react-router-dom";
 import { useAuth } from '../config/Authentication'
 import google from '../Images/google-logo-9824.png';
@@ -123,7 +123,7 @@ export default function Login() {
                 color: 'black',
                 display: 'flex',
                 flexDirection: 'column',
-                textAlign: 'left'
+                textAlign: 'center'
             }}> 
             <Link to="/Register">Don't have an account? Register here </Link>
             </li>
