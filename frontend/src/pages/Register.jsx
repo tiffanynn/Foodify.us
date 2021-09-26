@@ -1,5 +1,6 @@
 import React, {useContext, useRef} from 'react';
 import {Card, Form, Button, FormGroup} from 'react-bootstrap';
+import { Link } from "react-router-dom";
 import {useAuth} from '../config/Authentication'
 import logo from '../Images/google-logo-9824.png';
 
@@ -106,15 +107,15 @@ export default function Register(){
                     </Form>
                 </Card.Body>
             </Card>
-            <div className="link" style={{
+            <li style = {{
                 margin:'10px',
                 color: 'black',
                 display: 'flex',
                 flexDirection: 'column',
                 textAlign: 'left'
             }}>
-                Already have an account? Login
-            </div>
+            <Link to="/Login">Already have an account? Login </Link>
+            </li>
         </>
     )
 }

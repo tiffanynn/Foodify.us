@@ -1,7 +1,10 @@
 import React, { useContext, useRef } from 'react';
 import { Card, Form, Button, FormGroup } from 'react-bootstrap';
+import { Link } from "react-router-dom";
 import { useAuth } from '../config/Authentication'
-import logo from '../Images/google-logo-9824.png';
+import google from '../Images/google-logo-9824.png';
+import login from '../Images/login.png';
+import signup from '../Images/signup.png';
 
 export default function Login() {
     const emailRef = useRef()
@@ -16,6 +19,14 @@ export default function Login() {
     return (
         <>
             <Card>
+                
+                    {/* <img src={login}
+                        align="left"
+                        width="300px"
+                        rotate="right"
+                        >
+                    </img> */}
+                
                 <Card.Body style={{
                     color: 'white',
                     alignItems: 'left'
@@ -42,7 +53,7 @@ export default function Login() {
                         }}>
 
                         Login with Google
-                        <img src={logo}
+                        <img src={google}
                             align="right"
                             width="28px"
                             height="25px">
@@ -107,15 +118,15 @@ export default function Login() {
                     </Form>
                 </Card.Body>
             </Card>
-            <div className="link" style={{
+            <li style = {{
                 margin: '10px',
                 color: 'black',
                 display: 'flex',
                 flexDirection: 'column',
                 textAlign: 'left'
-            }}>
-                Don't have an account? Register here
-            </div>
+            }}> 
+            <Link to="/Register">Don't have an account? Register here </Link>
+            </li>
         </>
     )
 }
