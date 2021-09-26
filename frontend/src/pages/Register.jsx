@@ -3,6 +3,7 @@ import {Card, Form, Button, FormGroup} from 'react-bootstrap';
 import { Link } from "react-router-dom";
 import {useAuth} from '../config/Authentication'
 import logo from '../Images/google-logo-9824.png';
+import food from '../Images/food.png';
 
 export default function Register(){
     const emailRef = useRef()
@@ -17,6 +18,12 @@ export default function Register(){
     return (
         <> 
             <Card>
+                <img src={food}
+                    align="left"
+                    height="731px"
+                    width="1033px"
+                >
+                </img>
                 <Card.Body style={{ 
                     color:'white',
                     alignItems: 'left'
@@ -25,7 +32,7 @@ export default function Register(){
                         style={{color:'black', 
                                 display:'flex',
                                 flexDirection:'column',
-                                textalign: 'left'
+                                textalign: 'right'
                                 }}> 
                         Let's start a food journey 
                     </h1>
@@ -116,6 +123,7 @@ export default function Register(){
             }}>
             <Link to="/Login">Already have an account? Login </Link>
             </li>
+            
         </>
     )
 }

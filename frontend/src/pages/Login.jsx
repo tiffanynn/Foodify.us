@@ -3,8 +3,7 @@ import { Container, Card, Form, Button, FormGroup } from 'react-bootstrap';
 import { Link } from "react-router-dom";
 import { useAuth } from '../config/Authentication'
 import google from '../Images/google-logo-9824.png';
-import login from '../Images/login.png';
-import signup from '../Images/signup.png';
+// import login from '../Images/signin2.webp';
 
 export default function Login() {
     const emailRef = useRef()
@@ -23,8 +22,7 @@ export default function Login() {
                     {/* <img src={login}
                         align="left"
                         width="300px"
-                        rotate="right"
-                        >
+                    >
                     </img> */}
                 
                 <Card.Body style={{
