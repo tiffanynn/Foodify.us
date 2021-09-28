@@ -3,7 +3,7 @@ import React from "react";
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import { Grid, Button } from "@material-ui/core";
-import { Link, withRouter } from "react-router-dom";
+import { Link, withRouter, NavLink } from "react-router-dom";
 
 import './Navigation.css';
 import logo from '../Images/logo.png';
@@ -15,7 +15,7 @@ function Navigation(props) {
                 <Toolbar>
                     <Grid container alignItems="center" justifyContent="center" direction="row" className="appbar-grid">
                         
-                        <div className="title"><img src={logo}></img>Foodify</div>
+                        <NavLink to="/"><div className="title"><img src={logo}></img>Foodify</div></NavLink>
                         
                         <Grid container item alignItems="center" justifyContent="flex-end">
                             {/* https://material-ui.com/guides/composition/#button */}
