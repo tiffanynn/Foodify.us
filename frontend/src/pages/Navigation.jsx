@@ -25,20 +25,6 @@ function Navigation(props) {
                     </Grid>
                 </Toolbar>
             </AppBar>
-            {/* <nav class="navbar navbar-expand navbar-dark bg-dark">
-                <div class="container">
-                    <div>
-                        <ul class="navbar-nav ml-auto">
-                            <li class={`nav-item  ${props.location.pathname === "/Register" ? "active" : ""}`}>
-                                <Link class="nav-link" to="/Register">Register</Link>
-                            </li>
-                            <li class={`nav-item  ${props.location.pathname === "/Login" ? "active" : ""}`}>
-                                <Link class="nav-link" to="/Login">Login</Link>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </nav> */}
         </div>
     );
 }
