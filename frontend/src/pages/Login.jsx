@@ -3,7 +3,7 @@ import { Container, Card, Form, Button, FormGroup } from 'react-bootstrap';
 import { Link } from "react-router-dom";
 import { useAuth } from '../config/Authentication'
 import google from '../Images/google-logo-9824.png';
-// import login from '../Images/signin2.webp';
+import food4 from '../Images/food4.png';
 
 export default function Login() {
     const emailRef = useRef()
@@ -18,17 +18,18 @@ export default function Login() {
     return (
         <>
             <Card>
-                
-                    {/* <img src={login}
-                        align="left"
-                        width="300px"
-                    >
-                    </img> */}
-                
                 <Card.Body style={{
                     color: 'white',
                     alignItems: 'left'
                 }}>
+                    <img src={food4}
+                        align="left"
+                        height="377px"
+                        width="509px"
+                        // height="363px"
+                        // width="513px"
+                    >
+                    </img>
                     <h1
                         style={{
                             color: 'black',
@@ -38,6 +39,16 @@ export default function Login() {
                         }}>
                         Let's continue what we started
                     </h1>
+                    <li style={{
+                        margin: '10px',
+                        color: 'black',
+                        display: 'flex',
+                        flexDirection: 'column',
+                        textAlign: 'center',
+                        fontSize: '22px'
+                    }}>
+                        <Link to="/Register">Don't have an account? Register here </Link>
+                    </li>
                     <Button type="googleAPI"
                         style={{
                             color: '#767575',
@@ -116,15 +127,7 @@ export default function Login() {
                     </Form>
                 </Card.Body>
             </Card>
-            <li style = {{
-                margin: '10px',
-                color: 'black',
-                display: 'flex',
-                flexDirection: 'column',
-                textAlign: 'center'
-            }}> 
-            <Link to="/Register">Don't have an account? Register here </Link>
-            </li>
+            
         </>
     )
 }

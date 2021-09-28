@@ -24,8 +24,8 @@ export default function Register(){
                 }}>
                     <img src={food}
                         align="left"
-                        height="363px"
-                        width="513px"
+                        height="581px"
+                        width="888px"
                     >
                     </img>
                     <h1 
@@ -42,9 +42,9 @@ export default function Register(){
                         display: 'flex',
                         flexDirection: 'column',
                         textAlign: 'center',
-                        fontSize: '20px'
+                        fontSize: '22px'
                     }}>
-                        <Link to="/Login">Login Here </Link>
+                        <Link to="/Login">Already have an account? Login here </Link>
                     </li>
                     <Button type="googleAPI"
                         style={{
