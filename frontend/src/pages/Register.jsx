@@ -24,17 +24,18 @@ export default function Register(){
                 }}>
                     <img src={food}
                         align="left"
-                        height="581px"
-                        width="888px"
+                        height="510px"
+                        width="810px"
                     >
                     </img>
                     <h1 
-                        style={{color:'black', 
-                                display:'flex',
-                                flexDirection:'column',
-                                textalign: 'right'
-                                }}> 
-                        Let's start a food journey 
+                        style={{
+                            color:'black', 
+                            display:'flex',
+                            flexDirection:'column',
+                            textalign: 'right'
+                        }}> 
+                        Let's begin our journey 
                     </h1>
                     <li style={{
                         margin: '10px',
