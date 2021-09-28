@@ -18,16 +18,16 @@ export default function Register(){
     return (
         <> 
             <Card>
-                <img src={food}
-                    align="left"
-                    height="731px"
-                    width="1033px"
-                >
-                </img>
                 <Card.Body style={{ 
                     color:'white',
                     alignItems: 'left'
                 }}>
+                    <img src={food}
+                        align="left"
+                        height="363px"
+                        width="513px"
+                    >
+                    </img>
                     <h1 
                         style={{color:'black', 
                                 display:'flex',
@@ -36,6 +36,16 @@ export default function Register(){
                                 }}> 
                         Let's start a food journey 
                     </h1>
+                    <li style={{
+                        margin: '10px',
+                        color: 'black',
+                        display: 'flex',
+                        flexDirection: 'column',
+                        textAlign: 'center',
+                        fontSize: '20px'
+                    }}>
+                        <Link to="/Login">Login Here </Link>
+                    </li>
                     <Button type="googleAPI"
                         style={{
                             color: '#767575',
@@ -43,7 +53,7 @@ export default function Register(){
                             border: '1px solid #1DE19B',
                             borderRadius: '400px',
                             padding: '4px 87px',
-                            alignItems: 'right',
+                            alignItems: 'left',
                             height: '35px',
                             margin: '10px'
                         }}>
@@ -110,20 +120,10 @@ export default function Register(){
                             }}>
                             Register
                         </Button>
-                        
                     </Form>
                 </Card.Body>
             </Card>
-            <li style = {{
-                margin:'10px',
-                color: 'black',
-                display: 'flex',
-                flexDirection: 'column',
-                textAlign: 'left'
-            }}>
-            <Link to="/Login">Already have an account? Login </Link>
-            </li>
-            
         </>
+        
     )
 }
