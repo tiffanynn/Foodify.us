@@ -20,10 +20,10 @@ export default function Login() {
             <Card>
                 <Card.Body style={{
                     color: 'white',
-                    alignItems: 'left'
+                    alignItems: 'right'
                 }}>
                     <img src={food4}
-                        align="left"
+                        align="right"
                         height="377px"
                         width="509px"
                         // height="363px"
