@@ -26,6 +26,7 @@ export default function Register(){
                         align="left"
                         height="510px"
                         width="810px"
+                        flexDirection="column"
                     >
                     </img>
                     <h1 
