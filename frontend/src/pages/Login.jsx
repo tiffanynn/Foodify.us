@@ -26,6 +26,8 @@ export default function Login() {
                         align="right"
                         height="377px"
                         width="509px"
+                        display="inline"
+                        flexDirection="column"
                         // height="363px"
                         // width="513px"
                     >
@@ -33,7 +35,7 @@ export default function Login() {
                     <h1
                         style={{
                             color: 'black',
-                            display: 'flex',
+                            display: 'inline',
                             flexDirection: 'column',
                             textalign: 'left'
                         }}>

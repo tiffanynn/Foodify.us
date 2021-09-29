@@ -26,13 +26,14 @@ export default function Register(){
                         align="left"
                         height="510px"
                         width="810px"
+                        display="inline"
                         flexDirection="column"
                     >
                     </img>
                     <h1 
                         style={{
                             color:'black', 
-                            display:'flex',
+                            display:'inline',
                             flexDirection:'column',
                             textalign: 'right'
                         }}> 
