@@ -1,26 +1,8 @@
 import React, { useEffect } from "react";
-import { Grid, Button } from "@material-ui/core";
+import { Grid, Button, Avatar } from "@material-ui/core";
+import "./Recipes.css";
 
 export default function RecipeInfo(props) {
-  /*const recipeData = {
-    ID: "1234",
-    Hashtag: "francofoodtips",
-    Title: "Why is it so hard to make cereal ?",
-    Date: "2021-05-18",
-    EstimatedTime: "20",
-    IngredientsList: [
-      "2 cups Cereal Grain",
-      "1 pint of oat milk",
-      "ground wild almond",
-      "flax seeds",
-    ],
-    DietTags: ["pescatarian", "paleo"],
-    Story:
-      "Your eyes crack open, the room is bright. It’s 10 Am, and you’ve slept through all 3 of your alarms. Karen, your mother-in-law will be coming for brunch in just half an hour. You’re feeling anxious, but you have just the right recipe. Cereal. Gently lower your grain of choice into a round bowl. Lather top with fresh milk. Finish with toppings. Serve cold.",
-    ImageURL:
-      "https://img.buzzfeed.com/tasty-app-user-assets-prod-us-east-1/recipes/feaa97ad73e74183b4af84e2fafd8c68.png",
-  };*/
-
   // API call saved as json file
   // make a component for list of ingredients
   // useEffect(() => {
@@ -29,42 +11,43 @@ export default function RecipeInfo(props) {
 
   return (
     <Grid container direction="row" spacing={2}>
-      <Grid item direction="column" md={3}>
-        <div>Profile Pic</div>
-        <div>
-          <Button class="MuiButton-root MuiButton-outlined">Follow</Button>
-        </div>
-        <div>User's name</div>
+      <Grid item direction="column"
+      justifyContent="center">
+          <Avatar src="https://64.media.tumblr.com/2f9e574d84ab082f1f16b96812d38c75/tumblr_oappq7XwlE1utr0aro8_250.png"
+        sx={{ width: 90, height: 90 }} /><br></br>   
+        <Button variant="outlined">Follow</Button><br></br>
+        User's name
+          
       </Grid>
       <Grid item container direction="column" md={8}>
         <Grid item container direction="row" justifyContent="space-between">
           <Grid item direction="column">
-            <div>Hashtag</div>
-            <div>{props.recipeData.Title}</div>
-            <div>Date and preparation time</div>
+            <div>Hashtag: {props.recipeData.Hashtag}</div>
+            <h1>{props.recipeData.Title}</h1>
+            <div>Date and preparation time: {props.recipeData.Date}</div>
           </Grid>
           <Grid item>
-            <div>Number of stars review</div>
+            <div class= "text">Reviewed {props.recipeData.Rating} stars</div>
           </Grid>
         </Grid>
         <Grid item container direction="row">
           <Grid item>
-            <div>Picture</div>
+            <div class = "post_pic"><img src={props.recipeData.ImageURL} width="550" height="400"></img></div>
           </Grid>
           <Grid item container direction="column">
             <Grid item container direction="row">
               <Grid item>
-                <div>List of ingredients:</div>
-                {props.recipeData.IngredientsList.map((ingredient) => (
+                <div class= "text"> {props.recipeData.IngredientsList.map((ingredient) => (
                   <p>{ingredient}</p>
-                ))}
+                ))}</div>
+               
               </Grid>
               <Grid item>
                 <div>Tags (pescatarian, paleo)</div>
               </Grid>
             </Grid>
             <Grid item>
-              <div>Instructions</div>
+              <div class = "text">Instructions<br></br>{props.recipeData.Story}</div>
             </Grid>
           </Grid>
         </Grid>

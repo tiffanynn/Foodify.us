@@ -1,17 +1,28 @@
+@import "../../fonts/stylesheet.css";
+
 #recipe_page{
-    background: #E5E5E5;
+    background: white;
     color: black;
     width: 100%;
     padding: 20px;
 }
 
-.MuiButton-follow{
-    color: #19B47C;
-    border-radius: 50%;
+.text{
+    color: black;
+    font-family: "Radley";
+    font-size: 20px;
+    font-style: normal;
+
 }
 
-.MuiButton-outlined{
-    color: #19B47C;
+#outlined{
+    color: black;
+    font-family: "Raleway";
+    text-transform: lowercase;
+    font-size: 15px;
+    font-style: normal;
+    border-color: #19B47C;
+    border-radius: 50%;
 }
 
 .top_section{
@@ -32,12 +43,9 @@
     top: 152px;
 }
 
-.post_pic{
-    position: absolute;
-    width: 630px;
-    height: 524.25px;
-    left: 219px;
-    top: 282px;
+.MuiAvatar-img{
+    width: 60px;
+    height: 60px;
 }
 
 .user_sidebar{

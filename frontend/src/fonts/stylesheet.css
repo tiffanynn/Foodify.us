@@ -65,7 +65,7 @@
     font-family: 'Raleway';
     src: url('Raleway/Raleway-Bold.woff2') format('woff2'),
         url('Raleway/Raleway-Bold.woff') format('woff');
-    font-weight: bold;
+    font-weight: 700px;
     font-style: normal;
     font-display: swap;
 }
@@ -99,8 +99,8 @@
 
 @font-face {
     font-family: 'Raleway';
-    src: url('Raleway-ExtraLightItalic.woff2') format('woff2'),
-        url('Raleway-ExtraLightItalic.woff') format('woff');
+    src: url('Raleway/Raleway-ExtraLightItalic.woff2') format('woff2'),
+        url('Raleway/Raleway-ExtraLightItalic.woff') format('woff');
     font-weight: 200;
     font-style: italic;
     font-display: swap;
@@ -189,8 +189,8 @@
 
 @font-face {
     font-family: 'Raleway';
-    src: url('Raleway-Thin.woff2') format('woff2'),
-        url('Raleway-Thin.woff') format('woff');
+    src: url('Raleway/Raleway-Thin.woff2') format('woff2'),
+        url('Raleway/Raleway-Thin.woff') format('woff');
     font-weight: 100;
     font-style: normal;
     font-display: swap;
