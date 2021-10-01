@@ -1,9 +1,9 @@
 import React, { useContext, useRef } from 'react';
 import { Container, Card, Form, Button, FormGroup } from 'react-bootstrap';
 import { Link } from "react-router-dom";
-import { useAuth } from '../config/Authentication'
+// import { useAuth } from '../config/Authentication'
 import google from '../Images/google-logo-9824.png';
-import food4 from '../Images/food4.png';
+import avo2 from '../Images/avo2.png';
 
 export default function Login() {
     const emailRef = useRef()
@@ -22,10 +22,10 @@ export default function Login() {
                     color: 'white',
                     alignItems: 'right'
                 }}>
-                    <img src={food4}
+                    <img src={avo2}
                         align="right"
-                        height="377px"
-                        width="509px"
+                        height="500px"
+                        width="700px"
                         display="inline"
                         flexDirection="column"
                         // height="363px"

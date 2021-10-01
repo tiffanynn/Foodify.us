@@ -1,20 +1,32 @@
-import React, {useContext, useRef} from 'react';
+import React, {useContext, useRef, useEffect, useState} from "react";
 import {Card, Form, Button, FormGroup} from 'react-bootstrap';
-import { Link } from "react-router-dom";
-import {useAuth} from '../config/Authentication'
+import { Link, useHistory } from "react-router-dom";
+import {useAuthState} from "react-firebase-hooks/auth";
+import {
+    auth,
+    registerWithEmailAndPassword,
+    signInWithGoogle,
+} from "./firebase";
+
 import logo from '../Images/google-logo-9824.png';
 import food from '../Images/food.png';
 
 export default function Register(){
-    const emailRef = useRef()
-    const passwordRef = useRef()
-    // const {register} = useAuth()
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const [user, loading, error] = useAuthState(auth);
+    const history = useHistory();
 
-    // function handleSubmit(e){
-    //     e.preventDefault()
+    const register = () => {
+        if(!emailRef) alert("Please enter your email address");
+        registerWithEmailAndPassword(emailRef, passwordRef);
+    };
 
-    //     register(emailRef.current.value, passwordRef.current.value)
-    // }
+    useEffect(()=>{
+        if(loading) return;
+        if(user) history.replace("/profile");
+    }, [user, loading]);
+   
     return (
         <> 
             <Card>
@@ -39,6 +51,7 @@ export default function Register(){
                         }}> 
                         Let's begin our journey 
                     </h1>
+                    
                     <li style={{
                         margin: '10px',
                         color: 'black',
@@ -47,7 +60,7 @@ export default function Register(){
                         textAlign: 'center',
                         fontSize: '22px'
                     }}>
-                        <Link to="/Login">Already have an account? Login here </Link>
+                        Already have an account? <Link to="/Login">Login</Link> here
                     </li>
                     <Button type="googleAPI"
                         style={{
@@ -59,7 +72,8 @@ export default function Register(){
                             alignItems: 'left',
                             height: '35px',
                             margin: '10px'
-                        }}>
+                        }}
+                        onClick={signInWithGoogle}>
                             
                         Register with Google 
                         <img src={logo} 
@@ -76,12 +90,13 @@ export default function Register(){
                     }}>
                         - OR -
                     </p>
-                    <Form>
+                    <Form onSubmit={handleSubmit}>
                         <Form.Group id = "email">
                             <Form.Control 
                                 type="email" 
                                 placeholder = "email" 
-                                ref={emailRef} required
+                                value={email} 
+                                onChange={(e)=> setEmail(e.target.value)}
                                 style={{
                                     color: 'black',
                                     background: 'white',
@@ -98,7 +113,8 @@ export default function Register(){
                             <Form.Control 
                                 type="password" 
                                 placeholder = "password" 
-                                ref={passwordRef} required
+                                value={password} 
+                                onChange={(e)=> setPassword(e.target.value)} 
                                 style={{
                                     color: 'black',
                                     background: 'white',
@@ -120,7 +136,8 @@ export default function Register(){
                                 padding: '6px 18px',
                                 alignItems: 'right',
                                 margin:'10px'
-                            }}>
+                            }}
+                            onClick={register}>
                             Register
                         </Button>
                     </Form>
