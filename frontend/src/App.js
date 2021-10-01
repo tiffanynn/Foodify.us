@@ -3,6 +3,7 @@ import React from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { Home, Login, Register, Navigation, Footer } from "./pages";
 import Recipe  from "./pages/Recipes/Recipes.js";
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 import "./App.css";
 import Profile from "./pages/Profile";
@@ -33,7 +34,7 @@ import Profile from "./pages/Profile";
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
+      {/* <header className="App-header"> */}
         {/* <img src={logo} className="App-logo" alt="logo" /> */}
 
         <Router>
@@ -46,7 +47,7 @@ function App() {
             <Route path="/recipe" exact component={() => <Recipe />} />
           </Switch>
         </Router>
-      </header>
+      {/* </header> */}
       <Footer />
     </div>
   );
