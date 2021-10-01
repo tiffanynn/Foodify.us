@@ -59,52 +59,12 @@ export default function RecipeInfo(props) {
                 <Button className="mx-5">Leave a Review</Button>
                 <Button className="mx-5">Save</Button>
             </div>
-
             <Row>
                 review
             </Row>
             </Col>
         </Row>
-        
+   
     </Container>
-
-    // <Grid container direction="row" spacing={2}>
-    
-    //   <Grid item container direction="column" md={8}>
-    //     <Grid item container direction="row" justifyContent="space-between">
-    //       <Grid item direction="column" justifyContent="left">
-    //         <div class = "hashtag">#{props.recipeData.Hashtag}</div>
-    //         <h1>{props.recipeData.Title}</h1>
-    //         <div class = "time">{props.recipeData.Date} • { props.recipeData.EstimatedTime} preparation</div>
-    //       </Grid>
-    //       <Grid item direction="column" justifyContent="right"><Grid item>
-    //         <div class= "text">Reviewed {props.recipeData.Rating} stars</div>
-    //       </Grid></Grid>
-          
-          
-    //     </Grid>
-    //     <Grid item container direction="row" columns = {2}>
-    //       <Grid item justifyContent="left">
-    //         <div class = "post_pic"><img src={props.recipeData.ImageURL} width="550" height="400"></img></div>
-    //       </Grid>
-
-    //       <Grid item container direction="column" justifyContent="right">
-    //         <Grid item direction="column" columns={2}>
-    //             <Grid item>
-    //             <div>Tags (pescatarian, paleo)</div>
-    //           </Grid>
-            //   <Grid item justifyContent="right">
-            //       <div class ="description"> <div class= "text"> {props.recipeData.IngredientsList.map((ingredient) => (
-            //       <p>{ingredient}</p>
-            //     ))}
-            //     <br></br>{props.recipeData.Story}</div>
-    //            </div>
-               
-    //           </Grid>
-    //         </Grid>
-    //       </Grid>
-    //     </Grid>
-    //   </Grid>
-    // </Grid>
   );
 }
