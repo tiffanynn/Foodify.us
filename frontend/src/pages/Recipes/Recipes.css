@@ -2,18 +2,39 @@
 
 #recipe_page{
     background: white;
+    background-image: url('../../Images/bg.png');
+    background-repeat: no-repeat;
+    background-position: right bottom;
     color: black;
     width: 100%;
 }
 
+.review{
+    background: #ECECEC;
+    border-radius: 18px;
+    width: 506px;
+    height: 126px;
+}
+
 h1 {
     color: black;
-    font-family: Radley;
+    font-family: "Radley";
     font-style: normal;
     font-weight: normal;
     font-size: 30px;
     line-height: 38px;
     letter-spacing: 0.01em;
+    text-align: left;
+}
+
+h2 {
+    color: #6F6F6F;
+    font-family: "Radley";
+    font-style: normal;
+    font-weight: normal;
+    font-size: 35px;
+    line-height: 44px;
+    letter-spacing: 0.02em;
     text-align: left;
 }
 
@@ -28,12 +49,19 @@ h1 {
     letter-spacing: 0.01em;
 }
 
-/* #container{
-    padding:0px 50px;
-    margin: 0;
-    width: 100%;
-    max-width: 100%;
-} */
+#save{
+    background: #03030366;
+    opacity: .6;
+    font-family: "Raleway";
+    color: white;
+    text-transform: lowercase;
+    text-align: center;
+    font-size: 18px;
+    font-weight: 600;
+    font-style: normal;
+    border-radius: 45px;
+    margin-top: 6%;    
+}
 
 .time{
     font-family: "Ramabhadra";
@@ -57,6 +85,10 @@ h1 {
     text-align: left;
 }
 
+.ingredients{
+    text-align: center;
+}
+
 .tag{
     color:  black;
     opacity: .6;
@@ -74,6 +106,18 @@ h1 {
     margin-top: 6%;    
 }
 
+#leave_review{
+    color: black;
+    font-family: "Raleway";
+    text-transform: lowercase;
+    font-size: 15px;
+    font-style: normal;
+    font-weight: 600;
+    border: 1px solid #C2C2C2;
+    box-sizing: border-box;
+    border-radius: 45px;
+    margin-top: 6%;    
+}
 
 .post{
     position: absolute;
@@ -83,21 +127,22 @@ h1 {
     top: 152px;
 }
 
-
-.actions{
-    position: absolute;
-    width: 1025px;
-    height: 150px;
-    left: 219px;
-    top: 863px;
-}
-
 .reviews{
-    position: absolute;
-    width: 1025px;
-    height: 1000px;
-    left: 219px;
-    top: 990px;
+   padding-top: 11%;
 
 }
 
+.rating{
+    padding-top: 5%;
+    padding-left: 80%;
+}
+
+.review_text{
+    font-family: "Radley";
+    font-style: normal;
+    font-weight: normal;
+    font-size: 15px;
+    line-height: 19px;
+    letter-spacing: 0.02em;
+    color: #6F6F6F;
+}

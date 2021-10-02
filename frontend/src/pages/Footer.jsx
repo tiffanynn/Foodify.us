@@ -4,11 +4,9 @@ function Footer(){
     return(
         <div className="footer">
             <footer class="py-5 bg-darl fixed bottom">
-                <div class="container">
-                    <p class="m-0 text-center text-white">
+                    <p class="m-0 text-center">
                         Copyright Foodify.us 2021
                     </p>
-                </div>
             </footer>
         </div>
     );

@@ -24,43 +24,48 @@ export default function RecipeInfo(props) {
             <Col>
                 <Row className="d-flex justify-content-between align-items-start">
                     <Col xs ={6} lg={6}>
-                        <div class = "hashtag">#{props.recipeData.Hashtag}</div>
+                        <div className = "hashtag">#{props.recipeData.Hashtag}</div>
                         <h1>{props.recipeData.Title}</h1>
-                        <div class = "time">{props.recipeData.Date} • { props.recipeData.EstimatedTime} preparation</div>
+                        <div className = "time">{props.recipeData.Date} • { props.recipeData.EstimatedTime} preparation</div>
                     </Col>
                     <Col>
-                    <div class= "text" align="right">Reviewed {props.recipeData.Rating} stars</div>
+                    <div className= "text" align="right">Reviewed {props.recipeData.Rating} stars</div>
                     </Col>
                 </Row>
 
                 <Row>
                 <Col>
-                <div class = "post_pic"><img src={props.recipeData.ImageURL} width="550" height="400"></img></div>
+                <div className = "post_pic"><img src={props.recipeData.ImageURL} width="550" height="400"></img></div>
             </Col>
             <Col>
                 <Row>
                     <Col>
-                    <div class ="description"> <div class= "text"> {props.recipeData.IngredientsList.map((ingredient) => (
+                    <div className ="ingredients"> <div className= "text"> {props.recipeData.IngredientsList.map((ingredient) => (
                     <p>{ingredient}</p>
                     ))}
                     </div></div>
                     </Col><Col>
-                    <div class ="description"> <div class= "text"> {props.recipeData.DietTags.map((
+                    <div className ="description"> {props.recipeData.DietTags.map((
                         tag) => (
                     <p> <Button variant="outlined" id="outlined" className="tag">{tag}</Button></p>
                     ))}
-                    </div></div>
+                    </div>
                     </Col></Row>
                 <Row></Row>
-                <div class ="description"> <div class= "text"> {props.recipeData.Story}</div></div></Col>
+                <div className ="description"> <div className= "text"> {props.recipeData.Story}</div></div></Col>
                 </Row>
 
             <div className="mt-3">
-                <Button className="mx-5">Leave a Review</Button>
-                <Button className="mx-5">Save</Button>
+                <Button variant="outlined" id="leave_review">Leave a Review</Button> 
+                <Button variant="text" id="save">Save</Button>
             </div>
             <Row>
-                review
+                <Col xs={6}><h2>Reviews and Remarks</h2>
+                hello world
+                <div className = "review">
+                    <div className = "review_text">
+                        <div className="reviews">feel like cooking? leave your thoughts?</div>
+                        <div className="rating">_/5 stars</div></div></div></Col>
             </Row>
             </Col>
         </Row>
