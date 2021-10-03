@@ -2,9 +2,7 @@
 
 #recipe_page{
     background: white;
-    background-image: url('../../Images/bg.png');
     background-repeat: no-repeat;
-    background-position: right bottom;
     color: black;
     width: 100%;
 }
