@@ -2,30 +2,39 @@ import React, {useContext, useRef, useEffect, useState} from "react";
 import {Card, Form, Button, FormGroup} from 'react-bootstrap';
 import { Link, useHistory } from "react-router-dom";
 import {useAuthState} from "react-firebase-hooks/auth";
-import {
-    auth,
-    registerWithEmailAndPassword,
-    signInWithGoogle,
-} from "./firebase";
+import { auth } from "../firebase.js";
+import { useAuth } from "../config/Authentication.js";
 
 import logo from '../Images/google-logo-9824.png';
 import food from '../Images/food.png';
 
 export default function Register(){
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
-    const [user, loading, error] = useAuthState(auth);
-    const history = useHistory();
-
-    const register = () => {
-        if(!emailRef) alert("Please enter your email address");
-        registerWithEmailAndPassword(emailRef, passwordRef);
-    };
-
-    useEffect(()=>{
-        if(loading) return;
-        if(user) history.replace("/profile");
-    }, [user, loading]);
+    const emailRef = useRef()
+    const passwordRef = useRef()
+    // const passwordConfirmRef = useRef()
+    const { signup, currentUser } = useAuth()
+    const [error, setError] = useState("")
+    const [loading, setLoading] = useState(false)
+    const history = useHistory()
+  
+    async function handleSubmit(e) {
+      e.preventDefault()
+  
+    //   if (passwordRef.current.value !== passwordConfirmRef.current.value) {
+    //     return setError("Passwords do not match")
+    //   }
+  
+      try {
+        setError("")
+        setLoading(true)
+        await signup(emailRef.current.value, passwordRef.current.value)
+        history.push("/")
+      } catch {
+        setError("Failed to create an account")
+      }
+  
+      setLoading(false)
+    }
    
     return (
         <> 
@@ -51,7 +60,7 @@ export default function Register(){
                         }}> 
                         Let's begin our journey 
                     </h1>
-                    
+                    {currentUser && currentUser.email}
                     <li style={{
                         margin: '10px',
                         color: 'black',
@@ -73,7 +82,8 @@ export default function Register(){
                             height: '35px',
                             margin: '10px'
                         }}
-                        onClick={signInWithGoogle}>
+                        // onClick={signInWithGoogle}>
+                        >
                             
                         Register with Google 
                         <img src={logo} 
@@ -95,8 +105,7 @@ export default function Register(){
                             <Form.Control 
                                 type="email" 
                                 placeholder = "email" 
-                                value={email} 
-                                onChange={(e)=> setEmail(e.target.value)}
+                                ref={emailRef} required 
                                 style={{
                                     color: 'black',
                                     background: 'white',
@@ -113,8 +122,7 @@ export default function Register(){
                             <Form.Control 
                                 type="password" 
                                 placeholder = "password" 
-                                value={password} 
-                                onChange={(e)=> setPassword(e.target.value)} 
+                                ref={passwordRef} required
                                 style={{
                                     color: 'black',
                                     background: 'white',
@@ -137,7 +145,7 @@ export default function Register(){
                                 alignItems: 'right',
                                 margin:'10px'
                             }}
-                            onClick={register}>
+                            onClick={signup}>
                             Register
                         </Button>
                     </Form>

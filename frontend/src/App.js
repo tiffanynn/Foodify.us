@@ -3,7 +3,7 @@ import React from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { Home, Login, Register, Navigation, Footer } from "./pages";
 import Recipe  from "./pages/Recipes/Recipes.js";
-// import {AuthProvider} from "../config/Authentication";
+import {AuthProvider} from "./config/Authentication.js";
 import "./App.css";
 import Profile from "./pages/Profile";
 
@@ -35,7 +35,7 @@ function App() {
     <div className="App">
       <header className="App-header">
         {/* <img src={logo} className="App-logo" alt="logo" /> */}
-        {/* <AuthProvider> */}
+        <AuthProvider>
           <Router>
             <Navigation />
             <Switch>
@@ -46,7 +46,7 @@ function App() {
               <Route path="/recipe" exact component={() => <Recipe />} />
             </Switch>
           </Router>
-        {/* </AuthProvider> */}
+        </AuthProvider>
       </header>
       <Footer />
     </div>
