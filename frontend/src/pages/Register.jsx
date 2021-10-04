@@ -11,7 +11,6 @@ import food from '../Images/food.png';
 export default function Register(){
     const emailRef = useRef()
     const passwordRef = useRef()
-    // const passwordConfirmRef = useRef()
     const { signup, currentUser } = useAuth()
     const [error, setError] = useState("")
     const [loading, setLoading] = useState(false)
@@ -20,15 +19,11 @@ export default function Register(){
     async function handleSubmit(e) {
       e.preventDefault()
   
-    //   if (passwordRef.current.value !== passwordConfirmRef.current.value) {
-    //     return setError("Passwords do not match")
-    //   }
-  
       try {
         setError("")
         setLoading(true)
         await signup(emailRef.current.value, passwordRef.current.value)
-        history.push("/")
+        history.push("/") //goes to home page
       } catch {
         setError("Failed to create an account")
       }
@@ -60,7 +55,7 @@ export default function Register(){
                         }}> 
                         Let's begin our journey 
                     </h1>
-                    {currentUser && currentUser.email}
+                    
                     <li style={{
                         margin: '10px',
                         color: 'black',
