@@ -1,5 +1,5 @@
 import React, { useContext, useRef, useEffect, useState } from "react";
-import { Card, Form, Button, FormGroup } from 'react-bootstrap';
+import { Card, Form, Button, FormGroup, Alert } from 'react-bootstrap';
 import { Link, useHistory } from "react-router-dom";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "../firebase.js";
@@ -26,7 +26,7 @@ export default function Login() {
             await login(emailRef.current.value, passwordRef.current.value)
             history.push("/profile") //goes to profile page
         } catch {
-            setError("Failed to create an account")
+            setError("Failed to login")
         }
 
         setLoading(false)
@@ -62,7 +62,24 @@ export default function Login() {
                         }}>
                         Let's continue what we started
                     </h1>
+                    <div>
+                        {error && <Alert variant="danger" style={{
+                            marginTop: '100px',
+                            flexDirection: 'column',
+                            opacity: '80%',
+                            timeout:'opacity 100ms',
+                            display: 'inline',
+                            alignItems: 'right',
+                            textAlign: 'center',
+                            borderRadius: '400px',
+                            padding: '4px 93px',
+                            width: '340px'
+                            // display: 'inline',
+                            // flexDirection: 'column'
 
+                        }}
+                        >{error}</Alert>}
+                    </div>
                     <li style={{
                         margin: '10px',
                         color: 'black',
@@ -153,7 +170,7 @@ export default function Login() {
                                 alignItems: 'right',
                                 margin: '10px'
                             }}
-                            onClick={login}>
+                            disabled={loading}>
                             Login
                         </Button>
                     </Form>
