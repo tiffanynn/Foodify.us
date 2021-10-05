@@ -34,8 +34,11 @@ export default function Login() {
 
     return (
         <>
-            <Card>
+            <Card style={{
+                border: 'white'
+            }}>
                 <Card.Body style={{
+                    margin: '100px',
                     color: 'white',
                     alignItems: 'right'
                 }}>
@@ -59,7 +62,7 @@ export default function Login() {
                         }}>
                         Let's continue what we started
                     </h1>
-                    
+
                     <li style={{
                         margin: '10px',
                         color: 'black',
