@@ -57,11 +57,29 @@ export default function Register(){
                             fontFamily: 'Open Sans, sans-serif',
                             display:'inline',
                             flexDirection:'column',
-                            textalign: 'right'
+                            textalign: 'right',
+                            margin: '10px'
                         }}> 
                         Let's begin our journey 
                     </h1>
-                    {error && <Alert variant="danger">{error}</Alert>}
+                    <div>
+                        {error && <Alert variant="danger" style={{
+                            marginTop: '200px',
+                            flexDirection: 'column',
+                            opacity: '80%',
+                            timeout: 'opacity 100ms',
+                            display: 'inline',
+                            alignItems: 'right',
+                            textAlign: 'center',
+                            borderRadius: '400px',
+                            padding: '4px 93px',
+                            width: '330px'
+                            // display: 'inline',
+                            // flexDirection: 'column'
+
+                        }}
+                        >{error}</Alert>}
+                    </div>
                     <li style={{
                         margin: '10px',
                         color: 'black',
