@@ -8,7 +8,8 @@ export default function Recipe() {
     Hashtag: "francofoodtips",
     Title: "Why is it so hard to make cereal ?",
     Date: "2021-05-18",
-    EstimatedTime: "20",
+    Rating: "4.2/5",
+    EstimatedTime: "20 minutes",
     IngredientsList: [
       "2 cups Cereal Grain",
       "1 pint of oat milk",

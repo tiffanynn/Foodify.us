@@ -3,12 +3,10 @@ import React from 'react';
 function Footer(){
     return(
         <div className="footer">
-            <footer class="py-5 bg-darl fixed bottom">
-                <div class="container">
-                    <p class="m-0 text-center text-white">
-                        Copyright Foodify.us 2021
+            <footer class="py-0 bg-darl fixed bottom">
+                    <p class="m-0 text-center">
+                    Copyright © 2021 Foodify us.     Foodify and related marks are registered trademarks of Foodify.
                     </p>
-                </div>
             </footer>
         </div>
     );

@@ -52,6 +52,7 @@ export default function Login() {
                     <h1
                         style={{
                             color: 'black',
+                            font: "Raleway",
                             display: 'inline',
                             flexDirection: 'column',
                             textalign: 'left'

@@ -1,27 +1,120 @@
+@import "../../fonts/stylesheet.css";
+
 #recipe_page{
-    background: #E5E5E5;
+    background: white;
+    background-repeat: no-repeat;
     color: black;
     width: 100%;
-    padding: 20px;
 }
 
-.MuiButton-follow{
-    color: #19B47C;
-    border-radius: 50%;
+.review{
+    background: #ECECEC;
+    border-radius: 18px;
+    width: 506px;
+    height: 126px;
 }
 
-.MuiButton-outlined{
-    color: #19B47C;
+h1 {
+    color: black;
+    font-family: "Radley";
+    font-style: normal;
+    font-weight: normal;
+    font-size: 30px;
+    line-height: 38px;
+    letter-spacing: 0.01em;
+    text-align: left;
 }
 
-.top_section{
-    position: absolute;
-    width: 751px;
-    height: 84px;
-    left: 645px;
-    top: 0px;
+h2 {
+    color: #6F6F6F;
+    font-family: "Radley";
+    font-style: normal;
+    font-weight: normal;
+    font-size: 35px;
+    line-height: 44px;
+    letter-spacing: 0.02em;
+    text-align: left;
+}
 
-    mix-blend-mode: normal;
+.hashtag{
+    color: #AAAAAA;
+    font-family: "Ramabhadra";
+    font-weight: 400;
+    font-style: normal;
+    font-size: 20px;
+    line-height: 38px;
+    text-align: left;
+    letter-spacing: 0.01em;
+}
+
+#save{
+    background: #03030366;
+    opacity: .6;
+    font-family: "Raleway";
+    color: white;
+    text-transform: lowercase;
+    text-align: center;
+    font-size: 18px;
+    font-weight: 600;
+    font-style: normal;
+    border-radius: 45px;
+    margin-top: 6%;    
+}
+
+.time{
+    font-family: "Ramabhadra";
+    font-style: normal;
+    font-weight: normal;
+    font-size: 10px;
+    line-height: 19px;
+    letter-spacing: 0.01em;
+    text-align: left;
+    color: #3D3D3D;
+}
+
+.text{
+    color: black;
+    font-family: "Radley";
+    font-size: 18px;
+    font-style: normal;
+}
+
+.description{
+    text-align: left;
+}
+
+.ingredients{
+    text-align: center;
+}
+
+.tag{
+    color:  black;
+    opacity: .6;
+}
+
+#outlined{
+    color: black;
+    font-family: "Raleway";
+    text-transform: lowercase;
+    font-size: 15px;
+    font-style: normal;
+    border: 1px solid #19B47C;
+    box-sizing: border-box;
+    border-radius: 45px;
+    margin-top: 6%;    
+}
+
+#leave_review{
+    color: black;
+    font-family: "Raleway";
+    text-transform: lowercase;
+    font-size: 15px;
+    font-style: normal;
+    font-weight: 600;
+    border: 1px solid #C2C2C2;
+    box-sizing: border-box;
+    border-radius: 45px;
+    margin-top: 6%;    
 }
 
 .post{
@@ -32,37 +125,22 @@
     top: 152px;
 }
 
-.post_pic{
-    position: absolute;
-    width: 630px;
-    height: 524.25px;
-    left: 219px;
-    top: 282px;
-}
-
-.user_sidebar{
-    position: absolute;
-    width: 120px;
-    height: 193px;
-    left: 54px;
-    top: 154px;
-
-}
-
-.actions{
-    position: absolute;
-    width: 1025px;
-    height: 150px;
-    left: 219px;
-    top: 863px;
-}
-
 .reviews{
-    position: absolute;
-    width: 1025px;
-    height: 1000px;
-    left: 219px;
-    top: 990px;
+   padding-top: 11%;
 
 }
 
+.rating{
+    padding-top: 5%;
+    padding-left: 80%;
+}
+
+.review_text{
+    font-family: "Radley";
+    font-style: normal;
+    font-weight: normal;
+    font-size: 15px;
+    line-height: 19px;
+    letter-spacing: 0.02em;
+    color: #6F6F6F;
+}
