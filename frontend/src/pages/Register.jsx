@@ -1,5 +1,5 @@
 import React, {useContext, useRef, useEffect, useState} from "react";
-import {Card, Form, Button, FormGroup} from 'react-bootstrap';
+import {Card, Form, Button, FormGroup, Alert} from 'react-bootstrap';
 import { Link, useHistory } from "react-router-dom";
 import {useAuthState} from "react-firebase-hooks/auth";
 import { auth } from "../firebase.js";
@@ -61,7 +61,7 @@ export default function Register(){
                         }}> 
                         Let's begin our journey 
                     </h1>
-                    
+                    {error && <Alert variant="danger">{error}</Alert>}
                     <li style={{
                         margin: '10px',
                         color: 'black',
@@ -170,7 +170,7 @@ export default function Register(){
                                 alignItems: 'right',
                                 margin:'10px'
                             }}
-                            onClick={signup}>
+                            disabled={loading}>
                             Register
                         </Button>
                     </Form>
