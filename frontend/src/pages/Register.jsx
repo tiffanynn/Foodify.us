@@ -65,7 +65,7 @@ export default function Register(){
                         textAlign: 'center',
                         fontSize: '22px'
                     }}>
-                        Already have an account? <Link to="/Login">Login</Link> here
+                        <Link to="/Login">  Already have an account? Login here </Link> 
                     </li>
                     <Button type="googleAPI"
                         style={{
