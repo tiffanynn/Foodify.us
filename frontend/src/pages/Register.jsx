@@ -49,6 +49,7 @@ export default function Register(){
                     <h1 
                         style={{
                             color:'black', 
+                            fontFamily: 'Open Sans, sans-serif',
                             display:'inline',
                             flexDirection:'column',
                             textalign: 'right'
@@ -72,9 +73,10 @@ export default function Register(){
                             background:'white',
                             border: '1px solid #1DE19B',
                             borderRadius: '400px',
-                            padding: '4px 87px',
+                            padding: '4px 93px',
                             alignItems: 'left',
                             height: '35px',
+                            width: 'auto',
                             margin: '10px'
                         }}
                         // onClick={signInWithGoogle}>
@@ -108,7 +110,9 @@ export default function Register(){
                                     borderRadius: '40px',
                                     padding: '4px 18px',
                                     alignItems: 'right',
-                                    height: '25px',
+                                    height: '35px',
+                                    width: '360px',
+                                    display: 'inline',
                                     margin: '10px'
                                 }}>
                             </Form.Control>
@@ -125,7 +129,9 @@ export default function Register(){
                                     borderRadius: '40px',
                                     padding: '4px 18px',
                                     alignItems: 'right',
-                                    height: '25px',
+                                    height: '35px',
+                                    width: '360px',
+                                    display: 'inline',
                                     margin: '10px'
                                 }}>
                             </Form.Control>
