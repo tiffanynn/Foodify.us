@@ -33,9 +33,13 @@ export default function Register(){
    
     return (
         <> 
-            <Card>
+            <Card style={{ 
+                border:'white'
+            }}>
                 <Card.Body style={{ 
+                    margin: '100px',
                     color:'white',
+                    border: 'white',
                     alignItems: 'left'
                 }}>
                     <img src={food}
