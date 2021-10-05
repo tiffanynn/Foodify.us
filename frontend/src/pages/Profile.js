@@ -7,30 +7,46 @@ import { Link, useHistory } from "react-router-dom";
 import { Form } from 'react-bootstrap';
 
  export default function Profile() {
-  const {logout, currentUser} = useAuth();
-   const nameRef = useRef();
-   const history = useHistory();
-  async function handleSubmit(e){
-    await logout();
-    history.push("/login");
-  }
-    return (
-      <div>
-        <Cards />
-        {/* <form>
-          <label>
-            Name:
-            <input type="text" ref={nameRef} required />
-          </label>
+    const {logout, currentUser} = useAuth();
+    const nameRef = useRef();
+    const history = useHistory();
+    const [error, setError] = useState("");
+    const [loading, setLoading] = useState(false);
+
+
+    async function handleSubmit(e){
+      await logout();
+      try{
+        setError("")
+        setLoading(true)
+        await logout()
+        history.push("/Login")
+      }catch{
+        setError("Can't Logout")
+      }
+      
+    }
+      return (
+        <div>
+          <Button onClick={logout} style={{
+            align:'right',
+            alignItems: 'right'
+          }}>
+            Logout 
+          </Button>
+          {/* {currentUser && currentUser.name} */}
+          {currentUser && currentUser.email}
+          <Cards />
+          {/* <form>
+            <label>
+              Name:
+              <input type="text" ref={nameRef} required />
+            </label>
+            
+          </form> */}
           
-        </form> */}
-        <Button onClick={logout}>
-        Logout
-        </Button>
-        {/* {currentUser && currentUser.name} */}
-        {currentUser && currentUser.email}
-      </div>
-    );
+        </div>
+      );
   }
   
  
