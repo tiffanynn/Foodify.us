@@ -40,7 +40,8 @@ export default function Login() {
                 <Card.Body style={{
                     margin: '100px',
                     color: 'white',
-                    alignItems: 'right'
+                    alignItems: 'right',
+                    position: 'relative'
                 }}>
                     <img src={avo2}
                         align="right"
@@ -48,6 +49,7 @@ export default function Login() {
                         width="700px"
                         display="inline"
                         flexDirection="column"
+                        position="relative"
                         // height="363px"
                         // width="513px"
                     >
@@ -58,7 +60,8 @@ export default function Login() {
                             fontFamily: 'Open Sans, sans-serif',
                             display: 'inline',
                             flexDirection: 'column',
-                            textalign: 'left'
+                            textalign: 'left',
+                            position:'relative'
                         }}>
                         Let's continue what we started
                     </h1>
@@ -86,6 +89,7 @@ export default function Login() {
                         display: 'flex',
                         flexDirection: 'column',
                         textAlign: 'center',
+                        position: 'relative',
                         fontSize: '22px'
                     }}>
                         <Link to="/Register">Don't have an account? Register here </Link>
