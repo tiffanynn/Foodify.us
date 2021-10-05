@@ -6,7 +6,7 @@ import { auth } from "../firebase.js";
 import { useAuth } from "../config/Authentication.js";
 
 import google from '../Images/google-logo-9824.png';
-import avo2 from '../Images/avo2.png';
+import avo2 from '../Images/lobster.png';
 
 export default function Login() {
     const emailRef = useRef()
@@ -41,7 +41,7 @@ export default function Login() {
                 }}>
                     <img src={avo2}
                         align="right"
-                        height="500px"
+                        height="450px"
                         width="700px"
                         display="inline"
                         flexDirection="column"
@@ -52,7 +52,7 @@ export default function Login() {
                     <h1
                         style={{
                             color: 'black',
-                            font: "Raleway",
+                            fontFamily: 'Open Sans, sans-serif',
                             display: 'inline',
                             flexDirection: 'column',
                             textalign: 'left'
@@ -78,6 +78,8 @@ export default function Login() {
                             padding: '4px 93px',
                             alignItems: 'right',
                             height:'35px',
+                            width:'auto',
+                            display: 'inline',
                             margin: '10px'
                         }}
                         // onClick={signInWithGoogle}>
@@ -86,7 +88,7 @@ export default function Login() {
                         Login with Google
                         <img src={google}
                             align="right"
-                            width="28px"
+                            width="auto"
                             height="25px">
                         </img>
 
@@ -109,9 +111,11 @@ export default function Login() {
                                     background: 'white',
                                     border: '1px solid #1DE19B',
                                     borderRadius: '40px',
-                                    padding: '4px 18px',
+                                    padding: '14px 18px',
                                     alignItems: 'right',
-                                    height:'25px',
+                                    height:'35px',
+                                    width: '340px',
+                                    display: 'inline',
                                     margin: '10px'
                                 }}>
                             </Form.Control>
@@ -126,9 +130,11 @@ export default function Login() {
                                     background: 'white',
                                     border: '1px solid #1DE19B',
                                     borderRadius: '40px',
-                                    padding: '4px 18px',
+                                    padding: '14px 18px',
                                     alignItems: 'right',
-                                    height:'25px',
+                                    height:'35px',
+                                    width: '340px',
+                                    display: 'inline',
                                     margin: '10px'
                                 }}>
                             </Form.Control>
@@ -146,7 +152,6 @@ export default function Login() {
                             onClick={login}>
                             Login
                         </Button>
-
                     </Form>
                 </Card.Body>
             </Card>
