@@ -11,6 +11,7 @@ import food from '../Images/food.png';
 export default function Register(){
     const emailRef = useRef()
     const passwordRef = useRef()
+    const nameRef = useRef()
     const { signup, currentUser } = useAuth()
     const [error, setError] = useState("")
     const [loading, setLoading] = useState(false)
@@ -102,6 +103,25 @@ export default function Register(){
                         - OR -
                     </p>
                     <Form onSubmit={handleSubmit}>
+                        {/* <Form.Group id="name">
+                            <Form.Control
+                                type="name"
+                                placeholder="name"
+                                ref={nameRef} required
+                                style={{
+                                    color: 'black',
+                                    background: 'white',
+                                    border: '1px solid #1DE19B',
+                                    borderRadius: '40px',
+                                    padding: '4px 18px',
+                                    alignItems: 'right',
+                                    height: '35px',
+                                    width: '360px',
+                                    display: 'inline',
+                                    margin: '10px'
+                                }}>
+                            </Form.Control>
+                        </Form.Group> */}
                         <Form.Group id = "email">
                             <Form.Control 
                                 type="email" 
