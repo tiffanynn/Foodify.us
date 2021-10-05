@@ -1,20 +1,36 @@
-import React, {useContext, useRef} from 'react';
+import React, {useContext, useRef, useEffect, useState} from "react";
 import {Card, Form, Button, FormGroup} from 'react-bootstrap';
-import { Link } from "react-router-dom";
-import {useAuth} from '../config/Authentication'
+import { Link, useHistory } from "react-router-dom";
+import {useAuthState} from "react-firebase-hooks/auth";
+import { auth } from "../firebase.js";
+import { useAuth } from "../config/Authentication.js";
+
 import logo from '../Images/google-logo-9824.png';
 import food from '../Images/food.png';
 
 export default function Register(){
     const emailRef = useRef()
     const passwordRef = useRef()
-    // const {register} = useAuth()
-
-    // function handleSubmit(e){
-    //     e.preventDefault()
-
-    //     register(emailRef.current.value, passwordRef.current.value)
-    // }
+    const { signup, currentUser } = useAuth()
+    const [error, setError] = useState("")
+    const [loading, setLoading] = useState(false)
+    const history = useHistory()
+  
+    async function handleSubmit(e) {
+      e.preventDefault()
+  
+      try {
+        setError("")
+        setLoading(true)
+        await signup(emailRef.current.value, passwordRef.current.value)
+        history.push("/") //goes to home page
+      } catch {
+        setError("Failed to create an account")
+      }
+  
+      setLoading(false)
+    }
+   
     return (
         <> 
             <Card>
@@ -39,6 +55,7 @@ export default function Register(){
                         }}> 
                         Let's begin our journey 
                     </h1>
+                    
                     <li style={{
                         margin: '10px',
                         color: 'black',
@@ -47,7 +64,7 @@ export default function Register(){
                         textAlign: 'center',
                         fontSize: '22px'
                     }}>
-                        <Link to="/Login">Already have an account? Login here </Link>
+                        Already have an account? <Link to="/Login">Login</Link> here
                     </li>
                     <Button type="googleAPI"
                         style={{
@@ -59,7 +76,9 @@ export default function Register(){
                             alignItems: 'left',
                             height: '35px',
                             margin: '10px'
-                        }}>
+                        }}
+                        // onClick={signInWithGoogle}>
+                        >
                             
                         Register with Google 
                         <img src={logo} 
@@ -76,12 +95,12 @@ export default function Register(){
                     }}>
                         - OR -
                     </p>
-                    <Form>
+                    <Form onSubmit={handleSubmit}>
                         <Form.Group id = "email">
                             <Form.Control 
                                 type="email" 
                                 placeholder = "email" 
-                                ref={emailRef} required
+                                ref={emailRef} required 
                                 style={{
                                     color: 'black',
                                     background: 'white',
@@ -120,7 +139,8 @@ export default function Register(){
                                 padding: '6px 18px',
                                 alignItems: 'right',
                                 margin:'10px'
-                            }}>
+                            }}
+                            onClick={signup}>
                             Register
                         </Button>
                     </Form>

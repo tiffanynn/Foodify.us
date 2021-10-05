@@ -1,20 +1,37 @@
-import React, { useContext, useRef } from 'react';
-import { Container, Card, Form, Button, FormGroup } from 'react-bootstrap';
-import { Link } from "react-router-dom";
-import { useAuth } from '../config/Authentication'
+import React, { useContext, useRef, useEffect, useState } from "react";
+import { Card, Form, Button, FormGroup } from 'react-bootstrap';
+import { Link, useHistory } from "react-router-dom";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { auth } from "../firebase.js";
+import { useAuth } from "../config/Authentication.js";
+
 import google from '../Images/google-logo-9824.png';
-import food4 from '../Images/food4.png';
+import avo2 from '../Images/avo2.png';
 
 export default function Login() {
     const emailRef = useRef()
     const passwordRef = useRef()
-    // const {register} = useAuth()
+    
+    const { login, currentUser } = useAuth()
+    const [error, setError] = useState("")
+    const [loading, setLoading] = useState(false)
+    const history = useHistory()
 
-    // function handleSubmit(e){
-    //     e.preventDefault()
+    async function handleSubmit(e) {
+        e.preventDefault()
 
-    //     register(emailRef.current.value, passwordRef.current.value)
-    // }
+        try {
+            setError("")
+            setLoading(true)
+            await login(emailRef.current.value, passwordRef.current.value)
+            history.push("/profile") //goes to profile page
+        } catch {
+            setError("Failed to create an account")
+        }
+
+        setLoading(false)
+    }
+
     return (
         <>
             <Card>
@@ -22,10 +39,10 @@ export default function Login() {
                     color: 'white',
                     alignItems: 'right'
                 }}>
-                    <img src={food4}
+                    <img src={avo2}
                         align="right"
-                        height="377px"
-                        width="509px"
+                        height="500px"
+                        width="700px"
                         display="inline"
                         flexDirection="column"
                         // height="363px"
@@ -62,7 +79,9 @@ export default function Login() {
                             alignItems: 'right',
                             height:'35px',
                             margin: '10px'
-                        }}>
+                        }}
+                        // onClick={signInWithGoogle}>
+                        >
 
                         Login with Google
                         <img src={google}
@@ -79,7 +98,7 @@ export default function Login() {
                     }}>
                         - OR -
                     </p>
-                    <Form>
+                    <Form onSubmit={handleSubmit}>
                         <Form.Group id="email">
                             <Form.Control
                                 type="email"
@@ -123,7 +142,8 @@ export default function Login() {
                                 padding: '6px 18px',
                                 alignItems: 'right',
                                 margin: '10px'
-                            }}>
+                            }}
+                            onClick={login}>
                             Login
                         </Button>
 

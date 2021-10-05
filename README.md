@@ -24,7 +24,7 @@ npm install @material-ui/icons
 
 npm install react-google-login
 
-npm install firebase
+npm i firebase@^8.10.0
 
 ## Cmds to run the project from bundle
 Please read over frontend/README.md
