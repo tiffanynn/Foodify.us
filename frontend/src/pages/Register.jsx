@@ -8,12 +8,58 @@ import { useAuth, AuthPage } from "../config/Authentication.js";
 import logo from '../Images/google-logo-9824.png';
 import food from '../Images/food.png';
 
+// Retrieving data from a document in firebase : WORKS
 db.collection('users').get().then((snapshot)=>{
     snapshot.docs.forEach(doc =>{
         console.log(doc.data())
+        // renderUser(doc)
     })
 })
 
+
+// create an element & rendering 
+// function renderUser(doc){
+//     let Link = document.createElement('Link')
+//     let name = doc.createElement('input')
+//     let email = doc.createElement('input')
+//     let password = doc.createElement('input')
+
+//     Link.setAttribute('data-id', doc.id)
+//     name.textContent = doc.data().name
+//     email.textContent = doc.data().email
+//     password.textContent = doc.data().password
+
+//     Link.appendChild(name)
+//     Link.appendChild(email)
+//     Link.appendChild(password)
+// }
+
+// Saving data to a document in firebase
+const form = document.querySelector('#info')
+
+// form.addEventListener('submit', (e)=>{
+//     e.preventDefault()
+//     db.collection('users').add({
+//         name: form.name.value,
+//         email: form.email.value,
+//         password: form.password.value
+//     })
+
+// })
+
+
+//Real time listener
+// db.collection('users').onSnapshot(snapshot =>{
+//     let changes = snapshot.docChanges()
+//     changes.forEach(change => {
+//         if(change.type =='added'){
+//             console.log(doc.data())
+//             // renderUser(change.doc)
+//         } 
+//     })
+
+// })
+/************************************************************************/
 export default function Register(){
     const emailRef = useRef()
     const passwordRef = useRef()
@@ -153,10 +199,9 @@ export default function Register(){
                     }}>
                         - OR -
                     </p>
-                    <Form onSubmit={handleSubmit}>
-                        <Form.Group id="name">
-                            <Form.Control
-                                type="name"
+                    <Form id="info" onSubmit={handleSubmit}>
+                            <input
+                                name="name"
                                 placeholder="name"
                                 ref={nameRef} required
                                 style={{
@@ -171,11 +216,10 @@ export default function Register(){
                                     display: 'inline',
                                     margin: '10px'
                                 }}>
-                            </Form.Control>
-                        </Form.Group>
-                        <Form.Group id = "email">
-                            <Form.Control 
-                                type="email" 
+                            </input>
+                        
+                            <input 
+                                name="email"
                                 placeholder = "email" 
                                 ref={emailRef} required 
                                 style={{
@@ -190,11 +234,10 @@ export default function Register(){
                                     display: 'inline',
                                     margin: '10px'
                                 }}>
-                            </Form.Control>
-                        </Form.Group>
-                        <Form.Group id="password">
-                            <Form.Control 
-                                type="password" 
+                            </input>
+                        
+                            <input 
+                                name="password"
                                 placeholder = "password" 
                                 ref={passwordRef} required
                                 style={{
@@ -209,8 +252,7 @@ export default function Register(){
                                     display: 'inline',
                                     margin: '10px'
                                 }}>
-                            </Form.Control>
-                        </Form.Group>
+                            </input>
                         <Button type="registerButton" 
                             style={{
                                 color: 'white',
