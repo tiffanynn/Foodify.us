@@ -2,28 +2,60 @@ import React, {useContext, useRef, useEffect, useState} from "react";
 import {Card, Form, Button, FormGroup, Alert} from 'react-bootstrap';
 import { Link, useHistory } from "react-router-dom";
 import {useAuthState} from "react-firebase-hooks/auth";
-import { auth } from "../firebase.js";
-import { useAuth } from "../config/Authentication.js";
+import { auth, app, db, firebase } from "../firebase.js";
+import { useAuth, AuthPage } from "../config/Authentication.js";
 
 import logo from '../Images/google-logo-9824.png';
 import food from '../Images/food.png';
+
+db.collection('users').get().then((snapshot)=>{
+    snapshot.docs.forEach(doc =>{
+        console.log(doc.data())
+    })
+})
 
 export default function Register(){
     const emailRef = useRef()
     const passwordRef = useRef()
     const nameRef = useRef()
+    const provider = useRef()
     const { signup, currentUser } = useAuth()
+    // const { authWithGoogle } = AuthPage()
     const [error, setError] = useState("")
+ 
     const [loading, setLoading] = useState(false)
     const history = useHistory()
-  
+    const [users, setUsers] = useState()
+
+    // const ref = auth.firestore().collection("users")
+    // console.log(ref)
+ 
+    // const googlesignin = async () =>{
+    //     auth.signInWithPopup(provider).catch((err)=>{
+    //         switch(err.code) {
+    //             default:
+    //                 setError("Unknown error")
+    //         }
+    //     })
+    // }
+
+    // useEffect(()=>{
+    //     const fetchData = async () => {
+    //         // gets data 
+    //     const data = await db.collection("users").get()
+    //     setUsers(data.map(doc =>doc.data()))
+    //     }
+    //     fetchData()
+    // }, [])
+
     async function handleSubmit(e) {
       e.preventDefault()
   
       try {
         setError("")
         setLoading(true)
-        await signup(emailRef.current.value, passwordRef.current.value)
+        await signup(nameRef.current.value, emailRef.current.value, passwordRef.current.value)
+       
         history.push("/") //goes to home page
       } catch {
         setError("Failed to create an account")
@@ -51,6 +83,7 @@ export default function Register(){
                         flexDirection="column"
                     >
                     </img>
+                    
                     <h1 
                         style={{
                             color:'black', 
@@ -102,7 +135,7 @@ export default function Register(){
                             width: 'auto',
                             margin: '10px'
                         }}
-                        // onClick={signInWithGoogle}>
+                        // onClick={googlesignin}
                         >
                             
                         Register with Google 
@@ -121,7 +154,7 @@ export default function Register(){
                         - OR -
                     </p>
                     <Form onSubmit={handleSubmit}>
-                        {/* <Form.Group id="name">
+                        <Form.Group id="name">
                             <Form.Control
                                 type="name"
                                 placeholder="name"
@@ -139,7 +172,7 @@ export default function Register(){
                                     margin: '10px'
                                 }}>
                             </Form.Control>
-                        </Form.Group> */}
+                        </Form.Group>
                         <Form.Group id = "email">
                             <Form.Control 
                                 type="email" 
