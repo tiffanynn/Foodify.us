@@ -57,13 +57,13 @@ export default function Login() {
                     <h1
                         style={{
                             color: 'black',
-                            fontFamily: 'Open Sans, sans-serif',
+                            fontFamily: "Raleway",
                             display: 'inline',
                             flexDirection: 'column',
                             textalign: 'left',
                             position:'relative'
-                        }}>
-                        Let's continue what we started
+                        }}><b>Let's continue what we started</b>
+                        
                     </h1>
                     <div>
                         {error && <Alert variant="danger" style={{
@@ -98,6 +98,7 @@ export default function Login() {
                         style={{
                             color: '#767575',
                             background: 'white',
+                            fontFamily: "Raleway",
                             border: '1px solid #1DE19B',
                             borderRadius: '400px',
                             padding: '4px 93px',
@@ -134,6 +135,7 @@ export default function Login() {
                                 style={{
                                     color: 'black',
                                     background: 'white',
+                                    fontFamily: "Raleway",
                                     border: '1px solid #1DE19B',
                                     borderRadius: '40px',
                                     padding: '14px 18px',
@@ -153,6 +155,7 @@ export default function Login() {
                                 style={{
                                     color: 'black',
                                     background: 'white',
+                                    fontFamily: "Raleway",
                                     border: '1px solid #1DE19B',
                                     borderRadius: '40px',
                                     padding: '14px 18px',
@@ -167,6 +170,7 @@ export default function Login() {
                         <Button type="loginButton"
                             style={{
                                 color: 'white',
+                                fontFamily: "Raleway",
                                 background: '#1DE19B',
                                 border: '2px solid #19B47C',
                                 borderRadius: '20px',
@@ -175,7 +179,7 @@ export default function Login() {
                                 margin: '10px'
                             }}
                             disabled={loading}>
-                            Login
+                            sign in
                         </Button>
                     </Form>
                 </Card.Body>

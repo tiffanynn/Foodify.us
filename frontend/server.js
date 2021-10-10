@@ -4,6 +4,7 @@ const express = require("express");
 const cors = require("cors");
 
 const mongoose = require("mongoose");
+const userModel = require("./backend/recipeModel");
 
 // MONGODB CREDENTIALS
 const dotenv = require("dotenv");
