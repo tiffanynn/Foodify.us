@@ -54,13 +54,13 @@ export default function Register(){
                     <h1 
                         style={{
                             color:'black', 
-                            fontFamily: 'Open Sans, sans-serif',
+                            fontFamily: "Raleway",
                             display:'inline',
                             flexDirection:'column',
                             textalign: 'right',
                             margin: '10px'
-                        }}> 
-                        Let's begin our journey 
+                        }}> <b>Let's begin our journey </b>
+                        
                     </h1>
                     <div>
                         {error && <Alert variant="danger" style={{
@@ -93,6 +93,7 @@ export default function Register(){
                     <Button type="googleAPI"
                         style={{
                             color: '#767575',
+                            fontFamily: "Raleway",
                             background:'white',
                             border: '1px solid #1DE19B',
                             borderRadius: '400px',
@@ -147,6 +148,7 @@ export default function Register(){
                                 ref={emailRef} required 
                                 style={{
                                     color: 'black',
+                                    fontFamily: "Raleway",
                                     background: 'white',
                                     border: '1px solid #1DE19B',
                                     borderRadius: '40px',
@@ -166,6 +168,7 @@ export default function Register(){
                                 ref={passwordRef} required
                                 style={{
                                     color: 'black',
+                                    fontFamily: "Raleway",
                                     background: 'white',
                                     border: '1px solid #1DE19B',
                                     borderRadius: '40px',
@@ -181,6 +184,7 @@ export default function Register(){
                         <Button type="registerButton" 
                             style={{
                                 color: 'white',
+                                fontFamily: "Raleway",
                                 background:'#1DE19B',
                                 border:'2px solid #19B47C',
                                 borderRadius:'20px',
@@ -189,7 +193,7 @@ export default function Register(){
                                 margin:'10px'
                             }}
                             disabled={loading}>
-                            Register
+                            sign up
                         </Button>
                     </Form>
                 </Card.Body>

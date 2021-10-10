@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { Button } from "@material-ui/core";
 import { Container, Row, Col, Image } from "react-bootstrap";
-import image from "../../Images/bg.png";
+import image from "../../Images/Rectangle 2.png";
 
 import "./Recipes.css";
 
