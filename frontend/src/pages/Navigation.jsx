@@ -1,11 +1,9 @@
 import React from "react";
 
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import { Grid, Button } from "@material-ui/core";
-import { Link, withRouter, NavLink } from "react-router-dom";
+import { Button } from "@material-ui/core";
+import { Link, withRouter } from "react-router-dom";
 
-import { Navbar, Container } from 'react-bootstrap';
+import { Navbar, Nav, Container } from 'react-bootstrap';
 
 import './Navigation.css';
 import logo from '../Images/logo.png';
@@ -29,14 +27,18 @@ function Navigation(props) {
         //     </AppBar>
         // </div>
         <Navbar>
-            <Container className="d-flex">
-                <NavLink to="/"><div className="title"><img src={logo} height={35}></img>Foodify</div></NavLink>
+            <Container>
+                    <Navbar.Brand className="mx-auto d-sm-flex d-block flex-sm-nowrap" href="/" ><div className="center">
+                        <div className="title"><img src={logo} height={35}></img>Foodify</div>
+                    </div>
+                            
+                    </Navbar.Brand>
+                
                 <div className="justify-content-end">
-                    <Button id="login-btn" component={Link} to="/Login">Login</Button>
-                    <Button id="signup-btn" component={Link} to="/Register">Register</Button>
+                    <Button id="btn" component={Link} to="/Login">Login</Button>
+                    <Button id="btn" component={Link} to="/Register">Register</Button>
                 </div>
             </Container>
-                
         </Navbar>
     );
 }

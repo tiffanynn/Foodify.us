@@ -1,5 +1,9 @@
 @import "../fonts/stylesheet.css";
 
+.center{
+    padding-left: 50%;
+}
+
 .title{
     color: #1DE19B;
     font-family: "Raleway";
@@ -7,6 +11,7 @@
     font-weight: 600;
     font-style: normal;
     font-display: swap;
+    position: center;
     line-height: 47px;
     display: inline-block;
 }
@@ -15,8 +20,7 @@
     width: 100%;
 }
 
-#login-btn{
-    background-color: white;
+#btn{
     font-family: "Raleway";
     font-size: 18px;
     font-weight: 700;
@@ -24,16 +28,6 @@
     font-display: swap;
     color: black;
     text-transform: none;
-}
-
-#signup-btn{
-    background-color: white;
-    font-family: "Raleway";
-    font-size: 18px;
-    font-weight: 700;
-    font-style: normal;
-    font-display: swap;
-    color: black;
-    text-transform: none;
+    display: inline-block;
 }
 
