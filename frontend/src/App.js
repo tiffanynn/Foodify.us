@@ -8,6 +8,7 @@ import {AuthProvider} from "./config/Authentication.js";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import "./App.css";
 import Profile from "./pages/Profile";
+import UploadRecipe from "./pages/Recipes/Upload/Upload";
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
               <Route path="/login" exact component={() => <Login />} />
               <Route path="/profile" exact component={() => <Profile />} />
               <Route path="/recipe" exact component={() => <Recipe />} />
+              <Route path="/upload" exact component={() => <UploadRecipe />} />
             </Switch>
           </Router>
         </AuthProvider>
