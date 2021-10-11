@@ -8,7 +8,6 @@ import { Form } from 'react-bootstrap';
 
  export default function Profile() {
     const {logout, currentUser} = useAuth();
-    const nameRef = useRef();
     const history = useHistory();
     const [error, setError] = useState("");
     const [loading, setLoading] = useState(false);
@@ -34,16 +33,9 @@ import { Form } from 'react-bootstrap';
           }}>
             Logout 
           </Button>
-          {/* {currentUser && currentUser.name} */}
+          
           {currentUser && currentUser.email}
           <Cards />
-          {/* <form>
-            <label>
-              Name:
-              <input type="text" ref={nameRef} required />
-            </label>
-            
-          </form> */}
           
         </div>
       );

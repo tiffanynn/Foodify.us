@@ -1,5 +1,6 @@
 import firebase from "firebase";
 import "firebase/auth";
+import "firebase/firestore";
 
 const app = firebase.initializeApp({
     apiKey: "AIzaSyD3BhvKJi3CdXbMYHszxXZ4hz_4IMvDYWg",
@@ -13,4 +14,8 @@ const app = firebase.initializeApp({
 });
 
 export const auth = app.auth()
+export const db = app.firestore()
+db.settings({Snapshots: true})
+export const usersCollection = db.collection('users') //creatng a db for User Entry
+export const provider = new firebase.auth.GoogleAuthProvider()
 export default app
