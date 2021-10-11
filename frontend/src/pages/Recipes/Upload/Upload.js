@@ -16,7 +16,7 @@ export default function UploadRecipe() {
         <div>
     <Container className="mt-5"><h1>Write your food story:</h1>
     <Row><Col>
-    <Form.Group id = "title">
+    <Form.Group id = "recipe">
                             <Form.Control 
                                 type="textarea" 
                                 placeholder = "title" 
@@ -74,7 +74,24 @@ export default function UploadRecipe() {
                             </Form.Control>
                         </Form.Group></Col></Row>
     <Row><Col><div className="tagformat">{
-        tags.map(item =><Button variant="outlined" id="outlined" className="tag">{item}</Button>)}</div>
+        tags.map(item =><Button variant="outlined" id="outlined" className="tag">{item}</Button>)}
+        <div className="mt-3"><Button type="postButton"
+                            style={{
+                                color: 'white',
+                                fontFamily: "Raleway",
+                                background: '#1DE19B',
+                                border: '2px solid #19B47C',
+                                borderRadius: '20px',
+                                padding: '6px 18px',
+                                alignItems: 'right',
+                                margin: '10px'
+                            }}
+                            // disabled={loading}
+                            >
+                            post
+                        </Button></div>
+        </div>
+        
     </Col>
     <Col xs={6}><div className="d-flex justify-content-left"><div className="tagtext">Any tags you'll like to add?</div></div></Col></Row>
 
