@@ -2,64 +2,14 @@ import React, {useContext, useRef, useEffect, useState} from "react";
 import {Card, Form, Button, FormGroup, Alert} from 'react-bootstrap';
 import { Link, useHistory } from "react-router-dom";
 import {useAuthState} from "react-firebase-hooks/auth";
-import { auth, app, db, firebase } from "../firebase.js";
+import { auth, app, db, firebase, usersCollection } from "../firebase.js";
 import { useAuth, AuthPage } from "../config/Authentication.js";
 
 import logo from '../Images/google-logo-9824.png';
 import food from '../Images/food.png';
 
-// Retrieving data from a document in firebase : WORKS
-db.collection('users').get().then((snapshot)=>{
-    snapshot.docs.forEach(doc =>{
-        console.log(doc.data())
-        // renderUser(doc)
-    })
-})
+import { Fragment as _Fragment } from "react/jsx-dev-runtime";
 
-
-// create an element & rendering 
-// function renderUser(doc){
-//     let Link = document.createElement('Link')
-//     let name = doc.createElement('input')
-//     let email = doc.createElement('input')
-//     let password = doc.createElement('input')
-
-//     Link.setAttribute('data-id', doc.id)
-//     name.textContent = doc.data().name
-//     email.textContent = doc.data().email
-//     password.textContent = doc.data().password
-
-//     Link.appendChild(name)
-//     Link.appendChild(email)
-//     Link.appendChild(password)
-// }
-
-// Saving data to a document in firebase
-const form = document.querySelector('#info')
-
-// form.addEventListener('submit', (e)=>{
-//     e.preventDefault()
-//     db.collection('users').add({
-//         name: form.name.value,
-//         email: form.email.value,
-//         password: form.password.value
-//     })
-
-// })
-
-
-//Real time listener
-// db.collection('users').onSnapshot(snapshot =>{
-//     let changes = snapshot.docChanges()
-//     changes.forEach(change => {
-//         if(change.type =='added'){
-//             console.log(doc.data())
-//             // renderUser(change.doc)
-//         } 
-//     })
-
-// })
-/************************************************************************/
 export default function Register(){
     const emailRef = useRef()
     const passwordRef = useRef()
@@ -73,26 +23,6 @@ export default function Register(){
     const history = useHistory()
     const [users, setUsers] = useState()
 
-    // const ref = auth.firestore().collection("users")
-    // console.log(ref)
- 
-    // const googlesignin = async () =>{
-    //     auth.signInWithPopup(provider).catch((err)=>{
-    //         switch(err.code) {
-    //             default:
-    //                 setError("Unknown error")
-    //         }
-    //     })
-    // }
-
-    // useEffect(()=>{
-    //     const fetchData = async () => {
-    //         // gets data 
-    //     const data = await db.collection("users").get()
-    //     setUsers(data.map(doc =>doc.data()))
-    //     }
-    //     fetchData()
-    // }, [])
 
     async function handleSubmit(e) {
       e.preventDefault()
@@ -100,9 +30,25 @@ export default function Register(){
       try {
         setError("")
         setLoading(true)
-        await signup(nameRef.current.value, emailRef.current.value, passwordRef.current.value)
        
-        history.push("/") //goes to home page
+        const reg = await signup(emailRef.current.value, passwordRef.current.value)
+            if (reg){
+                console.log({reg})
+                const userID = reg.user.uid
+                const userData = {
+                    name: nameRef.current.value,
+                    email: emailRef.current.value,
+                    password: passwordRef.current.value
+                }
+                usersCollection.doc(userID).set(userData)
+                    .then(() => {
+                        console.log('User successfully added to the DB!');
+                    }).catch(e => {
+                        console.log('Error adding user to the DB: ', e);
+                    });
+            }
+            
+        history.push("/profile") //goes to home page
       } catch {
         setError("Failed to create an account")
       }
@@ -111,13 +57,13 @@ export default function Register(){
     }
    
     return (
-        <> 
-            <Card style={{ 
-                border:'white'
+        <>
+            <Card style={{
+                border: 'white'
             }}>
-                <Card.Body style={{ 
+                <Card.Body style={{
                     margin: '100px',
-                    color:'white',
+                    color: 'white',
                     border: 'white',
                     alignItems: 'left'
                 }}>
@@ -126,20 +72,20 @@ export default function Register(){
                         height="510px"
                         width="810px"
                         display="inline"
-                        flexDirection="column"
+                        flexdirection="column"
                     >
                     </img>
-                    
-                    <h1 
+
+                    <h1
                         style={{
-                            color:'black', 
+                            color: 'black',
                             fontFamily: 'Open Sans, sans-serif',
-                            display:'inline',
-                            flexDirection:'column',
+                            display: 'inline',
+                            flexDirection: 'column',
                             textalign: 'right',
                             margin: '10px'
-                        }}> 
-                        Let's begin our journey 
+                        }}>
+                        Let's begin our journey
                     </h1>
                     <div>
                         {error && <Alert variant="danger" style={{
@@ -167,12 +113,12 @@ export default function Register(){
                         textAlign: 'center',
                         fontSize: '22px'
                     }}>
-                        <Link to="/Login">  Already have an account? Login here </Link> 
+                        <Link to="/Login">  Already have an account? Login here </Link>
                     </li>
                     <Button type="googleAPI"
                         style={{
                             color: '#767575',
-                            background:'white',
+                            background: 'white',
                             border: '1px solid #1DE19B',
                             borderRadius: '400px',
                             padding: '4px 93px',
@@ -181,27 +127,28 @@ export default function Register(){
                             width: 'auto',
                             margin: '10px'
                         }}
-                        // onClick={googlesignin}
-                        >
-                            
-                        Register with Google 
-                        <img src={logo} 
-                            align="right" 
-                            width="28px" 
+                    // onClick={googlesignin}
+                    >
+
+                        Register with Google
+                        <img src={logo}
+                            align="right"
+                            width="28px"
                             height="25px">
                         </img>
-                         
+
                     </Button>
-                    <p style={{ 
-                            color:'#767575',
-                            margin:'5px',
-                            fontSize: '15px'
+                    <p style={{
+                        color: '#767575',
+                        margin: '5px',
+                        fontSize: '15px'
                     }}>
                         - OR -
                     </p>
                     <Form id="info" onSubmit={handleSubmit}>
-                            <input
-                                name="name"
+                        <Form.Group id="name">
+                            <Form.Control
+                                type="name"
                                 placeholder="name"
                                 ref={nameRef} required
                                 style={{
@@ -216,12 +163,13 @@ export default function Register(){
                                     display: 'inline',
                                     margin: '10px'
                                 }}>
-                            </input>
-                        
-                            <input 
-                                name="email"
-                                placeholder = "email" 
-                                ref={emailRef} required 
+                            </Form.Control>
+                        </Form.Group>
+                        <Form.Group id="email">
+                            <Form.Control
+                                type="email"
+                                placeholder="email"
+                                ref={emailRef} required
                                 style={{
                                     color: 'black',
                                     background: 'white',
@@ -234,11 +182,12 @@ export default function Register(){
                                     display: 'inline',
                                     margin: '10px'
                                 }}>
-                            </input>
-                        
-                            <input 
-                                name="password"
-                                placeholder = "password" 
+                            </Form.Control>
+                        </Form.Group>
+                        <Form.Group id="password">
+                            <Form.Control
+                                type="password"
+                                placeholder="password"
                                 ref={passwordRef} required
                                 style={{
                                     color: 'black',
@@ -252,16 +201,17 @@ export default function Register(){
                                     display: 'inline',
                                     margin: '10px'
                                 }}>
-                            </input>
-                        <Button type="registerButton" 
+                            </Form.Control>
+                        </Form.Group>
+                        <Button type="registerButton"
                             style={{
                                 color: 'white',
-                                background:'#1DE19B',
-                                border:'2px solid #19B47C',
-                                borderRadius:'20px',
+                                background: '#1DE19B',
+                                border: '2px solid #19B47C',
+                                borderRadius: '20px',
                                 padding: '6px 18px',
                                 alignItems: 'right',
-                                margin:'10px'
+                                margin: '10px'
                             }}
                             disabled={loading}>
                             Register
@@ -270,6 +220,39 @@ export default function Register(){
                 </Card.Body>
             </Card>
         </>
-        
+
     )
 }
+
+/************************Attempt 2********************************** */
+// //Create a new collection & doc manually
+// db.collection('users').add({
+//     displayName: 'Choo',
+//     email: 'choo@example.com',
+//     password: '1234'
+// })
+// .then((docRef)=>{
+//     console.log("Written with ID: ", docRef.id)
+// })
+// .catch((error)=>{
+//     console.error("Error", error)
+// })
+
+
+// // read data
+// const snapshot = await db.collection('users').get()
+// snapshot.forEach((doc)=>{
+//     console.log(doc.id, '=>', doc.data())
+// })
+
+/***********************Attempt 1*********************************** */
+
+// Retrieving data from a document in firebase : WORKS
+// db.collection('users').get().then((snapshot)=>{
+//     snapshot.docs.forEach(doc =>{
+//         console.log(doc.data())
+//         // renderUser(doc)
+//     })
+// })
+
+/************************************************************************/
