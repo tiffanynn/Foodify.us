@@ -1,12 +1,16 @@
 import { React, useRef } from "react";
-import { Container, Row, Col, Form } from "react-bootstrap";
-import image from "../../../Images/food.png";
+import { Container, Button, Row, Col, Form } from "react-bootstrap";
+import image from "../../../Images/food_cropped.png";
 
 import "./Upload.css";
+import "../Recipes.css";
 
 export default function UploadRecipe() {
+    const tags =["vegan", "keto friendly", "paleo", "atkins", "calorie lite",
+        "pescatarian", "vegetarian"];
     const titleRef = useRef()
     const subTitleRef = useRef()
+    const infoRef = useRef()
 
     return(
         <div>
@@ -14,7 +18,7 @@ export default function UploadRecipe() {
     <Row><Col>
     <Form.Group id = "title">
                             <Form.Control 
-                                type="title" 
+                                type="textarea" 
                                 placeholder = "title" 
                                 ref={titleRef} required 
                                 style={{
@@ -53,9 +57,26 @@ export default function UploadRecipe() {
                             </Form.Control>
                         </Form.Group>
 
-    </Col><Col>Text</Col></Row>
-    <Row><Col>Tags</Col>
-    <Col>Any tags you'll like to add?</Col></Row>
+    </Col><Col><Form.Group id = "body">
+                            <Form.Control as="textarea"
+                                type="body" 
+                                placeholder = "enter recipe instructions here!" 
+                                ref={infoRef} required 
+                                style={{
+                                    color: 'black',
+                                    fontFamily: "Raleway",
+                                    background: 'white',
+                                    border: '1px solid #1DE19B',
+                                    borderRadius: '40px',
+                                    height: '360px',
+                                    width: '500px'
+                                }}>
+                            </Form.Control>
+                        </Form.Group></Col></Row>
+    <Row><Col><div className="tagformat">{
+        tags.map(item =><Button variant="outlined" id="outlined" className="tag">{item}</Button>)}</div>
+    </Col>
+    <Col xs={6}><div className="d-flex justify-content-left"><div className="tagtext">Any tags you'll like to add?</div></div></Col></Row>
 
     </Container>
     <div className="d-flex justify-content-end"><img src={image} style={{width: "auto", height: "600px"}}></img></div></div>

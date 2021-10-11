@@ -8,6 +8,7 @@ h1 {
     line-height: 47px;
 }
 
+
 body {
     font-family: "Raleway";
     font-style: normal;
@@ -16,4 +17,13 @@ body {
     line-height: 23px;
 
     color: #000000;
+}
+
+.tagtext{
+    padding-top: 10%;
+}
+
+.tagformat{
+    padding-left: 20%;
+    padding-right: 30%;
 }
