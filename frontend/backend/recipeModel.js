@@ -1,6 +1,9 @@
 const mongoose = require("mongoose");
 
-const RecipeSchema = new mongoose.Schema({
+const Schema = mongoose.Schema;
+// schema is the class
+
+const RecipeSchema = new Schema({
   title: {
     type: String,
     required: true,
@@ -18,7 +21,7 @@ const RecipeSchema = new mongoose.Schema({
     type: String,
     default: "99999 minutes",
   },
-  ingredientlist: {
+  ingredientList: {
     type: [String],
     default: undefined,
   },

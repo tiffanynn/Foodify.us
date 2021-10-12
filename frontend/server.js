@@ -4,7 +4,7 @@ const express = require("express");
 const cors = require("cors");
 
 const mongoose = require("mongoose");
-const userModel = require("./backend/recipeModel");
+const Recipe = require("./backend/recipeModel");
 
 // MONGODB CREDENTIALS
 const dotenv = require("dotenv");
@@ -30,6 +30,15 @@ const db = mongoose.connection;
 db.on("error", console.error.bind(console, "connection error: "));
 db.once("open", function () {
   console.log("Connected successfully");
+
+  /* UNCOMMENT BELOW TO SEED FRESH RECIPE TABLE ***** WARNING: ALL SAVED DB DATA IS LOST ******* */
+  /* IGNORE INGREDIENT ERRORS, SAVE CONSOLE STATEMENTS MAY LAG  */
+
+  /*
+  console.log("BEGINNING SEED: ");
+  var seeder = require("./backend/seeder/recipeSeeder");
+  console.log("SEED COMPLETED");
+  */
 });
 
 //SERVER API REQUESTS FROM OTHER FILES:
@@ -43,16 +52,28 @@ app.route("/").get((req, res) => {
   res.send("Hello World From Foodify Backend Server! :)");
 });
 
+// SENDS BACK ALL RECIPES IN DB
 app.route("/feed").get((req, res) => {
   console.log("INCOMING FEED REQUEST");
   //res.json({ feedExampleData: "hi", example2: "bye" });
-  res.send(recipeListData);
+
+  /* QUERIES DB FOR ALL RECIPES */
+  Recipe.find()
+    .then((recipes) =>
+      res.send(JSON.parse('{"recipes" : ' + JSON.stringify(recipes) + "}"))
+    )
+    .catch((err) => res.status(400).json("Error: " + err));
+
+  //Legacy Temporary DB JSON Object
+  //res.send(recipeListData);
 });
 
 app.listen(port, () => {
   console.log(`Server is running on port: ${port}`);
 });
 
+//LEGACY RECIPE DB FOR DEVELOPMENT
+/*
 const recipeListData = {
   recipes: [
     {
@@ -112,3 +133,4 @@ const recipeListData = {
     },
   ],
 };
+*/

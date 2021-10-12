@@ -31,9 +31,9 @@ function Cards() {
             ) : (
               recipeStateData.recipes.map((recipe) => (
                 <CardItem
-                  src={recipe.ImageURL}
-                  text={recipe.Title}
-                  label={recipe.Hashtag}
+                  src={recipe.imgUrl}
+                  text={recipe.title}
+                  label={recipe.hashTag}
                   path="/services"
                 />
               ))
