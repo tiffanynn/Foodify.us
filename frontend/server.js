@@ -68,6 +68,23 @@ app.route("/feed").get((req, res) => {
   //res.send(recipeListData);
 });
 
+// SENDS BACK 1 RECIPE DATA CORRESPONDING TO RECIPE ID
+
+app.route("/recipe/:recipeID").get((req, res) => {
+  console.log("INCOMING RECIPE DATA REQUEST");
+  //res.json({ feedExampleData: "hi", example2: "bye" });
+
+  var recipeID = req.params.recipeID;
+  //console.log(" RECIPE ID: ", recipeID);
+
+  /* QUERIES DB BY RECIPE ID */
+  Recipe.find({ _id: recipeID })
+    .then((recipe) =>
+      res.send(JSON.parse('{"recipe" : ' + JSON.stringify(recipe) + "}"))
+    )
+    .catch((err) => res.status(400).json("Error: " + err));
+});
+
 app.listen(port, () => {
   console.log(`Server is running on port: ${port}`);
 });
