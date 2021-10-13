@@ -34,7 +34,7 @@ function Cards() {
                   src={recipe.imgUrl}
                   text={recipe.title}
                   label={recipe.hashTag}
-                  path="/services"
+                  path={`/recipe/${recipe._id}`}
                 />
               ))
             )}
