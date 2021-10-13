@@ -11,7 +11,8 @@ const RecipeSchema = new Schema({
   },
   hashTag: {
     type: String,
-    default: "#topFoodifyPicks",
+    required: true,
+    default: "topFoodifyPicks",
   },
   postDate: {
     type: String,
@@ -19,7 +20,7 @@ const RecipeSchema = new Schema({
   },
   estimatedTime: {
     type: String,
-    default: "99999 minutes",
+    default: "9.5 minutes",
   },
   ingredientList: {
     type: [String],
@@ -35,6 +36,7 @@ const RecipeSchema = new Schema({
   },
   imgUrl: {
     type: String,
+    required: true,
     default:
       "https://image.shutterstock.com/shutterstock/photos/1931420096/display_1500/stock-photo-various-spices-in-a-bowls-on-black-concrete-background-top-view-copy-space-1931420096.jpg",
   },

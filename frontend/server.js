@@ -33,7 +33,6 @@ db.once("open", function () {
 
   /* UNCOMMENT BELOW TO SEED FRESH RECIPE TABLE ***** WARNING: ALL SAVED DB DATA IS LOST ******* */
   /* IGNORE INGREDIENT ERRORS, SAVE CONSOLE STATEMENTS MAY LAG  */
-
   /*
   console.log("BEGINNING SEED: ");
   var seeder = require("./backend/seeder/recipeSeeder");
@@ -69,7 +68,6 @@ app.route("/feed").get((req, res) => {
 });
 
 // SENDS BACK 1 RECIPE DATA CORRESPONDING TO RECIPE ID
-
 app.route("/recipe/:recipeID").get((req, res) => {
   console.log("INCOMING RECIPE DATA REQUEST");
   //res.json({ feedExampleData: "hi", example2: "bye" });
