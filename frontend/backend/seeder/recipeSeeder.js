@@ -14,7 +14,7 @@ function Seed() {
   for (i = 0; i < seedData.length; i++) {
     console.log(i);
     const title = seedData[i].name;
-    const hashTag = null;
+    const hashTag = "topFoodifyPicks";
     const postDate = new Date(seedData[i].updated_at); //Converts from Unix TimeStamp to human readable
     const estimatedTime = seedData[i].total_time_minutes;
 

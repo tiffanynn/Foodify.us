@@ -1,9 +1,39 @@
 import "./Recipes.css";
 import React from "react";
 import RecipeInfo from "./RecipeInfo.js";
+import { useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
 
 export default function Recipe() {
-  const recipeData = {
+  const { urlRecipeId } = useParams();
+  let [recipeStateData, setRecipeStateData] = useState([]); // recipeStateData Initialized to Null
+
+  //Fetches Recipe Data From API (After Component Is Rendered),
+  //Saves Data to State using 'setRecipeStateData'
+  useEffect(() => {
+    fetch(`http://localhost:5000/recipe/${urlRecipeId}`)
+      .then((response) => response.json())
+      // Setting recipe Data to the data that we received from the response above
+      .then((data) => {
+        console.log("RECIEVED API RESPONSE RECIPE DATA: ", data);
+        setRecipeStateData(data);
+      });
+  }, []);
+
+  return (
+    <div id="recipe_page">
+      {recipeStateData.length == 0 ? (
+        <div>Loading Recipe</div>
+      ) : (
+        <RecipeInfo recipeData={recipeStateData.recipe[0]} />
+      )}
+    </div>
+  );
+}
+
+// OLD DEPRECATED TEMPORARY RECIPE JSON DB
+/*
+ const recipeData = {
     ID: "1234",
     Hashtag: "francofoodtips",
     Title: "Why is it so hard to make cereal ?",
@@ -22,10 +52,4 @@ export default function Recipe() {
     ImageURL:
       "https://img.buzzfeed.com/tasty-app-user-assets-prod-us-east-1/recipes/feaa97ad73e74183b4af84e2fafd8c68.png",
   };
-
-  return (
-    <div id="recipe_page">
-      <RecipeInfo recipeData={recipeData} />
-    </div>
-  );
-}
+  */
