@@ -8,7 +8,6 @@ const Recipe = require("./backend/recipeModel");
 
 // MONGODB CREDENTIALS
 const dotenv = require("dotenv");
-//require("dotenv").config();
 dotenv.config();
 
 const app = express();
@@ -16,9 +15,6 @@ const port = process.env.PORT || 5000; //Runs LocalHost Server on Port 5000
 
 app.use(cors());
 app.use(express.json());
-
-//const cluster = "<cluster name>";
-//const dbname = "myFirstDatabase";
 
 const connectionString = `mongodb+srv://${process.env.MONGODB_USERNAME}:${process.env.MONGODB_PASSWORD}@foodifycluster.vcg2j.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`;
 mongoose.connect(connectionString, {
@@ -55,7 +51,6 @@ app.route("/").get((req, res) => {
 // SENDS BACK ALL RECIPES IN DB
 app.route("/feed").get((req, res) => {
   console.log("INCOMING FEED REQUEST");
-  //res.json({ feedExampleData: "hi", example2: "bye" });
 
   /* QUERIES DB FOR ALL RECIPES */
   Recipe.find()
@@ -68,7 +63,6 @@ app.route("/feed").get((req, res) => {
 // SENDS BACK 1 RECIPE DATA CORRESPONDING TO RECIPE ID
 app.route("/recipe/:recipeID").get((req, res) => {
   console.log("INCOMING RECIPE DATA REQUEST");
-  //res.json({ feedExampleData: "hi", example2: "bye" });
   var recipeID = req.params.recipeID;
 
   /* QUERIES DB BY RECIPE ID */
@@ -81,13 +75,17 @@ app.route("/recipe/:recipeID").get((req, res) => {
 
 /**************** USER/PROFILE RELATED ROUTES: ***************/
 
+const User = require("./backend/userModel");
+
 //USER SIGNUP, ADDS USER TO USER DB
 // SENDS BACK 1 RECIPE DATA CORRESPONDING TO RECIPE ID
 app.route("/usersignup/:userID/:name").get((req, res) => {
-  var userID = req.params.userID;
+  //GETS URL DATA FROM PARAMS
+  var userId = req.params.userID;
   var name = req.params.name;
 
-  if (userID == null) {
+  // CHECK FOR INVALID NAME/ID IN USER SIGNUP
+  if (userId == null) {
     res
       .status(400)
       .json(
@@ -101,18 +99,29 @@ app.route("/usersignup/:userID/:name").get((req, res) => {
   }
   console.log(
     "INCOMING NEW USER POST REQUEST: /usersignup/",
-    req.params.userID,
+    userId,
     "/",
-    req.params.name
+    name
   );
 
-  /* ENTERS NEW USER IN USERS DB */
-  /*
-  Recipe.find({ _id: recipeID })
-    .then((recipe) =>
-      res.send(JSON.parse('{"recipe" : ' + JSON.stringify(recipe) + "}"))
-    )
-    .catch((err) => res.status(400).json("Error: " + err)); */
+  //Some Default Fields (CHANGE LATER TO USER SIGNUP DATA)
+  var profileImgUrl = "https://picsum.photos/300/300/?blur";
+  var mainText = "Main Text YAY";
+  var subText = "Sub Text WOw";
+
+  //Builds New User Object
+  const newUser = new User({
+    userId,
+    name,
+    mainText,
+    subText,
+    profileImgUrl,
+  });
+
+  //Saves New User Object To MongoDB Atlas
+  newUser
+    .save()
+    .then(() => console.log(`USER: ${name}, ID: ${userId} ,  saved`));
 });
 
 app.listen(port, () => {
