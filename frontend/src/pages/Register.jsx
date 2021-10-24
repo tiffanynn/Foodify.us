@@ -31,7 +31,7 @@ export default function Register(){
         setError("")
         setLoading(true)
        
-        const reg = await signup(emailRef.current.value, passwordRef.current.value)
+          const reg = await signup(emailRef.current.value, passwordRef.current.value)
             if (reg){
                 console.log({reg})
                 const userID = reg.user.uid
