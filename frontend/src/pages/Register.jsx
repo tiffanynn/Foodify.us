@@ -42,7 +42,14 @@ export default function Register(){
                 }
                 usersCollection.doc(userID).set(userData)
                     .then(() => {
-                        console.log('User successfully added to the DB!');
+                        console.log('User successfully added to the FireBase DB!');
+                        //console.log("NEW USER ID: " ,userID);
+                        console.log('ATTEMPTING ADDING USER TO MONGODB')
+                        fetch(`http://localhost:5000/usersignup/${userID}/${userData.name}`)
+                        .then((response) => response.json())
+                        .then((response)=> console.log(response))
+                        // Setting recipe Data to the data that we received from the response above
+
                     }).catch(e => {
                         console.log('Error adding user to the DB: ', e);
                     });
