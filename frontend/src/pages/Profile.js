@@ -5,29 +5,31 @@ import Cards from "./Cards"
 import { useAuth } from "../config/Authentication.js";
 import { Link, useHistory } from "react-router-dom";
 import { Form } from 'react-bootstrap';
+import { db } from "../firebase";
 
  export default function Profile() {
     const {logout, currentUser} = useAuth();
+    const [data, setData] = useState(""); // retrieving firestore db info
     const history = useHistory();
     const [error, setError] = useState("");
     const [loading, setLoading] = useState(false);
 
 
-    async function handleSubmit(e){
-      await logout();
+    async function logoutSession(){
+      setError("")
       try{
-        setError("")
-        setLoading(true)
         await logout()
         history.push("/Login")
+
       }catch{
         setError("Can't Logout")
       }
       
     }
+    // await usersCollection.get()
       return (
         <div>
-          <Button onClick={logout} style={{
+          <Button onClick={logoutSession} style={{
             align:'right',
             alignItems: 'right'
           }}>
@@ -35,6 +37,8 @@ import { Form } from 'react-bootstrap';
           </Button>
           
           {currentUser && currentUser.email}
+          {/* {posts.map((item)=>)} */}
+          
           <Cards />
           
         </div>
