@@ -16,80 +16,28 @@ import { db, usersCollection } from "../firebase";
     const emailRef = useRef()
     const passwordRef = useRef()
     const nameRef = useRef()
+    const isLogginActive = useRef()
 
-        // const check = signup(nameRef.current.value, emailRef.current.value, passwordRef.current.value)
-        // if (check){
-        //   console.log({ check })
-        //   const userID = check.user.uid
-        //   const userData = {
-        //     name: nameRef.current.value,
-        //     email: emailRef.current.value,
-        //     password: passwordRef.current.value
-        //   }
-         
-        //   usersCollection.doc(userID)
-        //     .get(userData)
-        //     .then(function (doc) {
-        //       if (doc.exists) {
-        //         console.log("Data: ", doc.data())
-        //       } else {
-        //         console.log("No doc!!!!")
-        //       }
-        //     }).catch((error) => {
-        //       console.log("Error getting cached document:", error)
-        //     })
-        // }
-        
-      // usersCollection.onSnapshot(function(querySnapshot){
-      //   const data = [];
-      //   querySnapshot.forEach(doc => {
-      //     console.log("Name: ", doc.data().name)
-      //     console.log("Email: ", doc.data().email)
-      //     data.push({name: doc.data().name, email: doc.data().email})
-      //   })
-      //   setdbData(data);
-      // })
-      
-    
-    
-  //  const getUser = async () => {
-  //    try {
-  //      const documentSnapshot = await usersCollection.get()
-  //      const userData = documentSnapshot.data()
-  //      setdbData(userData)
-  //    } catch {
-  //      setError("Can't retrieve")
-  //    }
-  //  }
-  //  useEffect(() => {
-  //    getUser()
-  //  }, [])
-    // useEffect(() => {
-    //   const getUserData = [];
-    //   const userDB = usersCollection.onSnapshot((querySnapshot)=>{
-    //     querySnapshot.forEach((doc)=>{
-    //       getUserData.push({
-    //         ...doc.data(),
-    //         key: doc.id,
-    //       })
-    //     })
-    //     setData(getUserData)
-    //     setLoading(false)
-    //   })
-    //   return() => userDB();
-    // }, [loading])
+
+   if (isLogginActive) {
+      usersCollection.doc(currentUser.uid).get()
+        .then((doc) => {
+          if (doc.exists) {
+            console.log("DATA: ", doc.data())
+          }
+          else {
+            console.log("ERROR")
+          }
+        }).catch(e => {
+          console.log("ERROR GETTING DOC", e)
+        })
+    }
    
-    // if (loading){
-    //   return <h1>LOADING</h1>
-    // }
-  //  db.collection('users').onSnapshot(snapshot => {
-  //     setData(snapshot.docs.map(doc=>({
-  //       id:doc.uid, 
-  //       users:doc.data(users)
-  //     })))
-  //  })
       return (
         <div>
+          {dbData && dbData.map(currentUser=>{
+            <p>{currentUser.name}</p>
+          })}
           <p>{currentUser && currentUser.email}</p>
          {/*{dbData.map(data => ('Name: ' + data.name + '\nEmail: ' + data.email))} */}
           {/* {data.length > 0 ? (
