@@ -8,17 +8,14 @@ import { Form } from 'react-bootstrap';
 import { db, usersCollection } from "../firebase";
 
  export default function Profile() {
-    const {logout, currentUser, login, signup} = useAuth();
+    const {currentUser} = useAuth();
     const [dbData, setdbData] = useState([]); // retrieving firestore db info
-    const history = useHistory();
-    const [error, setError] = useState("");
-    const [loading, setLoading] = useState(true);
     const emailRef = useRef()
     const passwordRef = useRef()
     const nameRef = useRef()
     const isLogginActive = useRef()
 
-
+  // Displays Current user's information in console.log (WORKS)
    if (isLogginActive) {
       usersCollection.doc(currentUser.uid).get()
         .then((doc) => {
