@@ -2,7 +2,7 @@ import React, { useContext, useRef, useEffect, useState } from "react";
 import { Card, Form, Button, FormGroup, Alert } from 'react-bootstrap';
 import { Link, useHistory } from "react-router-dom";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { auth } from "../firebase.js";
+import { auth, usersCollection } from "../firebase.js";
 import { useAuth } from "../config/Authentication.js";
 
 import google from '../Images/google-logo-9824.png';
@@ -16,6 +16,7 @@ export default function Login() {
     const [error, setError] = useState("")
     const [loading, setLoading] = useState(false)
     const history = useHistory()
+    const [dbData, setdbData] = useState([]); // retrieving firestore db info
 
     async function handleSubmit(e) {
         e.preventDefault()
@@ -31,6 +32,16 @@ export default function Login() {
 
         setLoading(false)
     }
+
+    // usersCollection.onSnapshot(function (querySnapshot) {
+    //     const data = [];
+    //     querySnapshot.forEach(doc => {
+    //         console.log("Name: ", doc.data().name)
+    //         console.log("Email: ", doc.data().email)
+    //         data.push({ name: doc.data().name, email: doc.data().email })
+    //     })
+    //     setdbData(data);
+    // })
 
     return (
         <>

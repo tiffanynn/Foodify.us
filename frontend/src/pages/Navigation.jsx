@@ -1,14 +1,29 @@
-import React from "react";
+import React, {useState, useRef} from "react";
 
 import { Button } from "@material-ui/core";
-import { Link, withRouter } from "react-router-dom";
+import { Link, withRouter, useHistory } from "react-router-dom";
 
 import { Navbar, Nav, Container } from 'react-bootstrap';
 
+import { useAuth } from "../config/Authentication.js";
 import './Navigation.css';
 import logo from '../Images/logo.png';
 
 function Navigation(props) {
+    const isLoggedIn = true;
+    const { logout, currentUser, login, signup } = useAuth();
+    const history = useHistory();
+    const [error, setError] = useState("");
+
+    async function logoutSession(){
+        setError("")
+        try {
+            await logout()
+            history.push("/Login")
+        } catch {
+            setError("Can't Logout")
+        }
+    }
     return (
         // <div className="navigation">
         //     <AppBar color = "transparent">
@@ -35,8 +50,9 @@ function Navigation(props) {
                     </Navbar.Brand>
                 
                 <div className="justify-content-end">
-                    <Button id="btn" component={Link} to="/Login">Login</Button>
-                    <Button id="btn" component={Link} to="/Register">Register</Button>
+                    {isLoggedIn && <Button id="btn" component={Link} to="/Login">Login</Button>}
+                    {isLoggedIn && <Button id="btn" component={Link} to="/Register">Register</Button>}
+                    {isLoggedIn && <Button id="btn" onClick={logoutSession}>Logout</Button>}
                 </div>
             </Container>
         </Navbar>
