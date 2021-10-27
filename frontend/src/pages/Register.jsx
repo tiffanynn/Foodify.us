@@ -14,6 +14,7 @@ export default function Register(){
     const emailRef = useRef()
     const passwordRef = useRef()
     const nameRef = useRef()
+    const usernameRef = useRef()
     const provider = useRef()
     const { signup, currentUser } = useAuth()
     // const { authWithGoogle } = AuthPage()
@@ -38,7 +39,8 @@ export default function Register(){
                 const userData = {
                     name: nameRef.current.value,
                     email: emailRef.current.value,
-                    password: passwordRef.current.value
+                    password: passwordRef.current.value,
+                    username: usernameRef.current.value
                 }
                 usersCollection.doc(userID).set(userData)
                     .then(() => {
@@ -178,6 +180,25 @@ export default function Register(){
                                 type="name"
                                 placeholder="name"
                                 ref={nameRef} required
+                                style={{
+                                    color: 'black',
+                                    background: 'white',
+                                    border: '1px solid #1DE19B',
+                                    borderRadius: '40px',
+                                    padding: '4px 18px',
+                                    alignItems: 'right',
+                                    height: '35px',
+                                    width: '360px',
+                                    display: 'inline',
+                                    margin: '10px'
+                                }}>
+                            </Form.Control>
+                        </Form.Group>
+                        <Form.Group id="username">
+                            <Form.Control
+                                type="username"
+                                placeholder="username"
+                                ref={usernameRef} required
                                 style={{
                                     color: 'black',
                                     background: 'white',

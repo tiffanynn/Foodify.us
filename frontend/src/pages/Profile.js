@@ -36,6 +36,7 @@ import { db, usersCollection } from "../firebase";
             <p>{currentUser.name}</p>
           })}
           <p>{currentUser && currentUser.email}</p>
+          <p>{currentUser && currentUser.name}</p>
          {/*{dbData.map(data => ('Name: ' + data.name + '\nEmail: ' + data.email))} */}
           {/* {data.length > 0 ? (
             data.map((data) => <div key={data.key}>{data.answer}</div>)
