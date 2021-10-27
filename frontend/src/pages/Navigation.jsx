@@ -1,18 +1,12 @@
-import React, {useState, useRef} from "react";
 
+import React, { useEffect, useState } from "react";
 import { Button } from "@material-ui/core";
 import { Link, withRouter, useHistory } from "react-router-dom";
 
-import { Navbar, Nav, Container } from 'react-bootstrap';
-
 import { useAuth } from "../config/Authentication.js";
-import React, { useEffect, useState } from "react";
 
-import { Button } from "@material-ui/core";
-import { Link, withRouter } from "react-router-dom";
 import Grid from "@material-ui/core/Grid";
 import { Navbar, Nav, Container } from 'react-bootstrap';
-
 
 
 import SearchArea from './SearchArea'
