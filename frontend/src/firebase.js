@@ -17,5 +17,9 @@ export const auth = app.auth()
 export const db = app.firestore()
 db.settings({Snapshots: true})
 export const usersCollection = db.collection('users') //creatng a db for User Entry
-export const provider = new firebase.auth.GoogleAuthProvider()
+// export const provider = new app.auth.GoogleAuthProvider() //google auth provider
+//     provider.serCustomParameters({
+//         prompt: "select_account",
+//     })
+// export const signInWithGoogle = () => auth.signInWithPopup(provider)
 export default app

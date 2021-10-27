@@ -31,7 +31,7 @@ export default function Register(){
         setError("")
         setLoading(true)
        
-        const reg = await signup(emailRef.current.value, passwordRef.current.value)
+          const reg = await signup(emailRef.current.value, passwordRef.current.value)
             if (reg){
                 console.log({reg})
                 const userID = reg.user.uid
@@ -54,6 +54,24 @@ export default function Register(){
                         console.log('Error adding user to the DB: ', e);
                     });
             }
+        
+        // Google Account Registration
+        //   const g_reg = await signInWithGoogle()
+        //   if (g_reg){
+        //       console.log({g_reg})
+        //       const g_userID = g_reg.user.uid
+        //         const g_userData = {
+        //             name: nameRef.current.value,
+        //             email: emailRef.current.value,
+        //             password: passwordRef.current.value
+        //         }
+        //       usersCollection.doc(g_userID).set(g_userData)
+        //             .then(() => {
+        //                 console.log('User successfully added to the DB!');
+        //             }).catch(e => {
+        //                 console.log('Error adding user to the DB: ', e);
+        //             });
+        //     }
             
         history.push("/profile") //goes to home page
       } catch {
