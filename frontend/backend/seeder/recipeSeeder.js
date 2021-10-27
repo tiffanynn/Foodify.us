@@ -38,11 +38,11 @@ function Seed() {
 
     //Randomly Assigns 2 unique diet Tags from our list
     const dietTags = [
-      "Vegan",
-      "Vegetarian",
-      "Paleo",
-      "Pescatarian",
-      "Keto Friendly",
+      "vegan",
+      "vegetarian",
+      "paleo",
+      "pescatarian",
+      "keto friendly",
     ];
     var dietTagList = [];
     dietTagList[0] = dietTags[Math.floor(Math.random() * dietTags.length)];

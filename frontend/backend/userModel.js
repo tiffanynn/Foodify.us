@@ -12,6 +12,9 @@ const UserSchema = new Schema({
     type: String,
     required: true,
   },
+  userName: {
+    type: String,
+  },
   profileImgUrl: {
     type: String,
   },
@@ -26,11 +29,9 @@ const UserSchema = new Schema({
   },
   mainText: {
     type: String,
-    required: false,
   },
-  subText: {
+  bio: {
     type: String,
-    required: false,
   },
 });
 

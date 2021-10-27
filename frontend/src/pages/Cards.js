@@ -20,25 +20,28 @@ function Cards() {
   }, []);
 
   return (
-    <div className="cards">
-      {console.log("STATE: ", recipeStateData)}
-      <h1>Check out these EPIC Destinations!</h1>
-      <div className="cards__container">
-        <div className="cards__wrapper">
-          <ul className="cards__items">
-            {recipeStateData.length == 0 ? (
-              <div>Loading</div>
-            ) : (
-              recipeStateData.recipes.map((recipe) => (
-                <CardItem
-                  src={recipe.imgUrl}
-                  text={recipe.title}
-                  label={recipe.hashTag}
-                  path={`/recipe/${recipe._id}`}
-                />
-              ))
-            )}
-          </ul>
+    <div>
+      <h3>Trending Now</h3>
+      <div className="cards">
+        {console.log("STATE: ", recipeStateData)}
+
+        <div className="cards__container">
+          <div className="cards__wrapper">
+            <ul className="cards__items">
+              {recipeStateData.length == 0 ? (
+                <div>Loading</div>
+              ) : (
+                recipeStateData.recipes.map((recipe) => (
+                  <CardItem
+                    src={recipe.imgUrl}
+                    text={recipe.title}
+                    label={recipe.hashTag}
+                    path={`/recipe/${recipe._id}`}
+                  />
+                ))
+              )}
+            </ul>
+          </div>
         </div>
       </div>
     </div>
