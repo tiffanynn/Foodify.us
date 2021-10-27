@@ -1,3 +1,4 @@
+/****************************** SERVER STARTUP RELATED CODE: **********************************/
 const express = require("express");
 
 //idk why but it works
@@ -16,6 +17,12 @@ const port = process.env.PORT || 5000; //Runs LocalHost Server on Port 5000
 app.use(cors());
 app.use(express.json());
 
+/*
+ *
+ *
+ *
+ */
+/********************** MONGODB DATABASE SETUP / CONNECTION AND USER SEEDING RELATED CODE: *****************************/
 const connectionString = `mongodb+srv://${process.env.MONGODB_USERNAME}:${process.env.MONGODB_PASSWORD}@foodifycluster.vcg2j.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`;
 mongoose.connect(connectionString, {
   useNewUrlParser: true,
@@ -40,7 +47,12 @@ db.once("open", function () {
 const mainRouter = require("./backend/routes/mainRouter");
 //app.use("/REPLACE ME WITH A SINGLE ROUTE", mainRouter);
 
-/**************** RECIPE/FEED/SEARCH RELATED ROUTES: ***************/
+/*
+ *
+ *
+ *
+ */
+/************************* RECIPE FEED RELATED ROUTES: **********************************/
 //Notes:
 // Req.params will contain url slashes
 //SERVER API GET REQUEST EXAMPLE:
@@ -73,7 +85,45 @@ app.route("/recipe/:recipeID").get((req, res) => {
     .catch((err) => res.status(400).json("Error: " + err));
 });
 
-/**************** USER/PROFILE RELATED ROUTES: ***************/
+/*
+ *
+ *
+ *
+ */
+/************************* RECIPE SEARCH RELATED ROUTES: **********************************/
+
+//SENDS BACK ALL RECIPES WITH CERTAIN DIET TAG
+app.route("/searchbydiet/:dietTag").get((req, res) => {
+  var dietTag = req.params.dietTag;
+  console.log("INCOMING FEED REQUEST", dietTag);
+
+  /* QUERIES DB FOR ALL RECIPES */
+  Recipe.find({ dietTagList: dietTag })
+    .then((recipes) =>
+      res.send(JSON.parse('{"recipes" : ' + JSON.stringify(recipes) + "}"))
+    )
+    .catch((err) => res.status(400).json("Error: " + err));
+});
+
+//SENDS BACK ALL RECIPES WITH CERTAIN DIET TAG
+app.route("/search/:filter").get((req, res) => {
+  var filter = req.params.filter;
+  console.log("INCOMING FEED REQUEST", filter);
+
+  /* QUERIES DB FOR ALL RECIPES */
+  Recipe.find({ title: { $regex: filter, $options: "i" } })
+    .then((recipes) =>
+      res.send(JSON.parse('{"recipes" : ' + JSON.stringify(recipes) + "}"))
+    )
+    .catch((err) => res.status(400).json("Error: " + err));
+});
+
+/*
+ *
+ *
+ *
+ */
+/************************************* USER/PROFILE RELATED ROUTES: ************************************/
 
 const User = require("./backend/userModel");
 
