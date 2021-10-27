@@ -7,6 +7,8 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 import "./App.css";
 import Profile from "./pages/Profile";
+import EditProfile from "./pages/EditProfile";
+
 
 // class App extends React.Component {
 //   constructor(props) {
@@ -45,6 +47,7 @@ function App() {
             <Route path="/login" exact component={() => <Login />} />
             <Route path="/profile" exact component={() => <Profile />} />
             <Route path="/recipe" exact component={() => <Recipe />} />
+            <Route path="/editprofile" exact component={() => <EditProfile />} />
           </Switch>
         </Router>
       {/* </header> */}
