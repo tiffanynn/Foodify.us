@@ -7,6 +7,14 @@
     width: 100%;
 }
 
+body{
+    font-family: "Raleway";
+    font-style: normal;
+    font-weight: normal;
+    font-size: 15px;
+    line-height: 18px;
+}
+
 .review{
     background: #ECECEC;
     border-radius: 18px;
@@ -102,6 +110,19 @@ h2 {
     box-sizing: border-box;
     border-radius: 45px;
     margin-top: 6%;    
+}
+
+#selected{
+    color: white;
+    background: #19B47C;
+    font-family: "Raleway";
+    text-transform: lowercase;
+    font-size: 15px;
+    font-style: normal;
+    border: 1px solid #19B47C;
+    box-sizing: border-box;
+    border-radius: 45px;
+    margin-top: 6%;  
 }
 
 #leave_review{
