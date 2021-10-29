@@ -23,7 +23,7 @@ export default function Register(){
     const [loading, setLoading] = useState(false)
     const history = useHistory()
     const [users, setUsers] = useState()
-
+    const checkUsername = false
 
     async function handleSubmit(e) {
       e.preventDefault()
@@ -42,19 +42,49 @@ export default function Register(){
                     password: passwordRef.current.value,
                     username: usernameRef.current.value
                 }
-                usersCollection.doc(userID).set(userData)
-                    .then(() => {
-                        console.log('User successfully added to the FireBase DB!');
-                        //console.log("NEW USER ID: " ,userID);
-                        console.log('ATTEMPTING ADDING USER TO MONGODB')
-                        fetch(`http://localhost:5000/usersignup/${userID}/${userData.name}`)
-                        .then((response) => response.json())
-                        .then((response)=> console.log(response))
-                        // Setting recipe Data to the data that we received from the response above
+                    usersCollection.where('username', '==', usernameRef.current.value).get()
+                        .then(snapshot => {
+                            if (snapshot.empty) {
+                                return reg
+                            } else {
+                                console.log("Username already in use - Failed to create an account")
+                            }
+                        })
+                        .then(()=>{
+                            console.log('ADDING TO FBDB...')
+                            usersCollection.doc(userID).set(userData)
+                                .then(() => {
+                                    console.log('User successfully added to the Firebase DB!');
+                                    //console.log("NEW USER ID: " ,userID);
+                                    console.log('ATTEMPTING ADDING USER TO MONGODB')
+                                    fetch(`http://localhost:5000/usersignup/${userID}/${userData.name}`)
+                                        .then((response) => response.json())
+                                        .then((response) => console.log(response))
+                                    // Setting recipe Data to the data that we received from the response above
 
-                    }).catch(e => {
-                        console.log('Error adding user to the DB: ', e);
-                    });
+                                }).catch(e => {
+                                    console.log('Error adding user to the DB: ', e);
+                                });
+                        })
+                    
+                    // usersCollection.doc(userID).where('username', '==', usernameRef.current.value).get()
+                    // console.log('CHECKING USERNAME 3')
+                    //     .then(snapshot => {
+                    //         if (snapshot.empty) {
+                    //             console.log('continue to signup')
+                    //         } else {
+                    //             setError("Username already in use - Failed to create an account")
+                    //         }
+                    //     })
+                
+                
+                    
+                    // try{
+                    //     usersCollection.doc(userID).where("username", "==", usernameRef)
+                    // }catch{
+                    //     console.log('Error - username found')
+                    // }
+                // usersCollection.doc(userID).where("username", "==", username).get()
             }
         
         // Google Account Registration

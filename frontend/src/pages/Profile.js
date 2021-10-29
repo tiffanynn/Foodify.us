@@ -9,6 +9,7 @@ import { db, usersCollection } from "../firebase";
 
  export default function Profile() {
     const {currentUser} = useAuth();
+    const history = useHistory()
     const [dbData, setdbData] = useState([]); // retrieving firestore db info
     const emailRef = useRef()
     const passwordRef = useRef()
@@ -23,11 +24,14 @@ import { db, usersCollection } from "../firebase";
             console.log("DATA: ", doc.data())
           }
           else {
-            console.log("ERROR")
+            // console.log("ERROR")
           }
         }).catch(e => {
           console.log("ERROR GETTING DOC", e)
         })
+    }
+     else{
+     history.push("/login")
     }
    
       return (
