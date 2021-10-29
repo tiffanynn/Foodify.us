@@ -30,5 +30,7 @@ npm i --save material-ui-search-bar
 
 npm install react-icons
 
+npm i multer aws-sdk
+
 ## Cmds to run the project from bundle
 Please read over frontend/README.md
