@@ -44,7 +44,7 @@ import { db, usersCollection } from "../firebase";
      try {
        setError("")
        setLoading(true)
-       // Updates on Page but not Firebase
+       // Updates Auth but not DB
       const update = await updateEmail(updateEmailRef.current.value)
       if(update){
         console.log({ update })
