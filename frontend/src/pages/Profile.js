@@ -15,6 +15,7 @@ import { db, usersCollection } from "../firebase";
     const passwordRef = useRef()
     const nameRef = useRef()
     const isLogginActive = useRef()
+    const isAnonymous = useRef()
 
   // Displays Current user's information in console.log (WORKS)
    if (isLogginActive) {
@@ -31,6 +32,7 @@ import { db, usersCollection } from "../firebase";
         })
     }
      else{
+     isAnonymous = true
      history.push("/login")
     }
    
