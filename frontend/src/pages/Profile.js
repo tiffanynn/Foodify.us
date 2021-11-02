@@ -18,23 +18,23 @@ import { db, usersCollection } from "../firebase";
     const isAnonymous = useRef()
 
   // Displays Current user's information in console.log (WORKS)
-   if (isLogginActive) {
-      usersCollection.doc(currentUser.uid).get()
-        .then((doc) => {
-          if (doc.exists) {
-            console.log("DATA: ", doc.data())
-          }
-          else {
-            // console.log("ERROR")
-          }
-        }).catch(e => {
-          console.log("ERROR GETTING DOC", e)
-        })
-    }
-     else{
-     isAnonymous = true
-     history.push("/login")
-    }
+  //  if (isLogginActive) {
+  //     usersCollection.doc(currentUser.uid).get()
+  //       .then((doc) => {
+  //         if (doc.exists) {
+  //           console.log("DATA: ", doc.data())
+  //         }
+  //         else {
+  //           // console.log("ERROR")
+  //         }
+  //       }).catch(e => {
+  //         console.log("ERROR GETTING DOC", e)
+  //       })
+  //   }
+  //    else{
+  //    isAnonymous = true
+  //    history.push("/login")
+  //   }
    
       return (
         <div>
