@@ -45,10 +45,11 @@ import { db, usersCollection } from "../firebase";
        setError("")
        setLoading(true)
        // Updates Auth but not DB
-      const update = await updateEmail(updateEmailRef.current.value)
-      if(update){
-        console.log({ update })
-        const userID = update.user.uid
+      const emailUpdate = await updateEmail(updateEmailRef.current.value)
+      const passwordUpdate = await updatePassword(updatePasswordRef.current.value)
+       if (emailUpdate){
+        
+        const userID = currentUser.user.uid
         // const userData = {
         //   // displayName: nameRef.current.value,
         //   email: updateEmailRef.current.value
@@ -62,6 +63,14 @@ import { db, usersCollection } from "../firebase";
           console.log("Failed to update email")
         })
       }
+      else if(passwordUpdate){
+        const userID = currentUser.user.uid
+        usersCollection.doc(userID).update({
+          "password": updatePasswordRef.current.value
+        }).then(() => {
+          console.log("Failed to update password")
+        })
+      }
      }
      catch{
        setError("Failed to update")
@@ -73,11 +82,30 @@ import { db, usersCollection } from "../firebase";
         
           <p>{currentUser && currentUser.email}</p>
           <Form id="update" onSubmit={handleSubmit}> 
-            <Form.Group id="updateUser">
+            <Form.Group id="updateUserEmail">
               <Form.Control
                 type="updateEmail"
                 placeholder="updateEmail"
                 ref={updateEmailRef} required
+                style={{
+                  color: 'black',
+                  background: 'white',
+                  border: '1px solid #1DE19B',
+                  borderRadius: '40px',
+                  padding: '4px 18px',
+                  alignItems: 'right',
+                  height: '35px',
+                  width: '360px',
+                  display: 'inline',
+                  margin: '10px'
+                }}>
+              </Form.Control>
+            </Form.Group>
+            <Form.Group id="updateUserPassword">
+              <Form.Control
+                type="updatePassword"
+                placeholder="updatePassword"
+                ref={updatePasswordRef} required
                 style={{
                   color: 'black',
                   background: 'white',
