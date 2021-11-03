@@ -18,9 +18,6 @@ body {
 
     color: #000000;
 }
-.pic_button{
-    padding-left: 30%;
-}
 
 .tagtext{
     padding-top: 10%;
@@ -28,5 +25,5 @@ body {
 
 .tagformat{
     padding-left: 20%;
-    padding-right: 20%;
+    padding-right: 30%;
 }

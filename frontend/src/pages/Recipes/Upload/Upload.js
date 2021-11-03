@@ -15,7 +15,6 @@ export default function UploadRecipe() {
 
     const [title, setTitle] = useState("")
     const [subtitle, setSubTitle] = useState("")
-    const [prepTime, setPrepTime] = useState("")
     const [selectedTags, setTags] = useState([])
     const [tempHashtag, setTempHashTag] = useState("")
     const [hashtag, setHashtags] = useState([])
@@ -56,7 +55,6 @@ export default function UploadRecipe() {
             temp.push(tag)
             setTags(temp)
         }
-        console.log(temp)
     }
 
     const handleSubmit = (e) => {
@@ -72,6 +70,7 @@ export default function UploadRecipe() {
             <Container className="mt-5">
                 <Form onSubmit={handleSubmit}>
                 <Row>
+                    
                     <Col>
                     <h1 style={{textAlign: 'center'}}>Write your food story</h1>
                             <Form.Group id = "title">
@@ -114,25 +113,6 @@ export default function UploadRecipe() {
                                     }}>
                                 </Form.Control>
                             </Form.Group>
-                            <Form.Control 
-                                    type="prep" 
-                                    placeholder = "prep time" 
-                                    ref={infoRef} required 
-                                    onChange= {e => setPrepTime(e.target.value)}
-                                    style={{
-                                        color: 'black',
-                                        fontFamily: "Raleway",
-                                        background: 'white',
-                                        border: '1px solid #1DE19B',
-                                        borderRadius: '40px',
-                                        padding: '4px 18px',
-                                        alignItems: 'right',
-                                        height: '35px',
-                                        width: '360px',
-                                        display: 'inline',
-                                        margin: '10px'
-                                    }}>
-                                </Form.Control>
                             <Form.Group id = "ingredients">
                             <Form.Control 
                                     type="ingredients" 
@@ -184,26 +164,6 @@ export default function UploadRecipe() {
                             </Form.Group>
                         </Col>
                         <Col>
-                            <Form.Group id = "picture">
-                            <div className="pic_button">
-                                <Button type="button"
-                                    
-                                    style={{
-                                        color: 'white',
-                                        fontFamily: "Raleway",
-                                        background: '#1DE19B',
-                                        border: '2px solid #19B47C',
-                                        borderRadius: '20px',
-                                        padding: '6px 18px',
-                                        alignItems: 'right',
-                                        margin: '10px'
-                                    }}
-                                    // disabled={loading}
-                                    >
-                                    upload picture
-                                </Button>
-                            </div>
-                            </Form.Group>
                             <Form.Group id = "body">
                                 <Form.Control as="textarea"
                                     type="body" 
@@ -224,18 +184,17 @@ export default function UploadRecipe() {
                             </Form.Group>
                         </Col>
                     </Row>
-    <Row><Col><div className="tagformat"><div className="mt-3">
+    <Row><Col><div className="tagformat">
         {
             tags.map((item, index) =>{
                 if(selectedTags.includes(item)){
-                    return <Button key={index} variant="outlined" id="selected" className="tag" className="tag mx-1" onClick={() => changeTag(item)}>{item}</Button>
+                    return <Button key={index} variant="outlined" id="selected" className="tag" onClick={() => changeTag(item)}>{item}</Button>
                 }
                 else{
-                    return <Button key={index} variant="outlined" id="outlined" className="tag" className="tag mx-1" onClick={() => changeTag(item)}>{item}</Button>  
+                    return <Button key={index} variant="outlined" id="outlined" className="tag" onClick={() => changeTag(item)}>{item}</Button>   
                 }
             })
         }
-        </div>
         <div className="mt-3">
                         <Button type="postButton submit"
                         
@@ -251,7 +210,7 @@ export default function UploadRecipe() {
                             }}
                             // disabled={loading}
                             >
-                            post your recipe
+                            post
                         </Button></div>
         </div>
         
@@ -296,8 +255,7 @@ export default function UploadRecipe() {
                             // disabled={loading}
                             >
                             add hashtag
-                        </Button>
-                        <div>
+                        </Button><div>
                         {hashtag.map((item, index)=>{
                             return (
                             <span className="mx-2" key={index}>

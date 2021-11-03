@@ -8,17 +8,12 @@ import { Form } from 'react-bootstrap';
 import { db, usersCollection } from "../firebase";
 
  export default function Profile() {
-    const {currentUser, updateEmail, updatePassword} = useAuth();
-    const history = useHistory()
+    const {currentUser} = useAuth();
     const [dbData, setdbData] = useState([]); // retrieving firestore db info
-    const updateEmailRef = useRef()
-    const updatePasswordRef = useRef()
-    const updateNameRef = useRef()
-    const usernameRef = useRef()
+    const emailRef = useRef()
+    const passwordRef = useRef()
+    const nameRef = useRef()
     const isLogginActive = useRef()
-    const isAnonymous = useRef()
-   const [error, setError] = useState("")
-   const [loading, setLoading] = useState(false)
 
   // Displays Current user's information in console.log (WORKS)
    if (isLogginActive) {
@@ -28,113 +23,27 @@ import { db, usersCollection } from "../firebase";
             console.log("DATA: ", doc.data())
           }
           else {
-            // console.log("ERROR")
+            console.log("ERROR")
           }
         }).catch(e => {
           console.log("ERROR GETTING DOC", e)
         })
     }
-     else{
-     isAnonymous = true
-     history.push("/login")
-    }
-   async function handleSubmit(e) {
-     e.preventDefault()
-
-     try {
-       setError("")
-       setLoading(true)
-       // Updates Auth but not DB
-      const emailUpdate = await updateEmail(updateEmailRef.current.value)
-      const passwordUpdate = await updatePassword(updatePasswordRef.current.value)
-       if (emailUpdate){
-        
-        const userID = currentUser.user.uid
-        // const userData = {
-        //   // displayName: nameRef.current.value,
-        //   email: updateEmailRef.current.value
-        //   // password: passwordRef.current.value,
-        //   // username: ""
-        //   // username: usernameRef.current.value
-        // }
-        usersCollection.doc(currentUser.uid).update({
-          "email": updateEmailRef.current.value
-        }).then(()=>{
-          console.log("update email")
-        })
-      }
-      else if(passwordUpdate){
-        const userID = currentUser.user.uid
-        usersCollection.doc(userID).update({
-          password: updatePasswordRef.current.value
-        }).then(() => {
-          console.log("update password")
-        })
-      }
-     }
-     catch{
-       setError("Failed to update")
-     }
-     setLoading(false)
-    }
+   
       return (
         <div>
-        
+          {dbData && dbData.map(currentUser=>{
+            <p>{currentUser.name}</p>
+          })}
           <p>{currentUser && currentUser.email}</p>
-          <Form id="update" onSubmit={handleSubmit}> 
-            <Form.Group id="updateUserEmail">
-              <Form.Control
-                type="updateEmail"
-                placeholder="updateEmail"
-                ref={updateEmailRef} required
-                style={{
-                  color: 'black',
-                  background: 'white',
-                  border: '1px solid #1DE19B',
-                  borderRadius: '40px',
-                  padding: '4px 18px',
-                  alignItems: 'right',
-                  height: '35px',
-                  width: '360px',
-                  display: 'inline',
-                  margin: '10px'
-                }}>
-              </Form.Control>
-            </Form.Group>
-            <Form.Group id="updateUserPassword">
-              <Form.Control
-                type="updatePassword"
-                placeholder="updatePassword"
-                ref={updatePasswordRef} required
-                style={{
-                  color: 'black',
-                  background: 'white',
-                  border: '1px solid #1DE19B',
-                  borderRadius: '40px',
-                  padding: '4px 18px',
-                  alignItems: 'right',
-                  height: '35px',
-                  width: '360px',
-                  display: 'inline',
-                  margin: '10px'
-                }}>
-              </Form.Control>
-            </Form.Group>
-            <Button type="enter"
-              style={{
-                color: 'white',
-                fontFamily: "Raleway",
-                background: '#1DE19B',
-                border: '2px solid #19B47C',
-                borderRadius: '20px',
-                padding: '6px 18px',
-                alignItems: 'right',
-                margin: '10px'
-              }}
-              disabled={loading}>
-              enter
-            </Button>
-          </Form>
+         {/*{dbData.map(data => ('Name: ' + data.name + '\nEmail: ' + data.email))} */}
+          {/* {data.length > 0 ? (
+            data.map((data) => <div key={data.key}>{data.answer}</div>)
+          ) : (
+            <h1>no answers yet :(</h1>
+          )} */}
+          {/* {posts.map((item)=>)} */}
+          
           <Cards />
           
         </div>

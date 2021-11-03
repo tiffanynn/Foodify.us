@@ -107,8 +107,8 @@ function Navigation(props) {
                     </Navbar.Brand>
                 
                 <div className="justify-content-end">
-                    <Button id="btn" component={Link} to="/Login">Login</Button>
-                    <Button id="btn" component={Link} to="/Register">Register</Button>
+                    {isLoggedIn && <Button id="btn" component={Link} to="/Login">Login</Button>}
+                    {isLoggedIn && <Button id="btn" component={Link} to="/Register">Register</Button>}
                     {isLoggedIn && <Button id="btn" onClick={logoutSession}>Logout</Button>}
                 </div>
 

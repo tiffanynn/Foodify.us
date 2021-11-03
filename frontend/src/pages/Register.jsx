@@ -14,7 +14,6 @@ export default function Register(){
     const emailRef = useRef()
     const passwordRef = useRef()
     const nameRef = useRef()
-    const usernameRef = useRef()
     const provider = useRef()
     const { signup, currentUser } = useAuth()
     // const { authWithGoogle } = AuthPage()
@@ -23,7 +22,7 @@ export default function Register(){
     const [loading, setLoading] = useState(false)
     const history = useHistory()
     const [users, setUsers] = useState()
-    const checkUsername = false
+
 
     async function handleSubmit(e) {
       e.preventDefault()
@@ -32,99 +31,47 @@ export default function Register(){
         setError("")
         setLoading(true)
        
-        //   const userID = currentUser.user.uid
-        //   const userData = {
-        //       name: nameRef.current.value,
-        //       email: emailRef.current.value,
-        //       password: passwordRef.current.value,
-        //       username: usernameRef.current.value
-        //   }
-        //   usersCollection.where('username', '==', usernameRef.current.value).get()
-        //       .then(doc => {
-        //           if (!doc.empty) {
-        //               console.log("Username already in use - Failed to create an account")
-        //               alert("Username already in use - Failed to create an account")
-        //           } else {
-        //               // reg & add users - username not taken
-        //               signup(emailRef.current.value, passwordRef.current.value)
-        //               usersCollection.doc(userID).set(userData)
-        //                   .then(() => {
-        //                       console.log('User successfully added to the Firebase DB!');
-        //                       //console.log("NEW USER ID: " ,userID);
-        //                       console.log('ATTEMPTING ADDING USER TO MONGODB')
-        //                       fetch(`http://localhost:5000/usersignup/${userID}/${userData.name}`)
-        //                           .then((response) => response.json())
-        //                           .then((response) => console.log(response))
-        //                       // Setting recipe Data to the data that we received from the response above
-
-        //                   }).catch(e => {
-        //                       console.log('Error adding user to the DB: ', e);
-        //                   });
-        //           }
-        //       })
-        const reg = await signup(emailRef.current.value, passwordRef.current.value)
+          const reg = await signup(emailRef.current.value, passwordRef.current.value)
             if (reg){
                 console.log({reg})
                 const userID = reg.user.uid
                 const userData = {
-                    displayName: nameRef.current.value,
+                    name: nameRef.current.value,
                     email: emailRef.current.value,
                     password: passwordRef.current.value
-                    // username: usernameRef.current.value
                 }
                 usersCollection.doc(userID).set(userData)
                     .then(() => {
-                        console.log('User successfully added to the Firebase DB!');
+                        console.log('User successfully added to the FireBase DB!');
                         //console.log("NEW USER ID: " ,userID);
                         console.log('ATTEMPTING ADDING USER TO MONGODB')
                         fetch(`http://localhost:5000/usersignup/${userID}/${userData.name}`)
-                            .then((response) => response.json())
-                            .then((response) => console.log(response))
+                        .then((response) => response.json())
+                        .then((response)=> console.log(response))
                         // Setting recipe Data to the data that we received from the response above
 
                     }).catch(e => {
                         console.log('Error adding user to the DB: ', e);
                     });
-                    // usersCollection.where('username', '==', usernameRef.current.value).get()
-                    //     .then(doc => {
-                    //         if (!doc.empty) {
-                    //             console.log("Username already in use - Failed to create an account")
-                    //             alert("Username already in use - Failed to create an account")
-                    //         } else{
-                    //             // reg & add users - username not taken
-                    //             usersCollection.doc(userID).set(userData)
-                    //                 .then(() => {
-                    //                     console.log('User successfully added to the Firebase DB!');
-                    //                     //console.log("NEW USER ID: " ,userID);
-                    //                     console.log('ATTEMPTING ADDING USER TO MONGODB')
-                    //                     fetch(`http://localhost:5000/usersignup/${userID}/${userData.name}`)
-                    //                         .then((response) => response.json())
-                    //                         .then((response) => console.log(response))
-                    //                     // Setting recipe Data to the data that we received from the response above
-
-                    //                 }).catch(e => {
-                    //                     console.log('Error adding user to the DB: ', e);
-                    //                 });
-                    //         }
-                    //     })
-                        // .then(()=>{
-                        //     console.log('ADDING TO FBDB...')
-                        //     usersCollection.doc(userID).set(userData)
-                        //         .then(() => {
-                        //             console.log('User successfully added to the Firebase DB!');
-                        //             //console.log("NEW USER ID: " ,userID);
-                        //             console.log('ATTEMPTING ADDING USER TO MONGODB')
-                        //             fetch(`http://localhost:5000/usersignup/${userID}/${userData.name}`)
-                        //                 .then((response) => response.json())
-                        //                 .then((response) => console.log(response))
-                        //             // Setting recipe Data to the data that we received from the response above
-
-                        //         }).catch(e => {
-                        //             console.log('Error adding user to the DB: ', e);
-                        //         });
-                        // })
-                
             }
+        
+        // Google Account Registration
+        //   const g_reg = await signInWithGoogle()
+        //   if (g_reg){
+        //       console.log({g_reg})
+        //       const g_userID = g_reg.user.uid
+        //         const g_userData = {
+        //             name: nameRef.current.value,
+        //             email: emailRef.current.value,
+        //             password: passwordRef.current.value
+        //         }
+        //       usersCollection.doc(g_userID).set(g_userData)
+        //             .then(() => {
+        //                 console.log('User successfully added to the DB!');
+        //             }).catch(e => {
+        //                 console.log('Error adding user to the DB: ', e);
+        //             });
+        //     }
             
         history.push("/profile") //goes to home page
       } catch {
@@ -147,7 +94,6 @@ export default function Register(){
                 }}>
                     <img src={food}
                         align="left"
-                        alignItems= "left"
                         height="510px"
                         width="810px"
                         display="inline"
@@ -157,6 +103,7 @@ export default function Register(){
 
                     <h1
                         style={{
+
                             color:'black', 
                             fontFamily: "Raleway",
                             display:'inline',
@@ -245,25 +192,6 @@ export default function Register(){
                                 }}>
                             </Form.Control>
                         </Form.Group>
-                        {/* <Form.Group id="username">
-                            <Form.Control
-                                type="username"
-                                placeholder="username"
-                                ref={usernameRef} required
-                                style={{
-                                    color: 'black',
-                                    background: 'white',
-                                    border: '1px solid #1DE19B',
-                                    borderRadius: '40px',
-                                    padding: '4px 18px',
-                                    alignItems: 'right',
-                                    height: '35px',
-                                    width: '360px',
-                                    display: 'inline',
-                                    margin: '10px'
-                                }}>
-                            </Form.Control>
-                        </Form.Group> */}
                         <Form.Group id="email">
                             <Form.Control
                                 type="email"
@@ -316,7 +244,7 @@ export default function Register(){
                                 margin: '10px'
                             }}
                             disabled={loading}>
-                            register
+                            sign up
                         </Button>
                     </Form>
                 </Card.Body>
@@ -325,24 +253,7 @@ export default function Register(){
 
     )
 }
-/************************Google Auth******************************** */
-// Google Account Registration
-        //   const g_reg = await signInWithGoogle()
-        //   if (g_reg){
-        //       console.log({g_reg})
-        //       const g_userID = g_reg.user.uid
-        //         const g_userData = {
-        //             name: nameRef.current.value,
-        //             email: emailRef.current.value,
-        //             password: passwordRef.current.value
-        //         }
-        //       usersCollection.doc(g_userID).set(g_userData)
-        //             .then(() => {
-        //                 console.log('User successfully added to the DB!');
-        //             }).catch(e => {
-        //                 console.log('Error adding user to the DB: ', e);
-        //             });
-        //     }
+
 /************************Attempt 2********************************** */
 // //Create a new collection & doc manually
 // db.collection('users').add({

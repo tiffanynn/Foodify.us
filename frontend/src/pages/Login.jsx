@@ -190,7 +190,7 @@ export default function Login() {
                                 margin: '10px'
                             }}
                             disabled={loading}>
-                            login
+                            sign in
                         </Button>
                     </Form>
                 </Card.Body>
