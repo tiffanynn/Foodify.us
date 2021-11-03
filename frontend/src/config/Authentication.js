@@ -1,5 +1,5 @@
 import React, { useContext, useState, useEffect, useRef } from "react"
-import { auth, db, app } from "../firebase"
+import { auth, db, app, usersCollection } from "../firebase"
 
 /* Based on Web Dev Simplified Tutorial: https://youtu.be/PKwu15ldZ7k */
 
@@ -20,6 +20,8 @@ export function AuthProvider({ children }) {
   const [loading, setLoading] = useState(true)
   const emailRef = useRef()
   const passwordRef = useRef()
+  const nameRef = useRef()
+  const usernameRef = useRef()
   const [error, setError] = useState("")
 
   function signup(email, password) {
