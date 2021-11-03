@@ -54,24 +54,29 @@ export default function Register(){
                         console.log('Error adding user to the DB: ', e);
                     });
             }
-        
-        // Google Account Registration
-        //   const g_reg = await signInWithGoogle()
-        //   if (g_reg){
-        //       console.log({g_reg})
-        //       const g_userID = g_reg.user.uid
-        //         const g_userData = {
-        //             name: nameRef.current.value,
-        //             email: emailRef.current.value,
-        //             password: passwordRef.current.value
-        //         }
-        //       usersCollection.doc(g_userID).set(g_userData)
-        //             .then(() => {
-        //                 console.log('User successfully added to the DB!');
-        //             }).catch(e => {
-        //                 console.log('Error adding user to the DB: ', e);
-        //             });
-        //     }
+        // Query for username field to make sure it's unique
+        //   usersCollection.where('username', '==', usernameRef.current.value).get()
+        //       .then(doc => {
+        //           if (!doc.empty) {
+        //               console.log("Username already in use - Failed to create an account")
+        //               alert("Username already in use - Failed to create an account")
+        //           } else {
+        //               // reg & add users - username not taken
+        //               usersCollection.doc(userID).set(userData)
+        //                   .then(() => {
+        //                       console.log('User successfully added to the Firebase DB!');
+        //                       //console.log("NEW USER ID: " ,userID);
+        //                       console.log('ATTEMPTING ADDING USER TO MONGODB')
+        //                       fetch(`http://localhost:5000/usersignup/${userID}/${userData.name}`)
+        //                           .then((response) => response.json())
+        //                           .then((response) => console.log(response))
+        //                       // Setting recipe Data to the data that we received from the response above
+
+        //                   }).catch(e => {
+        //                       console.log('Error adding user to the DB: ', e);
+        //                   });
+        //           }
+        //       })
             
         history.push("/profile") //goes to home page
       } catch {
