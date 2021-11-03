@@ -69,32 +69,44 @@ export default function Register(){
                 const userData = {
                     displayName: nameRef.current.value,
                     email: emailRef.current.value,
-                    password: passwordRef.current.value,
-                    username: ""
+                    password: passwordRef.current.value
                     // username: usernameRef.current.value
                 }
-                    usersCollection.where('username', '==', usernameRef.current.value).get()
-                        .then(doc => {
-                            if (!doc.empty) {
-                                console.log("Username already in use - Failed to create an account")
-                                alert("Username already in use - Failed to create an account")
-                            } else{
-                                // reg & add users - username not taken
-                                usersCollection.doc(userID).set(userData)
-                                    .then(() => {
-                                        console.log('User successfully added to the Firebase DB!');
-                                        //console.log("NEW USER ID: " ,userID);
-                                        console.log('ATTEMPTING ADDING USER TO MONGODB')
-                                        fetch(`http://localhost:5000/usersignup/${userID}/${userData.name}`)
-                                            .then((response) => response.json())
-                                            .then((response) => console.log(response))
-                                        // Setting recipe Data to the data that we received from the response above
+                usersCollection.doc(userID).set(userData)
+                    .then(() => {
+                        console.log('User successfully added to the Firebase DB!');
+                        //console.log("NEW USER ID: " ,userID);
+                        console.log('ATTEMPTING ADDING USER TO MONGODB')
+                        fetch(`http://localhost:5000/usersignup/${userID}/${userData.name}`)
+                            .then((response) => response.json())
+                            .then((response) => console.log(response))
+                        // Setting recipe Data to the data that we received from the response above
 
-                                    }).catch(e => {
-                                        console.log('Error adding user to the DB: ', e);
-                                    });
-                            }
-                        })
+                    }).catch(e => {
+                        console.log('Error adding user to the DB: ', e);
+                    });
+                    // usersCollection.where('username', '==', usernameRef.current.value).get()
+                    //     .then(doc => {
+                    //         if (!doc.empty) {
+                    //             console.log("Username already in use - Failed to create an account")
+                    //             alert("Username already in use - Failed to create an account")
+                    //         } else{
+                    //             // reg & add users - username not taken
+                    //             usersCollection.doc(userID).set(userData)
+                    //                 .then(() => {
+                    //                     console.log('User successfully added to the Firebase DB!');
+                    //                     //console.log("NEW USER ID: " ,userID);
+                    //                     console.log('ATTEMPTING ADDING USER TO MONGODB')
+                    //                     fetch(`http://localhost:5000/usersignup/${userID}/${userData.name}`)
+                    //                         .then((response) => response.json())
+                    //                         .then((response) => console.log(response))
+                    //                     // Setting recipe Data to the data that we received from the response above
+
+                    //                 }).catch(e => {
+                    //                     console.log('Error adding user to the DB: ', e);
+                    //                 });
+                    //         }
+                    //     })
                         // .then(()=>{
                         //     console.log('ADDING TO FBDB...')
                         //     usersCollection.doc(userID).set(userData)

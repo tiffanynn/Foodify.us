@@ -21,23 +21,23 @@ import { db, usersCollection } from "../firebase";
    const [loading, setLoading] = useState(false)
 
   // Displays Current user's information in console.log (WORKS)
-  //  if (isLogginActive) {
-  //     usersCollection.doc(currentUser.uid).get()
-  //       .then((doc) => {
-  //         if (doc.exists) {
-  //           console.log("DATA: ", doc.data())
-  //         }
-  //         else {
-  //           // console.log("ERROR")
-  //         }
-  //       }).catch(e => {
-  //         console.log("ERROR GETTING DOC", e)
-  //       })
-  //   }
-  //    else{
-  //    isAnonymous = true
-  //    history.push("/login")
-  //   }
+   if (isLogginActive) {
+      usersCollection.doc(currentUser.uid).get()
+        .then((doc) => {
+          if (doc.exists) {
+            console.log("DATA: ", doc.data())
+          }
+          else {
+            // console.log("ERROR")
+          }
+        }).catch(e => {
+          console.log("ERROR GETTING DOC", e)
+        })
+    }
+     else{
+     isAnonymous = true
+     history.push("/login")
+    }
    async function handleSubmit(e) {
      e.preventDefault()
 
@@ -57,18 +57,18 @@ import { db, usersCollection } from "../firebase";
         //   // username: ""
         //   // username: usernameRef.current.value
         // }
-        usersCollection.doc(userID).update({
+        usersCollection.doc(currentUser.uid).update({
           "email": updateEmailRef.current.value
         }).then(()=>{
-          console.log("Failed to update email")
+          console.log("update email")
         })
       }
       else if(passwordUpdate){
         const userID = currentUser.user.uid
         usersCollection.doc(userID).update({
-          "password": updatePasswordRef.current.value
+          password: updatePasswordRef.current.value
         }).then(() => {
-          console.log("Failed to update password")
+          console.log("update password")
         })
       }
      }
