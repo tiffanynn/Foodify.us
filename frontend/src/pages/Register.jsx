@@ -244,7 +244,7 @@ export default function Register(){
                                 margin: '10px'
                             }}
                             disabled={loading}>
-                            sign up
+                            register
                         </Button>
                     </Form>
                 </Card.Body>
