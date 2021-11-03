@@ -10,6 +10,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 import Profile from "./pages/Profile";
 import UploadRecipe from "./pages/Recipes/Upload/Upload";
+import EditProfile from "./pages/EditProfile";
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
             <Route path="/recipe" exact component={() => <Recipe />} />
             <Route path="/upload" exact component={() => <UploadRecipe />} />
             <Route path="/recipe/:urlRecipeId" component={() => <Recipe />} />
+            <Route path="/edit-profile" exact component={() => <EditProfile />} />
             <Route
               path="/search/:urlSearchValue"
               component={() => <SearchResults />}
