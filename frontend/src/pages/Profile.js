@@ -12,7 +12,7 @@ import { db, usersCollection } from "../firebase";
     const [dbData, setdbData] = useState([]); // retrieving firestore db info
     const updateEmailRef = useRef()
     const updatePasswordRef = useRef()
-    const nameRef = useRef()
+    const userNameRef = useRef()
     const [error, setError] = useState("")
     const [loading, setLoading] = useState(false)
     const history = useHistory()
@@ -41,11 +41,27 @@ import { db, usersCollection } from "../firebase";
        setError("")
        setLoading(true)
        //UPDATES FIRESTORE fields
-       db.collection("users").doc(currentUser.uid).update({
-        // email: "atk12345@gmail.com"
-          email: updateEmailRef.current.value,
-          password: updatePasswordRef.current.value
-      })
+       db.collection("users").where('username', '==', userNameRef.current.value).get()
+       .then((doc) =>{
+         if(!doc.empty){
+            alert("username already exists - try again")
+           console.log("ERROR: username already exists")
+         } else{
+           db.collection("users").doc(currentUser.uid).update({
+             // email: "atk12345@gmail.com"
+             email: updateEmailRef.current.value,
+             password: updatePasswordRef.current.value,
+             username: userNameRef.current.value
+           })
+         }
+       })
+      //  db.collection("users").doc(currentUser.uid).update({
+      //   // email: "atk12345@gmail.com"
+      //     email: updateEmailRef.current.value,
+      //     password: updatePasswordRef.current.value,
+      //     username: userNameRef.current.value
+      // })
+       
        const em = await updateEmail(updateEmailRef.current.value)
        const pw = await updatePassword(updatePasswordRef.current.value)
        //UPDATES Auth
@@ -76,6 +92,26 @@ import { db, usersCollection } from "../firebase";
         <div>
           <p>{currentUser && currentUser.email}</p>
           <Form id="info" onSubmit={handleSubmit}>
+            <Form.Group id="username">
+              <Form.Control
+                type="username"
+                placeholder="username"
+                ref={userNameRef} required
+                style={{
+                  color: 'black',
+                  fontFamily: "Raleway",
+                  background: 'white',
+                  border: '1px solid #1DE19B',
+                  borderRadius: '40px',
+                  padding: '4px 18px',
+                  alignItems: 'right',
+                  height: '35px',
+                  width: '360px',
+                  display: 'inline',
+                  margin: '10px'
+                }}>
+              </Form.Control>
+            </Form.Group>
             <Form.Group id="email">
               <Form.Control
                 type="email"
