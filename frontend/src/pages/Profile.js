@@ -4,7 +4,7 @@ import Cards from "./Cards"
 
 import { useAuth } from "../config/Authentication.js";
 import { Link, useHistory } from "react-router-dom";
-import { Form } from 'react-bootstrap';
+import { Form, Alert } from 'react-bootstrap';
 import { db, usersCollection } from "../firebase";
 
  export default function Profile() {
@@ -40,13 +40,14 @@ import { db, usersCollection } from "../firebase";
      try {
        setError("")
        setLoading(true)
-       //UPDATES FIRESTORE fields
+       // Query for existing username
        db.collection("users").where('username', '==', userNameRef.current.value).get()
        .then((doc) =>{
          if(!doc.empty){
-            alert("username already exists - try again")
+           alert("username already exists")
            console.log("ERROR: username already exists")
-         } else{
+         } else {
+           // UPDATES FIRESTORE fields
            db.collection("users").doc(currentUser.uid).update({
              // email: "atk12345@gmail.com"
              email: updateEmailRef.current.value,
@@ -66,15 +67,16 @@ import { db, usersCollection } from "../firebase";
        const pw = await updatePassword(updatePasswordRef.current.value)
        //UPDATES Auth
        if (em && pw) {
-         usersCollection.doc(currentUser.uid).update({
-           email: updateEmailRef.current.value,
-           password: updatePasswordRef.current.value
-         })
-           .then(() => {
-             console.log('UPDATED');
-           }).catch(e => {
-             console.log('Error updating: ', e);
-           });
+         console.log("UPDATING Auth")
+        //  usersCollection.doc(currentUser.uid).update({
+        //    email: updateEmailRef.current.value,
+        //    password: updatePasswordRef.current.value
+        //  })
+        //    .then(() => {
+        //      console.log('UPDATED');
+        //    }).catch(e => {
+        //      console.log('Error updating: ', e);
+        //    });
 
           // db.collection("users").doc("KFBT3rkT4IZ9rXZE2L2f3ayCtCu2").update({
           //   email: "atk12345@gmail.com"
