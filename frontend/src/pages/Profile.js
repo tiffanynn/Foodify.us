@@ -18,7 +18,7 @@ import { db, usersCollection } from "../firebase";
     const history = useHistory()
     const isLogginActive = useRef()
 
-  // Displays Current user's information in console.log (WORKS for Checking)
+   /* UNCOMMENT to check DB data: Displays current user's information in console.log */
    if (isLogginActive) {
       usersCollection.doc(currentUser.uid).get()
         .then((doc) => {
@@ -34,6 +34,7 @@ import { db, usersCollection } from "../firebase";
     } else{
       history.push("/login")
     }
+    /********************************************************************************/
    async function handleSubmit(e) {
      e.preventDefault()
 
