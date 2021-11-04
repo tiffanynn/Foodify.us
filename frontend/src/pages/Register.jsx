@@ -38,8 +38,7 @@ export default function Register(){
                 const userData = {
                     name: nameRef.current.value,
                     email: emailRef.current.value,
-                    password: passwordRef.current.value,
-                    usernmae: ""
+                    password: passwordRef.current.value
                 }
                 usersCollection.doc(userID).set(userData)
                     .then(() => {

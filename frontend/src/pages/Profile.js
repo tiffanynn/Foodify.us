@@ -61,16 +61,15 @@ import { db, usersCollection } from "../firebase";
        const pw = await updatePassword(updatePasswordRef.current.value)
        // UPDATES FIREBASE Auth
        if (em && pw) {
-         console.log("UPDATING Auth")
-        //  usersCollection.doc(currentUser.uid).update({
-        //    email: updateEmailRef.current.value,
-        //    password: updatePasswordRef.current.value
-        //  })
-        //    .then(() => {
-        //      console.log('UPDATED');
-        //    }).catch(e => {
-        //      console.log('Error updating: ', e);
-        //    });
+         db.collection("users").doc(currentUser.uid).update({
+           email: updateEmailRef.current.value,
+           password: updatePasswordRef.current.value
+         })
+           .then(() => {
+             console.log('UPDATED');
+           }).catch(e => {
+             console.log('Error updating: ', e);
+           });
        }
        history.push("/profile") //goes to home page
      } catch {
