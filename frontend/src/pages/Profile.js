@@ -18,7 +18,7 @@ import { db, usersCollection } from "../firebase";
     const history = useHistory()
     const isLogginActive = useRef()
 
-  // Displays Current user's information in console.log (WORKS)
+  // Displays Current user's information in console.log (WORKS for Checking)
    if (isLogginActive) {
       usersCollection.doc(currentUser.uid).get()
         .then((doc) => {
@@ -47,7 +47,7 @@ import { db, usersCollection } from "../firebase";
            alert("username already exists")
            console.log("ERROR: username already exists")
          } else {
-           // UPDATES FIRESTORE fields
+           // UPDATES FIRESTORE DB fields
            db.collection("users").doc(currentUser.uid).update({
              // email: "atk12345@gmail.com"
              email: updateEmailRef.current.value,
@@ -56,16 +56,10 @@ import { db, usersCollection } from "../firebase";
            })
          }
        })
-      //  db.collection("users").doc(currentUser.uid).update({
-      //   // email: "atk12345@gmail.com"
-      //     email: updateEmailRef.current.value,
-      //     password: updatePasswordRef.current.value,
-      //     username: userNameRef.current.value
-      // })
        
        const em = await updateEmail(updateEmailRef.current.value)
        const pw = await updatePassword(updatePasswordRef.current.value)
-       //UPDATES Auth
+       // UPDATES FIREBASE Auth
        if (em && pw) {
          console.log("UPDATING Auth")
         //  usersCollection.doc(currentUser.uid).update({
@@ -77,10 +71,6 @@ import { db, usersCollection } from "../firebase";
         //    }).catch(e => {
         //      console.log('Error updating: ', e);
         //    });
-
-          // db.collection("users").doc("KFBT3rkT4IZ9rXZE2L2f3ayCtCu2").update({
-          //   email: "atk12345@gmail.com"
-          // })
        }
        history.push("/profile") //goes to home page
      } catch {
