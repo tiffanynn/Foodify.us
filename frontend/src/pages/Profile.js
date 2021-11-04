@@ -40,7 +40,10 @@ import { db, usersCollection } from "../firebase";
      try {
        setError("")
        setLoading(true)
-
+       db.collection("users").doc(currentUser.uid).update({
+        // email: "atk12345@gmail.com"
+          email: updateEmailRef.current.value
+      })
        const em = await updateEmail(updateEmailRef.current.value)
        const pw = await updatePassword(updatePasswordRef.current.value)
        if (em && pw) {
@@ -53,6 +56,10 @@ import { db, usersCollection } from "../firebase";
            }).catch(e => {
              console.log('Error updating: ', e);
            });
+
+          // db.collection("users").doc("KFBT3rkT4IZ9rXZE2L2f3ayCtCu2").update({
+          //   email: "atk12345@gmail.com"
+          // })
        }
        history.push("/profile") //goes to home page
      } catch {
