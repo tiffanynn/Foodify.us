@@ -40,12 +40,15 @@ import { db, usersCollection } from "../firebase";
      try {
        setError("")
        setLoading(true)
+       //UPDATES FIRESTORE fields
        db.collection("users").doc(currentUser.uid).update({
         // email: "atk12345@gmail.com"
-          email: updateEmailRef.current.value
+          email: updateEmailRef.current.value,
+          password: updatePasswordRef.current.value
       })
        const em = await updateEmail(updateEmailRef.current.value)
        const pw = await updatePassword(updatePasswordRef.current.value)
+       //UPDATES Auth
        if (em && pw) {
          usersCollection.doc(currentUser.uid).update({
            email: updateEmailRef.current.value,
