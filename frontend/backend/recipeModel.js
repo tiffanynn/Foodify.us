@@ -9,10 +9,10 @@ const RecipeSchema = new Schema({
     required: true,
     default: "A Foodify Special Recipe",
   },
-  hashTag: {
-    type: String,
+  hashTagList: {
+    type: [String],
     required: true,
-    default: "topFoodifyPicks",
+    default: undefined,
   },
   postDate: {
     type: String,
@@ -40,7 +40,7 @@ const RecipeSchema = new Schema({
     default:
       "https://image.shutterstock.com/shutterstock/photos/1931420096/display_1500/stock-photo-various-spices-in-a-bowls-on-black-concrete-background-top-view-copy-space-1931420096.jpg",
   },
-  reviewerId: {
+  userName: {
     type: String,
   },
 });

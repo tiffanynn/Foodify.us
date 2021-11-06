@@ -14,7 +14,7 @@ function Seed() {
   for (i = 0; i < seedData.length; i++) {
     console.log(i);
     const title = seedData[i].name;
-    const hashTag = "topFoodifyPicks";
+    const hashTagList = ["#topFoodifyPicks", "#foodies4lyfe"];
     const postDate = new Date(seedData[i].updated_at); //Converts from Unix TimeStamp to human readable
     const estimatedTime = seedData[i].total_time_minutes;
 
@@ -60,18 +60,18 @@ function Seed() {
       }
     }
     const imgUrl = seedData[i].thumbnail_url;
-    const reviewerId = "1234567";
+    const userName = "defaultUser";
 
     const newRecipe = new Recipe({
       title,
-      hashTag,
+      hashTagList,
       postDate,
       estimatedTime,
       ingredientList,
       dietTagList,
       story,
       imgUrl,
-      reviewerId,
+      userName,
     });
 
     newRecipe.save().then(() => console.log(`recipe: ${title}, saved`));

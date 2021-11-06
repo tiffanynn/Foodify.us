@@ -6,6 +6,7 @@ const cors = require("cors");
 
 const mongoose = require("mongoose");
 const Recipe = require("./backend/recipeModel");
+const User = require("./backend/userModel");
 
 // MONGODB CREDENTIALS
 const dotenv = require("dotenv");
@@ -125,7 +126,20 @@ app.route("/search/:filter").get((req, res) => {
  */
 /************************************* USER/PROFILE RELATED ROUTES: ************************************/
 
-const User = require("./backend/userModel");
+// SENDS BACK ALL Users IN DB
+app.route("/user").get((req, res) => {
+  console.log("INCOMING ALL USER REQUEST");
+
+  /* QUERIES DB FOR ALL RECIPES */
+  User.find()
+    .then((users) =>
+      res.send(JSON.parse('{"users" : ' + JSON.stringify(users) + "}"))
+    )
+    .catch((err) => res.status(400).json("Error: " + err));
+});
+//ADD GET USER BY USERNAME
+
+//ADD EDIT USER BY USERNAME AND SECURED USER ID
 
 //USER SIGNUP, ADDS USER TO USER DB
 // SENDS BACK 1 RECIPE DATA CORRESPONDING TO RECIPE ID
@@ -156,15 +170,15 @@ app.route("/usersignup/:userID/:name").get((req, res) => {
 
   //Some Default Fields (CHANGE LATER TO USER SIGNUP DATA)
   var profileImgUrl = "https://picsum.photos/300/300/?blur";
-  var mainText = "Main Text YAY";
-  var subText = "Sub Text WOw";
+  var bio = "bio text goes here";
+  var userName = "username from firebase";
 
   //Builds New User Object
   const newUser = new User({
     userId,
+    userName,
     name,
-    mainText,
-    subText,
+    bio,
     profileImgUrl,
   });
 

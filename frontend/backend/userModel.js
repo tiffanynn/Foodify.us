@@ -8,6 +8,10 @@ const UserSchema = new Schema({
     type: String,
     required: true,
   },
+  userName: {
+    type: String,
+    required: true,
+  },
   name: {
     type: String,
     required: true,
@@ -21,14 +25,11 @@ const UserSchema = new Schema({
   recipeIdList: {
     type: [String],
   },
-  followerUserIdList: {
+  followerUserNameList: {
     type: [String],
   },
-  followingUserIdList: {
+  followingUserNameList: {
     type: [String],
-  },
-  mainText: {
-    type: String,
   },
   bio: {
     type: String,
