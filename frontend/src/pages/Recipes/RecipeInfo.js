@@ -33,7 +33,13 @@ export default function RecipeInfo(props) {
           <Col>
             <Row className="d-flex justify-content-between align-items-start">
               <Col xs={6} lg={6}>
-                <div className="hashtag">#{props.recipeData.hashTag}</div>
+                <div className="hashtag">
+                  <span>
+                    {props.recipeData.hashTagList.map((hashtag) => (
+                      <a>{hashtag} </a>
+                    ))}
+                  </span>
+                </div>
                 <h1>{props.recipeData.title}</h1>
                 <div className="time">
                   {props.recipeData.postDate} • {props.recipeData.estimatedTime}{" "}
