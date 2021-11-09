@@ -3,7 +3,12 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 // schema is the class
 
-const seedData = require("../seeddata/recipeData.js");
+var seedData = require("../seeddata/recipeData.js");
+//const seedDataExtra = require("../seeddata/recipeDataExtra.js");
+var seedDataChicken = require("../seeddata/recipeDataChicken.js");
+
+//seedData = seedData.concat(seedDataExtra);
+seedData = seedData.concat(seedDataChicken);
 
 const Recipe = require("../recipeModel");
 
@@ -11,6 +16,7 @@ function Seed() {
   Recipe.collection.drop();
   console.log("RECIPE COLLECTION DROPPED");
   console.log(seedData.length);
+
   for (i = 0; i < seedData.length; i++) {
     console.log(i);
     const title = seedData[i].name;

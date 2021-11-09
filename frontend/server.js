@@ -37,11 +37,10 @@ db.once("open", function () {
 
   /* UNCOMMENT BELOW TO SEED FRESH RECIPE TABLE ***** WARNING: ALL SAVED DB DATA IS LOST ******* */
   /* IGNORE INGREDIENT ERRORS, SAVE CONSOLE STATEMENTS MAY LAG  */
-  /*
+
   console.log("BEGINNING SEED: ");
   var seeder = require("./backend/seeder/recipeSeeder");
   console.log("SEED COMPLETED");
-  */
 });
 
 //SERVER API REQUESTS FROM OTHER FILES:
