@@ -1,0 +1,42 @@
+.username{
+    font-family: Ramabhadra;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 50px;
+    line-height: 95px;
+    letter-spacing: 0.01em;
+    
+    color: #3D3D3D;
+    }
+    
+    .bio{
+    font-family: Raleway;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 20px;
+    line-height: 23px;
+    letter-spacing: 0.01em;
+    
+    color: #919191;
+    }
+    
+    .info{
+    font-family: Raleway;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 30px;
+    line-height: 35px;
+    text-align: right;
+    
+    color: #000000;
+    }
+    
+    .text{
+    font-family: Raleway;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 20px;
+    line-height: 23px;
+    
+    color: #000000;
+    }
