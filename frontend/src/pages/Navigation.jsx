@@ -26,11 +26,21 @@ const noSpacingStyle = {
 
 
 function Navigation(props) {
-    const isLoggedIn = true;
+    const isAnonymous = true;
     const { logout, currentUser, login, signup } = useAuth();
     const history = useHistory();
     const [error, setError] = useState("");
 
+    let [showEntry, setshowEntry] = useState(false);
+    useEffect(()=>{
+        if(currentUser){
+            setshowEntry(true);
+        } else{
+            setshowEntry(false);
+        }
+    })
+    
+    // Logging out user from Profile
     async function logoutSession(){
         setError("")
         try {
@@ -107,9 +117,9 @@ function Navigation(props) {
                     </Navbar.Brand>
                 
                 <div className="justify-content-end">
-                    {isLoggedIn && <Button id="btn" component={Link} to="/Login">Login</Button>}
-                    {isLoggedIn && <Button id="btn" component={Link} to="/Register">Register</Button>}
-                    {isLoggedIn && <Button id="btn" onClick={logoutSession}>Logout</Button>}
+                        {!showEntry && <Button id="btn" component={Link} to="/Login">Login</Button>}
+                        {!showEntry && <Button id="btn" component={Link} to="/Register">Register</Button>}
+                        {showEntry && <Button id="btn" onClick={logoutSession}>Logout</Button>}
                 </div>
 
             </Container>
