@@ -16,7 +16,7 @@ const app = express();
 const port = process.env.PORT || 5000; //Runs LocalHost Server on Port 5000
 
 app.use(cors());
-app.use(express.json());
+app.use(express.json({ limit: '200mb' }));
 
 /*
  *
@@ -85,6 +85,32 @@ app.route("/recipe/:recipeID").get((req, res) => {
     )
     .catch((err) => res.status(400).json("Error: " + err));
 });
+
+app.route("/upload").post((req, res) => {
+  console.log("INCOMING RECIPE IMAGE UPLOAD REQUEST");
+
+  const filetype = req.body.filetype
+  
+  const content = Buffer.from(req.body.data, 'base64');
+  const date_ob = new Date();
+  const date = date_ob.toISOString();
+  const fileName = 'recipe_pics/' + recipeID + '/' + date + '.jpeg';
+  const params = {
+      Bucket: bucketName,
+      Key: fileName,
+      Body: content,
+      ContentType: filetype
+  };
+  try {
+      const results = new AWS.S3.ManagedUpload({ params: params });
+      results.send(function(err, data) {
+          return res.json({ s3Url: data.Location, uploadDate: date });
+      });
+      console.log('Successfully uploaded data');
+  } catch (err) {
+      console.log('Error', err);
+  }
+})
 
 /*
  *
