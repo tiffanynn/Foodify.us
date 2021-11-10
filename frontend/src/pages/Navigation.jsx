@@ -130,7 +130,8 @@ function Navigation(props) {
                                     <img src={userIcon}></img>
                                 </Dropdown.Toggle>
                                 <Dropdown.Menu>
-                                    <Dropdown.Item id="btn" href="/Edit-Profile">Edit Profile</Dropdown.Item>
+                                    <Dropdown.Item id="btn" href="/upload">Upload</Dropdown.Item>
+                                    <Dropdown.Item id="btn" href="/Edit-Profile">Setting</Dropdown.Item>
                                     <Dropdown.Item id="btn" onClick={logoutSession}>Logout</Dropdown.Item>
                                 </Dropdown.Menu>
                             </Dropdown>

@@ -23,7 +23,7 @@ function Profile() {
   //Fetches Recipe Data From API (After Component Is Rendered),
   //Saves Data to State using 'setRecipeStateData'
   useEffect(() => {
-    fetch(`http://localhost:5000/recipe/618b6b5c95087384a55e99e0`)
+    fetch(`http://localhost:5000/recipe/618b6ee435e52c167dc3ee09`)
       .then((response) => response.json())
       // Setting recipe Data to the data that we received from the response above
       .then((data) => {
