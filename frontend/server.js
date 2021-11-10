@@ -97,7 +97,6 @@ app.route("/recipe/:recipeID").get((req, res) => {
 app.route("/searchbydiet/:dietTag").get((req, res) => {
   var dietTag = req.params.dietTag;
   console.log("INCOMING FEED REQUEST", dietTag);
-
   /* QUERIES DB FOR ALL RECIPES */
   Recipe.find({ dietTagList: dietTag })
     .then((recipes) =>
@@ -106,17 +105,28 @@ app.route("/searchbydiet/:dietTag").get((req, res) => {
     .catch((err) => res.status(400).json("Error: " + err));
 });
 
-//SENDS BACK ALL RECIPES WITH CERTAIN DIET TAG
+//SENDS BACK ALL RECIPES MATCHING SEARCH OR HASHTAG
 app.route("/search/:filter").get((req, res) => {
   var filter = req.params.filter;
   console.log("INCOMING FEED REQUEST", filter);
 
-  /* QUERIES DB FOR ALL RECIPES */
-  Recipe.find({ title: { $regex: filter, $options: "i" } })
-    .then((recipes) =>
-      res.send(JSON.parse('{"recipes" : ' + JSON.stringify(recipes) + "}"))
-    )
-    .catch((err) => res.status(400).json("Error: " + err));
+  //Identifies if query is hashtag search or normal search
+  if (filter.substring(0, 1) == "#") {
+    console.log("HASHTAG QUERY", filter);
+    /* QUERIES DB FOR MATCHING HASHTAG*/
+    Recipe.find({ hashTagList: { $regex: filter, $options: "i" } })
+      .then((recipes) =>
+        res.send(JSON.parse('{"recipes" : ' + JSON.stringify(recipes) + "}"))
+      )
+      .catch((err) => res.status(400).json("Error: " + err));
+  } else {
+    /* QUERIES DB FOR MATCHING RECIPE NAME*/
+    Recipe.find({ title: { $regex: filter, $options: "i" } })
+      .then((recipes) =>
+        res.send(JSON.parse('{"recipes" : ' + JSON.stringify(recipes) + "}"))
+      )
+      .catch((err) => res.status(400).json("Error: " + err));
+  }
 });
 
 /*

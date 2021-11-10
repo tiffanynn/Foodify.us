@@ -11,6 +11,7 @@ const searchValueTextDivStyle = {
 };
 export default function SearchResults() {
   const { urlSearchValue } = useParams();
+  let decodedUrlSearchValue = decodeURIComponent(urlSearchValue);
   let [recipeStateData, setRecipeStateData] = useState([]); // recipeStateData Initialized to Null
 
   //Fetches Recipe Data From API (ON RENDER AND WHEN URL CHANGES)
@@ -28,7 +29,7 @@ export default function SearchResults() {
   return (
     <div>
       <div style={searchValueTextDivStyle}>
-        <p>{`Results for: ${urlSearchValue}`}</p>
+        <p>{`Results for: ${decodedUrlSearchValue}`}</p>
       </div>
 
       <div className="cards__container">
