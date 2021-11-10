@@ -130,13 +130,13 @@ export default function Login() {
                         </img>
 
                     </Button> */}
-                    <p style={{
+                    {/* <p style={{
                         color: '#767575',
                         margin: '5px',
                         fontSize: '15px'
                     }}>
                         - OR -
-                    </p>
+                    </p> */}
                     <Form onSubmit={handleSubmit}>
                         <Form.Group id="email">
                             <Form.Control
