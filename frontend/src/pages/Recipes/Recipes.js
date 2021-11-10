@@ -3,6 +3,8 @@ import React from "react";
 import RecipeInfo from "./RecipeInfo.js";
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
+import RecipeHeader from "./RecipeHeader";
+import Reviews from "./Review";
 
 export default function Recipe() {
   const { urlRecipeId } = useParams();
@@ -25,8 +27,11 @@ export default function Recipe() {
       {recipeStateData.length == 0 ? (
         <div>Loading Recipe</div>
       ) : (
+        //<RecipeHeader headerData={recipeStateData.recipe[0]} />
         <RecipeInfo recipeData={recipeStateData.recipe[0]} />
       )}
+      <Reviews/>
+
     </div>
   );
 }
