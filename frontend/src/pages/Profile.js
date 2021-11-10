@@ -3,6 +3,9 @@ import ProfileInfo from "./ProfileInfo";
 import RecipeInfo from "./Recipes/RecipeInfo";
 import Comment from "./Comment";
 
+import { useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
+
 function Profile() {
 
   const ProfileData = {
@@ -14,30 +17,29 @@ function Profile() {
 
   };
 
-  const recipeData = {
-    ID: "1234",
-    Hashtag: "francofoodtips",
-    Title: "Why is it so hard to make cereal ?",
-    Date: "2021-05-18",
-    Rating: "4.2/5",
-    EstimatedTime: "20 minutes",
-    IngredientsList: [
-      "2 cups Cereal Grain",
-      "1 pint of oat milk",
-      "ground wild almond",
-      "flax seeds",
-    ],
-    DietTags: ["pescatarian", "paleo"],
-    Story:
-      "Your eyes crack open, the room is bright. It’s 10 Am, and you’ve slept through all 3 of your alarms. Karen, your mother-in-law will be coming for brunch in just half an hour. You’re feeling anxious, but you have just the right recipe. Cereal. Gently lower your grain of choice into a round bowl. Lather top with fresh milk. Finish with toppings. Serve cold.",
-    ImageURL:
-      "https://img.buzzfeed.com/tasty-app-user-assets-prod-us-east-1/recipes/feaa97ad73e74183b4af84e2fafd8c68.png",
-  };
+  const { urlRecipeId } = useParams();
+  let [recipeStateData, setRecipeStateData] = useState([]); // recipeStateData Initialized to Null
+
+  //Fetches Recipe Data From API (After Component Is Rendered),
+  //Saves Data to State using 'setRecipeStateData'
+  useEffect(() => {
+    fetch(`http://localhost:5000/recipe/618b6b5c95087384a55e99e0`)
+      .then((response) => response.json())
+      // Setting recipe Data to the data that we received from the response above
+      .then((data) => {
+        console.log("RECIEVED API RESPONSE RECIPE DATA: ", data);
+        setRecipeStateData(data);
+      });
+  }, []);
 
     return (
       <div>
         <ProfileInfo ProfileData={ProfileData} />
-        {/* <RecipeInfo recipeData={recipeData} /> */}
+        {recipeStateData.length == 0 ? (
+          <div>Loading Recipe</div>
+        ) : (
+          <RecipeInfo recipeData={recipeStateData.recipe[0]} />
+        )}
         <Comment/>
       </div>
     );
