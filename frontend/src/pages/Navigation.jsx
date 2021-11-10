@@ -1,17 +1,19 @@
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { Button } from "@material-ui/core";
 import { Link, withRouter, useHistory } from "react-router-dom";
 
 import { useAuth } from "../config/Authentication.js";
 
 import Grid from "@material-ui/core/Grid";
-import { Navbar, Nav, Container } from 'react-bootstrap';
+import { Navbar, Nav, Container, Dropdown } from 'react-bootstrap';
 
 
 import SearchArea from './SearchArea'
 import './Navigation.css';
 import logo from '../Images/logo.png';
+import userIcon from '../Images/user-icon.jpg';
+import DropdownMenu from "@restart/ui/esm/DropdownMenu";
 
 const noSpacingStyle = {
     padding: "4px",
@@ -50,7 +52,9 @@ function Navigation(props) {
             setError("Can't Logout")
         }
     }
-
+    // Drop Down Menu Attempt
+    let [Active, setActive] = useState(false);
+    const toggleActive = () => setActive(!Active);
     
 
     let [NavbarContainerStyle, setNavbarContainerStyle] = useState({}); 
@@ -120,8 +124,18 @@ function Navigation(props) {
                         {!showEntry && <Button id="btn" component={Link} to="/Login">Login</Button>}
                         {!showEntry && <Button id="btn" component={Link} to="/Register">Register</Button>}
                         {showEntry && <Button id="btn" component={Link} to="/Profile">Profile</Button>}
-                        {showEntry && <Button id="btn" component={Link} to="/Edit-Profile">Setting</Button>}
-                        {showEntry && <Button id="btn" onClick={logoutSession}>Logout</Button>}
+                        {showEntry && 
+                            <Dropdown>
+                                <Dropdown.Toggle variant="success" id="dropdown-basic"> 
+                                    <img src={userIcon}></img>
+                                </Dropdown.Toggle>
+                                <Dropdown.Menu>
+                                    <Dropdown.Item id="btn" href="/Edit-Profile">Edit Profile</Dropdown.Item>
+                                    <Dropdown.Item id="btn" onClick={logoutSession}>Logout</Dropdown.Item>
+                                </Dropdown.Menu>
+                            </Dropdown>
+                        }
+                        
                 </div>
 
             </Container>
