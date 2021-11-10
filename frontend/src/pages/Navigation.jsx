@@ -126,8 +126,17 @@ function Navigation(props) {
                         {showEntry && <Button id="btn" component={Link} to="/Profile">Profile</Button>}
                         {showEntry && 
                             <Dropdown>
-                                <Dropdown.Toggle variant="success" id="dropdown-basic"> 
-                                    <img src={userIcon}></img>
+                            <Dropdown.Toggle img src={userIcon} variant="success" id="dropdown-basic"
+                                    style={{
+                                        width:"50px",
+                                        height:"50px",
+                                        borderRadius:"400px"
+                                    }}
+                                > 
+                                    <img src={userIcon} 
+                                        width="50px"
+                                        height="50px"
+                                    ></img>
                                 </Dropdown.Toggle>
                                 <Dropdown.Menu>
                                     <Dropdown.Item id="btn" href="/upload">Upload</Dropdown.Item>
