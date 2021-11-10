@@ -20,7 +20,8 @@ function SearchArea() {
   const history = useHistory();
   function newSearch(searchValue) {
     console.log("NEW SEARCH: ", searchValue);
-    history.push(`/search/${searchValue}`);
+    var encodedSearchValue = encodeURIComponent(searchValue);
+    history.push(`/search/${encodedSearchValue}`);
 
     //Fetches Recipe Data From API (After Component Is Rendered),
     //Saves Data to State using 'setRecipeStateData'
