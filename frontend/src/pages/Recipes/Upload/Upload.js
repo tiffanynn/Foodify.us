@@ -2,6 +2,7 @@ import { React, useRef, useState } from "react";
 import { Container, Button, Row, Col, Form } from "react-bootstrap";
 import { VscChromeClose } from "react-icons/vsc";
 import image from "../../../Images/food_cropped.png";
+import axios from "axios";
 
 import "./Upload.css";
 import "../Recipes.css";
@@ -21,6 +22,7 @@ export default function UploadRecipe() {
     const [tempIngredient, setTemp] = useState("")
     const [ingredient, setIngredients] = useState([])
     const [description, setDescription] = useState("")
+    const [recipeImage, setRecipeImage] = useState(null)
     
     const addHashtag = () =>{
         var temp = [...hashtag]
@@ -57,12 +59,51 @@ export default function UploadRecipe() {
         }
     }
 
+    //called when user clicks on the file input and selects a picture
+    //sets the RecipeImage state variable but doesn't do anything with backend/S3
+    const handleUploadRecipe = (e) => {
+        if(e.target.files[0].type === "image/jpeg"){
+            setRecipeImage(e.target.files)
+        }
+    }
+
+    //called when user clicks on Submit button
+    //sends image data to backend which will handle uploading to S3
+    const uploadRecipe = (recipe, filetype) => {
+        return axios.post('http://localhost:5000/upload', { data: recipe, type: filetype }).then(res => {
+            return res;
+        });
+    }
+
     const handleSubmit = (e) => {
         //uncomment if u dont want the page to refresh and reset on form submit
-        // e.preventDefault()
+        // e.prevs2entDefault()
         console.log("clicked handle submit")
         console.log(title)
 
+        if(recipeImage !== null){
+            // upload resume to s3 bucket
+            const reader = new FileReader();
+            reader.readAsDataURL(recipeImage[0]);
+            reader.onload = async (e) => {
+                const json = JSON.stringify({
+                    dataURL: reader.result
+                });
+                const base64 = JSON.parse(json).dataURL;
+                const filetype = recipeImage[0].type;
+                const newBase64 = base64.replace(`data:${filetype};base64,`, '');
+                const res = await uploadRecipe(newBase64, filetype);
+                // save recipe to mongodb
+                // const resumeData = {
+                //     link: res.data.s3Url,
+                //     uploadDate: res.data.uploadDate,
+                //     email: email,
+                //     major: info.major
+                // };
+                // await saveResume(resumeData);
+                setRecipeImage(null);
+            };
+        }
     }
 
     return(
@@ -164,6 +205,15 @@ export default function UploadRecipe() {
                             </Form.Group>
                         </Col>
                         <Col>
+                            <Form.Group className="mb-3">
+                                <Form.Label>Upload</Form.Label>
+                                <Form.Control type="file"
+                                style={{
+                                    width: '75%'
+                                }}
+                                onChange={handleUploadRecipe}
+                                />
+                            </Form.Group>
                             <Form.Group id = "body">
                                 <Form.Control as="textarea"
                                     type="body" 
@@ -177,7 +227,7 @@ export default function UploadRecipe() {
                                         border: '1px solid #1DE19B',
                                         borderRadius: '40px',
                                         height: '360px',
-                                        width: '500px'
+                                        width: '75%'
                                     }}>
                                 </Form.Control>
                                 {}
