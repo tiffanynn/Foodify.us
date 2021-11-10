@@ -145,7 +145,7 @@ export default function Register(){
                     }}>
                         <Link to="/Login">  Already have an account? Login here </Link>
                     </li>
-                    <Button type="googleAPI"
+                    {/* <Button type="googleAPI"
                         style={{
                             color: '#767575',
                             background: 'white',
@@ -169,7 +169,7 @@ export default function Register(){
                             height="25px">
                         </img>
 
-                    </Button>
+                    </Button> */}
                     <p style={{
                         color: '#767575',
                         margin: '5px',
