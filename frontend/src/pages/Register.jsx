@@ -78,7 +78,7 @@ export default function Register(){
         //           }
         //       })
             
-        history.push("/profile") //goes to home page
+        history.push("/Edit-Profile") //goes to edit profile page
       } catch {
         setError("Failed to create an account")
       }
