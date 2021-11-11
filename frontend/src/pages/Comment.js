@@ -9,33 +9,7 @@ function Comment() {
 
         <div>
       <Container className="mt-5">
-        <Row>
-          <Col lg={2}>
- 
-          </Col>
-          <Col>
-            <Row className="d-flex justify-content-between align-items-start">
-              <Col xs={6} lg={6}>
 
-              </Col>
-              <Col>
-
-              </Col>
-            </Row>
-
-            <Row>
-              <Col>
-              </Col>
-              <Col>
-                <Row>
-                  <Col>
-                  </Col>
-                  <Col>
-                  </Col>
-                </Row>
-                <Row></Row>
-              </Col>
-            </Row>
             <Row>
               <Col xs={6}>
                   
@@ -81,8 +55,6 @@ function Comment() {
                 </div> */}
               </Col>
             </Row>
-          </Col>
-        </Row>
       </Container>{" "}
     </div>
 
