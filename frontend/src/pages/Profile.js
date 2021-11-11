@@ -2,6 +2,7 @@ import React from "react";
 import ProfileInfo from "./ProfileInfo";
 import RecipeInfo from "./Recipes/RecipeInfo";
 import Comment from "./Comment";
+import { Container, Row, Col, Image } from "react-bootstrap";
 
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
@@ -23,7 +24,8 @@ function Profile() {
   //Fetches Recipe Data From API (After Component Is Rendered),
   //Saves Data to State using 'setRecipeStateData'
   useEffect(() => {
-    fetch(`http://localhost:5000/recipe/618c43d52ed83e9863849dac`)
+    fetch(`http://localhost:5000/recipe/618c4e5f37bbd6452a312144
+    `)
       .then((response) => response.json())
       // Setting recipe Data to the data that we received from the response above
       .then((data) => {
@@ -33,15 +35,20 @@ function Profile() {
   }, []);
 
     return (
-      <div>
-        <ProfileInfo ProfileData={ProfileData} />
-        {recipeStateData.length == 0 ? (
-          <div>Loading Recipe</div>
-        ) : (
-          <RecipeInfo recipeData={recipeStateData.recipe[0]} />
-        )}
-        <Comment/>
-      </div>
+      <Container className="mt-5">
+        <Row><ProfileInfo ProfileData={ProfileData} /></Row>
+        <Row>
+          <Col lg={2}></Col>
+          <Col>
+            {recipeStateData.length == 0 ? (
+              <div>Loading Recipe</div>
+            ) : (
+              <RecipeInfo recipeData={recipeStateData.recipe[0]} />
+            )}
+            <Comment/>
+          </Col></Row>
+        
+      </Container>
     );
   }
   

@@ -14,23 +14,6 @@ export default function RecipeInfo(props) {
 
   return (
     <div>
-      <Container className="mt-5">
-        <Row>
-          <Col lg={2}>
-            {/* <Image
-              src="https://64.media.tumblr.com/2f9e574d84ab082f1f16b96812d38c75/tumblr_oappq7XwlE1utr0aro8_250.png"
-              width={100}
-              height={100}
-              roundedCircle
-            />
-            <br></br>
-            <Button variant="outlined" id="outlined">
-              Follow
-            </Button>
-            <br></br>
-            Franco Thomas */}
-          </Col>
-          <Col>
             <Row className="d-flex justify-content-between align-items-start">
               <Col xs={6} lg={6}>
                 <div className="hashtag">
@@ -101,32 +84,7 @@ export default function RecipeInfo(props) {
                 </div>
               </Col>
             </Row>
-
-            {/* <div className="mt-3">
-              <Button variant="outlined" id="leave_review" className="mx-3">
-                Leave a Review
-              </Button>
-              <Button variant="text" id="save">
-                Save
-              </Button>
-            </div> */}
-            <Row>
-              <Col xs={6}>
-                {/* <h2>Reviews and Remarks</h2>
-                hello world
-                <div className="review">
-                  <div className="review_text">
-                    <div className="reviews">
-                      feel like cooking? leave your thoughts?
-                    </div>
-                    <div className="rating">_/5 stars</div>
-                  </div>
-                </div> */}
-              </Col>
-            </Row>
-          </Col>
-        </Row>
-      </Container>{" "}
+    {" "}
       {/* <div className="d-flex justify-content-end">
         <img src={image} style={{ width: "auto", height: "600px" }}></img>
       </div> */}
