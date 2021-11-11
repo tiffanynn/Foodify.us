@@ -95,8 +95,8 @@ app.route("/upload").post((req, res) => {
   const hashtag = req.body.hashtag
   const ingredient = req.body.ingredient
   const description = req.body.description
-  const date = Date()
-
+  const date_ob = new Date();
+  const date = date_ob.toISOString();
   const JSON = {"title" : title, "hashtagList": hashtag, "postDate": date,
                "estimatedTime": prepTime,"ingredientList": ingredient, 
                "dietTagList": selectedTags, "story": description}
@@ -105,8 +105,7 @@ app.route("/upload").post((req, res) => {
   const filetype = req.body.filetype
   
   const content = Buffer.from(req.body.data, 'base64');
-  const date_ob = new Date();
-  const date = date_ob.toISOString();
+
   const fileName = 'recipe_pics/' + recipeID + '/' + date + '.jpeg';
   const params = {
       Bucket: bucketName,
