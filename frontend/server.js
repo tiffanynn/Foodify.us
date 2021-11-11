@@ -89,6 +89,19 @@ app.route("/recipe/:recipeID").get((req, res) => {
 app.route("/upload").post((req, res) => {
   console.log("INCOMING RECIPE IMAGE UPLOAD REQUEST");
 
+  const title = req.body.title
+  const prepTime = req.body.estimatedTime
+  const selectedTags = req.body.selectedTags
+  const hashtag = req.body.hashtag
+  const ingredient = req.body.ingredient
+  const description = req.body.description
+  const date = Date()
+
+  const JSON = {"title" : title, "hashtagList": hashtag, "postDate": date,
+               "estimatedTime": prepTime,"ingredientList": ingredient, 
+               "dietTagList": selectedTags, "story": description}
+
+
   const filetype = req.body.filetype
   
   const content = Buffer.from(req.body.data, 'base64');

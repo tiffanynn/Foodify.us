@@ -11,11 +11,11 @@ export default function UploadRecipe() {
     const tags =["vegan", "keto friendly", "paleo", "atkins", "calorie lite",
         "pescatarian", "vegetarian"];
     const titleRef = useRef()
-    const subTitleRef = useRef()
+    const timeRef = useRef()
     const infoRef = useRef()
 
     const [title, setTitle] = useState("")
-    const [subtitle, setSubTitle] = useState("")
+    const [estimatedPrepTime, setEstimatedTime] = useState("")
     const [selectedTags, setTags] = useState([])
     const [tempHashtag, setTempHashTag] = useState("")
     const [hashtag, setHashtags] = useState([])
@@ -70,7 +70,16 @@ export default function UploadRecipe() {
     //called when user clicks on Submit button
     //sends image data to backend which will handle uploading to S3
     const uploadRecipe = (recipe, filetype) => {
-        return axios.post('http://localhost:5000/upload', { data: recipe, type: filetype }).then(res => {
+        return axios.post('http://localhost:5000/upload', {
+            title: title,
+            estimatedTime: estimatedPrepTime,
+            selectedTags: selectedTags, 
+            hashtag: hashtag,
+            ingredient: ingredient,
+            description: description, 
+            data: recipe, 
+            type: filetype 
+        }).then(res => {
             return res;
         });
     }
@@ -136,9 +145,9 @@ export default function UploadRecipe() {
                                 </Form.Control>
                                 <Form.Control 
                                     type="title" 
-                                    placeholder = "sub title" 
-                                    ref={subTitleRef} required 
-                                    onChange= {e => setSubTitle(e.target.value)}
+                                    placeholder = "prep time" 
+                                    ref={timeRef} required 
+                                    onChange= {e => setEstimatedTime(e.target.value)}
                                     style={{
                                         color: 'black',
                                         fontFamily: "Raleway",
