@@ -129,9 +129,8 @@ function Navigation(props) {
                                 style={{
                                     // position: "absolute",
                                     // flexDirection:"row"
-                                    alignItems: "center"
+                                    justifyContent:"end"
                                 }}>
-                                
                                     <Dropdown.Toggle
                                         style={{
                                             outline: "none",
@@ -139,14 +138,13 @@ function Navigation(props) {
                                             height: "55px",
                                             position: "fixed",
                                             background: "transparent",
+                                            color:"transparent", //for the triangle
                                             display: "block",
                                             borderColor: "#c7f4e2",
                                             borderWidth: "0px",
                                             borderRadius: "400px"
                                         }}
-                                    > 
-                                    
-                                    </Dropdown.Toggle>
+                                    ></Dropdown.Toggle>
                                 <img src={userIcon}
                                     style={{
                                         width: "58px",
@@ -156,7 +154,6 @@ function Navigation(props) {
                                         borderRadius: "400px"
                                         // position: "absolute"
                                     }}
-
                                 ></img>
                                 </Container>
                                 <Dropdown.Menu>
