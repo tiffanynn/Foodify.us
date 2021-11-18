@@ -3,10 +3,11 @@ const express = require("express");
 
 //idk why but it works
 const cors = require("cors");
-
+const url = require("url");
 const mongoose = require("mongoose");
 const Recipe = require("./backend/recipeModel");
 const User = require("./backend/userModel");
+const querystring = require("querystring");
 
 // MONGODB CREDENTIALS
 const dotenv = require("dotenv");
@@ -17,6 +18,9 @@ const port = process.env.PORT || 5000; //Runs LocalHost Server on Port 5000
 
 app.use(cors());
 app.use(express.json());
+
+//maybe helps parsing params issues
+app.set("query parser", "extended");
 
 /*
  *
@@ -107,9 +111,21 @@ app.route("/searchbydiet/:dietTag").get((req, res) => {
 
 //SENDS BACK ALL RECIPES MATCHING SEARCH OR HASHTAG
 app.route("/search/:filter").get((req, res) => {
-  var filter = req.params.filter;
-  console.log("INCOMING FEED REQUEST", filter);
+  let parsedUrl = url.parse(req.params);
+  let parsedQs = querystring.parse(parsedUrl.query);
 
+  // var filter = req.params.filter;
+  // var filterQuery = req.query;
+  console.log("HERE", parsedQs);
+  // console.log("HERE filterQuery", filterQuery.query);
+  // console.log("HERE dietTags", filterQuery.dietTags);
+  //var dietTags = req.params.dietTags;
+  // console.log("PARAMS: ", req.params);
+  // console.log("INCOMING FEED REQUEST", filter, "DIET TAGS: ");
+  // for (let i = 0; i < filter.length(); i++) {
+  //   if
+  // }
+  // var searchWord =
   //Identifies if query is hashtag search or normal search
   if (filter.substring(0, 1) == "#") {
     console.log("HASHTAG QUERY", filter);
@@ -121,7 +137,9 @@ app.route("/search/:filter").get((req, res) => {
       .catch((err) => res.status(400).json("Error: " + err));
   } else {
     /* QUERIES DB FOR MATCHING RECIPE NAME*/
-    Recipe.find({ title: { $regex: filter, $options: "i" } })
+    Recipe.find({
+      title: { $regex: filter, $options: "i" },
+    })
       .then((recipes) =>
         res.send(JSON.parse('{"recipes" : ' + JSON.stringify(recipes) + "}"))
       )
