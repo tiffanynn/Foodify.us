@@ -157,10 +157,10 @@ function Navigation(props) {
                                 ></img>
                                 </Container>
                                 <Dropdown.Menu>
-                                    <Dropdown.Item id="btn" href="/Profile">Profile</Dropdown.Item>
-                                    <Dropdown.Item id="btn" href="/upload">Upload</Dropdown.Item>
-                                    <Dropdown.Item id="btn" href="/Edit-Profile">Setting</Dropdown.Item>
-                                    <Dropdown.Item id="btn" onClick={logoutSession}>Logout</Dropdown.Item>
+                                    <Dropdown.Item id="btn" href="/Profile" style={{ background: "transparent" }}>Profile</Dropdown.Item>
+                                    <Dropdown.Item id="btn" href="/upload" style={{ background: "transparent" }}>Upload</Dropdown.Item>
+                                    <Dropdown.Item id="btn" href="/Edit-Profile" style={{ background: "transparent" }}>Setting</Dropdown.Item>
+                                    <Dropdown.Item id="btn" onClick={logoutSession} style={{ background: "transparent" }}>Logout</Dropdown.Item>
                                 </Dropdown.Menu>
                             </Dropdown>
                             // <DropdownMenu> 
