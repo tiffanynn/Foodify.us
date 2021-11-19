@@ -79,8 +79,6 @@ function Seed() {
     }
     const imgUrl = seedData[i].thumbnail_url;
     const userName = "defaultUser";
-    const imgParamBucket = "";
-    const imgParamKey = "";
 
     const newRecipe = new Recipe({
       title,
@@ -91,9 +89,7 @@ function Seed() {
       dietTagList,
       story,
       imgUrl,
-      userName,
-      imgParamBucket,
-      imgParamKey
+      userName
     });
 
     newRecipe.save().then(() => console.log(`recipe: ${title}, saved`));
