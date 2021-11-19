@@ -33,5 +33,21 @@ npm i --save material-ui-search-bar
 
 npm install react-bootstrap-dropdown-menu --save
 
+npm install @aws-sdk/client-s3
+
+
+## For Amazon S3
+Create a folder in your user on any OS called: `.aws`. This is what it should look like:
+![image](https://user-images.githubusercontent.com/38818071/142620898-2a3f43f8-5eec-4b76-87dc-2ff50ba4aa33.png)
+
+
+Please create a file on Notepad with these credentials inside:
+```
+[default]
+aws_access_key_id=AKIA2SODDWRKSJ3KYGF3
+aws_secret_access_key=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
+```
+When saving this file, follow this: https://www.techwalla.com/articles/how-to-create-a-file-without-an-extension-with-notepad. Save this file as `"credentials"`
+
 ## Cmds to run the project from bundle
 Please read over frontend/README.md

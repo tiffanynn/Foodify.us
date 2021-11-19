@@ -17,7 +17,7 @@ const app = express();
 const port = process.env.PORT || 5000; //Runs LocalHost Server on Port 5000
 
 app.use(cors());
-app.use(express.json());
+app.use(express.json({ limit: '200mb' }));
 
 //maybe helps parsing params issues
 app.set("query parser", "extended");
@@ -27,6 +27,30 @@ app.set("query parser", "extended");
  *
  *
  */
+/** AWS setup */
+// Import required AWS SDK clients and commands for Node.js
+const {
+  S3Client,
+  PutObjectCommand,
+  ListBucketsCommand,
+  GetObjectCommand
+} = require('@aws-sdk/client-s3');
+
+// Set the AWS region
+const REGION = 'us-west-1';
+
+// Set the bucket parameters
+const bucketName = 'foodify';
+const bucketParams = { Bucket: bucketName };
+
+const AWS = require('aws-sdk');
+AWS.config.update({
+    accessKeyId: process.env.AWS_S3_ACCESS_KEY_ID,
+    secretAccessKey: process.env.AWS_S3_SECRET_ACCESS_KEY,
+    region: 'us-west-1'
+});
+let aws3 = new AWS.S3({ params: { Bucket: bucketName } });
+
 /********************** MONGODB DATABASE SETUP / CONNECTION AND USER SEEDING RELATED CODE: *****************************/
 const connectionString = `mongodb+srv://${process.env.MONGODB_USERNAME}:${process.env.MONGODB_PASSWORD}@foodifycluster.vcg2j.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`;
 mongoose.connect(connectionString, {
@@ -89,6 +113,51 @@ app.route("/recipe/:recipeID").get((req, res) => {
     )
     .catch((err) => res.status(400).json("Error: " + err));
 });
+
+app.route("/upload").post( async(req, res) => {
+  console.log("INCOMING RECIPE IMAGE UPLOAD REQUEST");
+
+  const title = req.body.title
+  const prepTime = req.body.estimatedTime
+  const selectedTags = req.body.selectedTags
+  const hashtag = req.body.hashtag
+  const ingredient = req.body.ingredient
+  const description = req.body.description
+  const date_ob = new Date();
+  const date = date_ob.toISOString();
+  const ID = req.body.userName.uid
+  const JSON = {"title" : title, "hashTagList": hashtag, "postDate": date,
+               "estimatedTime": prepTime,"ingredientList": ingredient, 
+               "dietTagList": selectedTags, "story": description, "userName": ID}
+
+  const filetype = req.body.filetype
+  
+  const content = Buffer.from(req.body.data, 'base64');
+
+  const fileName = 'recipe_pics/' + ID + '/' + date + '.jpeg';
+  const params = {
+      Bucket: bucketName,
+      Key: fileName,
+      Body: content,
+      ContentType: filetype
+  };
+  try {
+      const results = new AWS.S3.ManagedUpload({ params: params });
+      var s3Url
+      results.send(async function(err, data) {
+          s3Url = data.Location
+                // console.log(s3Url)
+          JSON["imgUrl"] = s3Url
+          const collection = db.collection("recipes")
+          const insertResult = await collection.insertOne(JSON)
+          return res.json({ s3Url: data.Location, uploadDate: date });
+      });
+      console.log('Successfully uploaded data to S3');
+
+  } catch (err) {
+      console.log('Error', err);
+  }
+})
 
 /*
  *

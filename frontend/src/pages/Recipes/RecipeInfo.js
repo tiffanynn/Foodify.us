@@ -42,7 +42,7 @@ export default function RecipeInfo(props) {
                   <img
                     src={props.recipeData.imgUrl}
                     width="550"
-                    height="400"
+                    max-height="400"
                   ></img>
                 </div>
               </Col>
@@ -85,9 +85,6 @@ export default function RecipeInfo(props) {
               </Col>
             </Row>
     {" "}
-      {/* <div className="d-flex justify-content-end">
-        <img src={image} style={{ width: "auto", height: "600px" }}></img>
-      </div> */}
     </div>
   );
 }

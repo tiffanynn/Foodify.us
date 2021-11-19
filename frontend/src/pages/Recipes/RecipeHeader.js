@@ -5,7 +5,20 @@ import { Container, Row, Col, Image } from "react-bootstrap";
 import "./Recipes.css";
 
 export default function RecipeHeader(props) {
-  
+    // props.recipeData.recipe
+    // const { urlRecipeId } = useParams();
+    // let [userData, setUserData] = useState([]);
+    // useEffect(() => {
+    //     fetch(`http://localhost:5000/recipe/${urlRecipeId}`)
+    //       .then((response) => response.json())
+    //       // Setting recipe Data to the data that we received from the response above
+    //       .then((data) => {
+    //         console.log("RECIEVED API RESPONSE RECIPE DATA: ", data);
+    //         setUserData(data);
+    //       });
+    //   }, []);
+
+    // user_id = props.recipeData.userName
     return (
       <div>
           <Row>

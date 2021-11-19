@@ -18,7 +18,6 @@ export default function Reviews(){
                 <Row>
                   <Col xs={6}>
                     <h2>Reviews and Remarks</h2>
-                    hello world
                     <div className="review">
                       <div className="review_text">
                         <div className="reviews">
