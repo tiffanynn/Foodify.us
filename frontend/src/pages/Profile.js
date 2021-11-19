@@ -25,6 +25,7 @@ function Profile() {
   //Saves Data to State using 'setRecipeStateData'
   useEffect(() => {
     fetch(`http://localhost:5000/recipe/618d98cabd1ead865d55d186
+
     `)
       .then((response) => response.json())
       // Setting recipe Data to the data that we received from the response above

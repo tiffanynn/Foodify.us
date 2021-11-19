@@ -43,6 +43,12 @@ const RecipeSchema = new Schema({
   userName: {
     type: String,
   },
+  imgParamBucket: {
+    type: String,
+  },
+  imgParamKey: {
+    type: String,
+  },
 });
 
 const Recipe = mongoose.model("Recipe", RecipeSchema);

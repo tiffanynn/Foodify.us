@@ -123,31 +123,44 @@ function Navigation(props) {
                 <div className="justify-content-end">
                         {!showEntry && <Button id="btn" component={Link} to="/Login">Login</Button>}
                         {!showEntry && <Button id="btn" component={Link} to="/Register">Register</Button>}
-                        {/* {showEntry && <Button id="btn" component={Link} to="/Profile">Profile</Button>} */}
                         {showEntry && 
-                            <Dropdown>
-                                <Dropdown.Toggle
+                        <Dropdown>
+                            <Container 
+                                style={{
+                                    // position: "absolute",
+                                    // flexDirection:"row"
+                                    justifyContent:"end"
+                                }}>
+                                    <Dropdown.Toggle
+                                        style={{
+                                            outline: "none",
+                                            width: "54.5px",
+                                            height: "55px",
+                                            position: "fixed",
+                                            background: "transparent",
+                                            color:"transparent", //for the triangle
+                                            display: "block",
+                                            borderColor: "#c7f4e2",
+                                            borderWidth: "0px",
+                                            borderRadius: "400px"
+                                        }}
+                                    ></Dropdown.Toggle>
+                                <img src={userIcon}
                                     style={{
-                                        width:"62px",
-                                        height:"50px",
-                                        background: "black",
-                                        border: '1px solid transparent',
-                                        align:"center"
+                                        width: "58px",
+                                        height: "54px",
+                                        background: "transparent",
+                                        outline: "none",
+                                        borderRadius: "400px"
+                                        // position: "absolute"
                                     }}
-                                > 
-                                <img src={userIcon} 
-                                    width="47px"
-                                    height="40px"
-                                    borderRadius="1000px"
-                                    background="transparent"
-                                    align="center"
                                 ></img>
-                                </Dropdown.Toggle>
+                                </Container>
                                 <Dropdown.Menu>
-                                    <Dropdown.Item id="btn" href="/Profile">Profile</Dropdown.Item>
-                                    <Dropdown.Item id="btn" href="/upload">Upload</Dropdown.Item>
-                                    <Dropdown.Item id="btn" href="/Edit-Profile">Setting</Dropdown.Item>
-                                    <Dropdown.Item id="btn" onClick={logoutSession}>Logout</Dropdown.Item>
+                                    <Dropdown.Item id="btn" href="/Profile" style={{ background: "transparent" }}>Profile</Dropdown.Item>
+                                    <Dropdown.Item id="btn" href="/upload" style={{ background: "transparent" }}>Upload</Dropdown.Item>
+                                    <Dropdown.Item id="btn" href="/Edit-Profile" style={{ background: "transparent" }}>Setting</Dropdown.Item>
+                                    <Dropdown.Item id="btn" onClick={logoutSession} style={{ background: "transparent" }}>Logout</Dropdown.Item>
                                 </Dropdown.Menu>
                             </Dropdown>
                             // <DropdownMenu> 

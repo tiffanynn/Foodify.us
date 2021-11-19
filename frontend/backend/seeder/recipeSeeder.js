@@ -55,10 +55,12 @@ function Seed() {
     //Randomly Assigns 2 unique diet Tags from our list
     const dietTags = [
       "vegan",
-      "vegetarian",
-      "paleo",
-      "pescatarian",
       "keto friendly",
+      "paleo",
+      "atkins",
+      "calorie lite",
+      "pescatarian",
+      "vegetarian",
     ];
     var dietTagList = [];
     dietTagList[0] = dietTags[Math.floor(Math.random() * dietTags.length)];
@@ -77,6 +79,8 @@ function Seed() {
     }
     const imgUrl = seedData[i].thumbnail_url;
     const userName = "defaultUser";
+    const imgParamBucket = "";
+    const imgParamKey = "";
 
     const newRecipe = new Recipe({
       title,
@@ -88,6 +92,8 @@ function Seed() {
       story,
       imgUrl,
       userName,
+      imgParamBucket,
+      imgParamKey
     });
 
     newRecipe.save().then(() => console.log(`recipe: ${title}, saved`));
