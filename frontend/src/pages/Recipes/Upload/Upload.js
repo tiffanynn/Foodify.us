@@ -92,7 +92,7 @@ export default function UploadRecipe() {
 
     const handleSubmit = (e) => {
         //uncomment if u dont want the page to refresh and reset on form submit
-        // e.preventDefault()
+        // e.prevs2entDefault()
         console.log("clicked handle submit")
         console.log(title)  
 
