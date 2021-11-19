@@ -3,6 +3,8 @@ import { Container, Button, Row, Col, Form } from "react-bootstrap";
 import { VscChromeClose } from "react-icons/vsc";
 import image from "../../../Images/food_cropped.png";
 import axios from "axios";
+import { db } from "../../../firebase";
+import { useAuth } from "../../../config/Authentication.js";
 
 import "./Upload.css";
 import "../Recipes.css";
@@ -13,6 +15,9 @@ export default function UploadRecipe() {
     const titleRef = useRef()
     const timeRef = useRef()
     const infoRef = useRef()
+    const currentUser = useAuth();
+
+    // const username = db.collection("users").where('username', '==', userNameRef.current.value).get()
 
     const [title, setTitle] = useState("")
     const [estimatedPrepTime, setEstimatedTime] = useState("")
@@ -78,7 +83,8 @@ export default function UploadRecipe() {
             ingredient: ingredient,
             description: description, 
             data: recipe, 
-            type: filetype 
+            type: filetype,
+            userName: currentUser["currentUser"]
         }).then(res => {
             return res;
         });
@@ -86,9 +92,9 @@ export default function UploadRecipe() {
 
     const handleSubmit = (e) => {
         //uncomment if u dont want the page to refresh and reset on form submit
-        // e.prevs2entDefault()
+        // e.preventDefault()
         console.log("clicked handle submit")
-        console.log(title)
+        console.log(title)  
 
         if(recipeImage !== null){
             // upload resume to s3 bucket
@@ -215,7 +221,6 @@ export default function UploadRecipe() {
                         </Col>
                         <Col>
                             <Form.Group className="mb-3">
-                                <Form.Label>Upload</Form.Label>
                                 <Form.Control type="file"
                                 style={{
                                     width: '75%'

@@ -1,10 +1,13 @@
 import "./Recipes.css";
 import React from "react";
+import { Container, Row, Col } from "react-bootstrap";
 import RecipeInfo from "./RecipeInfo.js";
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import RecipeHeader from "./RecipeHeader";
 import Reviews from "./Review";
+
+import image from "../../Images/Rectangle 2.png";
 
 export default function Recipe() {
   const { urlRecipeId } = useParams();
@@ -24,14 +27,27 @@ export default function Recipe() {
 
   return (
     <div id="recipe_page">
-      {recipeStateData.length == 0 ? (
-        <div>Loading Recipe</div>
-      ) : (
-        //<RecipeHeader headerData={recipeStateData.recipe[0]} />
-        <RecipeInfo recipeData={recipeStateData.recipe[0]} />
-      )}
-      <Reviews/>
-
+      <div>
+          {recipeStateData.length == 0 ? (
+          <div>Loading Recipe</div>
+        ) : (
+          <Container className="mt-5">
+            <Row><Col lg={2}>
+            <RecipeHeader headerData={recipeStateData.recipe[0]} />
+            </Col>
+            <Col>
+            <RecipeInfo recipeData={recipeStateData.recipe[0]} /><Row><Reviews/></Row>
+          </Col></Row>
+            
+          <div className="d-flex justify-content-end">
+            <img src={image} style={{ width: "auto", height: "600px" }}></img>
+          </div>
+         </Container>
+          
+        )}
+        
+    </div>   
     </div>
+    
   );
 }

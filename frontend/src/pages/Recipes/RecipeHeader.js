@@ -5,9 +5,22 @@ import { Container, Row, Col, Image } from "react-bootstrap";
 import "./Recipes.css";
 
 export default function RecipeHeader(props) {
-  
+    // props.recipeData.recipe
+    // const { urlRecipeId } = useParams();
+    // let [userData, setUserData] = useState([]);
+    // useEffect(() => {
+    //     fetch(`http://localhost:5000/recipe/${urlRecipeId}`)
+    //       .then((response) => response.json())
+    //       // Setting recipe Data to the data that we received from the response above
+    //       .then((data) => {
+    //         console.log("RECIEVED API RESPONSE RECIPE DATA: ", data);
+    //         setUserData(data);
+    //       });
+    //   }, []);
+
+    // user_id = props.recipeData.userName
     return (
-      <Container className="mt-5">
+      <div>
           <Row>
               <Col lg={2}>
                     <Image
@@ -23,21 +36,9 @@ export default function RecipeHeader(props) {
                 <br></br>
                 Franco Thomas
               </Col>
-              <Col>
-                    <Row className="d-flex justify-content-between align-items-start">
-                    <Col xs={6} lg={6}>
-  
-                    </Col>
-                        <Col>
-                            <div className="text" align="right">
-                            Reviewed 10 stars
-                            </div>
-                        </Col>
-                    </Row>
-              </Col>
         
           </Row>
      
-      </Container>
+      </div>
     );
   }
