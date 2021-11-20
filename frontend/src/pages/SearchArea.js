@@ -45,7 +45,7 @@ function SearchArea() {
   function newSearch(searchValue) {
     console.log("NEW SEARCH: ", searchValue);
     var encodedSearchValue = encodeURIComponent(searchValue);
-    var dietTagParams = "dietTags=" + selectedTags.join("&dietTags[]=");
+    var dietTagParams = "dietTags=" + selectedTags.join("&dietTags=");
     //var dietTagParams = "test";
     //console.log(`/search/${encodedSearchValue}/${dietTagParams}`);
     // history.push(`/search/${encodedSearchValue}/${dietTagParams}`);

@@ -5,6 +5,7 @@ const express = require("express");
 const cors = require("cors");
 const url = require("url");
 const mongoose = require("mongoose");
+const bodyParser = require("body-parser");
 const Recipe = require("./backend/recipeModel");
 const User = require("./backend/userModel");
 const querystring = require("querystring");
@@ -18,6 +19,10 @@ const port = process.env.PORT || 5000; //Runs LocalHost Server on Port 5000
 
 app.use(cors());
 app.use(express.json({ limit: "200mb" }));
+
+//ALLOWS EXPRESS TO PARSE/READ POST REQUEST BODY
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 
 //maybe helps parsing params issues
 app.set("query parser", "extended");
@@ -226,35 +231,117 @@ app.route("/search/:filter").get((req, res) => {
     //console.log("\nkey: " + param[0] + "     value: " + param[1]);
   }
 
-  //compile parameters into json object:
-  const result = {};
+  let result = {
+    dietTags: [],
+    query: "",
+  };
+
+  //compile parameters into result json object:
   for (var param of urlParams.entries()) {
-    // each 'entry' is a [key, value] tupple
-    result[param[0]] = param[1];
+    // each 'entry' is a [key, value] tupple: param[0] is the key, param[1] is the corresponding value
+    if (param[0] == "dietTags") {
+      result.dietTags.push(param[1]);
+    }
+    if (param[0] == "query") {
+      result.query = param[1];
+    }
+    //result[param[0]] = param[1];
   }
 
   console.log("FINAL RESULT OBJECT: ", result);
 
-  //Identifies if query is hashtag search or normal search
-  let filter = req.params.filter;
+  let finalQuery = {};
+
+  //SearchBox Text
+  let filter = result.query;
+  //Selected Diet Tag Array
+  let dietTagFilter = result.dietTags;
+
+  //Hashtags in SearchBox (if any)
+  let hashtagFilter = filter.match(/#[a-z]+/gi);
+
+  //ADD HASHTAGS TO QUERY (IF ANY)
+  if (!(hashtagFilter == null)) {
+    //combine Hashtags into 1 string for mongodb to process
+    hashtagFilterCombined = hashtagFilter.join("|");
+
+    finalQuery["hashTagList"] = {
+      $regex: hashtagFilterCombined,
+      $options: "i",
+    };
+
+    //remove Hashtags from filter's searchbox query text
+    var regexp = /\#\w\w+\s?/g;
+    filter = filter.replace(regexp, "");
+  }
+
+  //ADD DIET TAGS TO QUERY (IF ANY)
+  if (!(dietTagFilter.length == 0)) {
+    if (!(dietTagFilter[0] == "")) {
+      finalQuery["dietTagList"] = { $all: dietTagFilter };
+    }
+  }
+
+  finalQuery["title"] = { $regex: filter, $options: "i" };
+
+  console.log("FINAL QUERY OBJECT (PRE QUERY): ", finalQuery);
+
+  //QUERY DB WITH FINALQUERY
+  Recipe.find(finalQuery)
+    .then((recipes) => {
+      console.log("RESULT FROM DB: ", recipes);
+      res.send(JSON.parse('{"recipes" : ' + JSON.stringify(recipes) + "}"));
+    })
+    .catch((err) => res.status(400).json("Error: " + err));
+
+  /*
+  //CHECK IF QUERY IS A HASHTAG
   if (filter.substring(0, 1) == "#") {
     console.log("HASHTAG QUERY", filter);
-    /* QUERIES DB FOR MATCHING HASHTAG*/
-    Recipe.find({ hashTagList: { $regex: filter, $options: "i" } })
-      .then((recipes) =>
-        res.send(JSON.parse('{"recipes" : ' + JSON.stringify(recipes) + "}"))
-      )
-      .catch((err) => res.status(400).json("Error: " + err));
+    finalQuery[hashTagList] = { $regex: filter, $options: "i" };
   } else {
-    /* QUERIES DB FOR MATCHING RECIPE NAME*/
+  }
+  */
+
+  /*
+  if (filter.substring(0, 1) == "#") {
+    console.log("HASHTAG QUERY", filter);
+    //QUERIES DB FOR MATCHING HASHTAG
     Recipe.find({
-      title: { $regex: filter, $options: "i" },
+      hashTagList: { $regex: filter, $options: "i" },
+      dietTagList: { $all: dietTagFilter },
     })
       .then((recipes) =>
         res.send(JSON.parse('{"recipes" : ' + JSON.stringify(recipes) + "}"))
       )
       .catch((err) => res.status(400).json("Error: " + err));
+  } else {
+    // QUERIES DB FOR MATCHING RECIPE NAME
+    console.log("QUERYING FOR TITLE:", filter);
+
+    //QUERY DB WITHOUT DIET TAGS(NO DIET TAGS IN QUERY)
+    if (dietTagFilter == []) {
+      Recipe.find({
+        title: { $regex: filter, $options: "i" },
+        dietTagList: { $all: dietTagFilter },
+      })
+        .then((recipes) =>
+          res.send(JSON.parse('{"recipes" : ' + JSON.stringify(recipes) + "}"))
+        )
+        .catch((err) => res.status(400).json("Error: " + err));
+      //QUERY DB WITH DIET TAGS
+    } else {
+      Recipe.find({
+        title: { $regex: filter, $options: "i" },
+        dietTagList: { $all: dietTagFilter },
+      })
+        .then((recipes) =>
+          res.send(JSON.parse('{"recipes" : ' + JSON.stringify(recipes) + "}"))
+        )
+        .catch((err) => res.status(400).json("Error: " + err));
+    }
   }
+  */
 });
 
 /*
@@ -264,7 +351,7 @@ app.route("/search/:filter").get((req, res) => {
  */
 /************************************* USER/PROFILE RELATED ROUTES: ************************************/
 
-// SENDS BACK ALL Users IN DB
+// GET ALL USER DATA IN DB (FOR TESTING)
 app.route("/user").get((req, res) => {
   console.log("INCOMING ALL USER REQUEST");
 
@@ -276,26 +363,50 @@ app.route("/user").get((req, res) => {
     .catch((err) => res.status(400).json("Error: " + err));
 });
 
-//GET 1 USER BY USERID
+//QUERY DB FOR USER BY USER ID (FOR LOADING PROFILE OF USER CURRRENTLY LOGGED IN):
 app.route("/user/:userid").get((req, res) => {
   console.log("INCOMING REQUEST FOR USER WITH USERID: ", req.params.userid);
   var queryUserId = req.params.userid;
 
   console.log(queryUserId);
-  //QUERY DB FOR USER ID DATA:
+
   User.find({ userId: queryUserId })
     .then((user) =>
       res.send(JSON.parse('{"user" : ' + JSON.stringify(user) + "}"))
     )
-    .catch((err) => res.status(400).json("User Query Error: " + err));
+    .catch((err) => res.status(400).json("User ID Query Error: " + err));
 });
 
-//ADD GET USER BY USERNAME
+//QUERY DB FOR USER BY USERNAME (FOR VIEWING ANY USER PROFILE)
+app.route("/profile/:username").get((req, res) => {
+  console.log("INCOMING REQUEST FOR USER WITH USERNAME: ", req.params.username);
+  var queryUserName = req.params.username;
+
+  console.log(queryUserName);
+
+  User.find({ name: queryUserName })
+    .then((user) =>
+      res.send(JSON.parse('{"user" : ' + JSON.stringify(user) + "}"))
+    )
+    .catch((err) => res.status(400).json("User Name Query Error: " + err));
+});
 
 //ADD EDIT USER BY USERNAME AND SECURED USER ID
+app.route("/updateuser/").post((req, res) => {
+  User.findOne({ username: oldUsername }, function (err, user) {
+    user.username = newUser.username;
+    user.password = newUser.password;
+    user.rights = newUser.rights;
+
+    user.save(function (err) {
+      if (err) {
+        console.error("ERROR!");
+      }
+    });
+  });
+});
 
 //USER SIGNUP, ADDS USER TO USER DB
-// SENDS BACK 1 RECIPE DATA CORRESPONDING TO RECIPE ID
 app.route("/usersignup/:userID/:name").get((req, res) => {
   //GETS URL DATA FROM PARAMS
   var userId = req.params.userID;
