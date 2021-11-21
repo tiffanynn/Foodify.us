@@ -260,9 +260,6 @@ app.route("/search/:filter").get((req, res) => {
   //Hashtags in SearchBox (if any)
   let hashtagFilter = filter.match(/#[a-z]+/gi);
 
-  //Usernames in SearchBox (if any)
-  let usernameFilter = filter.match(/@[a-z]+/gi);
-
   //ADD HASHTAGS TO QUERY (IF ANY)
   if (!(hashtagFilter == null)) {
     //combine Hashtags into 1 string for mongodb to process
@@ -275,21 +272,6 @@ app.route("/search/:filter").get((req, res) => {
 
     //remove Hashtags from filter's searchbox query text
     var regexp = /\#\w\w+\s?/g;
-    filter = filter.replace(regexp, "");
-  }
-
-  //ADD USERNAMES TO QUERY (IF ANY)
-  if (!(usernameFilter == null)) {
-    //combine Usernames into 1 string for mongodb to process
-    usernameFilterCombined = usernameFilter.join("|");
-
-    finalQuery["username"] = {
-      $regex: usernameFilterCombined,
-      $options: "i",
-    };
-
-    //remove Usernames from filter's searchbox query text
-    var regexp = /\@\w\w+\s?/g;
     filter = filter.replace(regexp, "");
   }
 
