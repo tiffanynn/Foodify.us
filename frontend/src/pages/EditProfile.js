@@ -18,23 +18,6 @@ export default function EditProfile() {
   const history = useHistory();
   const isLogginActive = useRef();
 
-  /* UNCOMMENT to check DB data: Displays current user's information in console.log */
-  //  if (isLogginActive) {
-  //     usersCollection.doc(currentUser.uid).get()
-  //       .then((doc) => {
-  //         if (doc.exists) {
-  //           console.log("DATA: ", doc.data())
-  //         }
-  //         else {
-  //           console.log("ERROR")
-  //         }
-  //       }).catch(e => {
-  //         console.log("ERROR GETTING DOC", e)
-  //       })
-  //   } else{
-  //     history.push("/login")
-  //   }
-  /********************************************************************************/
   async function handleSubmit(e) {
     e.preventDefault();
 
@@ -107,6 +90,20 @@ export default function EditProfile() {
                 ref={userNameRef}
                 required
                 // defaultValue={currentUser.email}
+                placeholder = "username"
+                style={{
+                  color: 'black',
+                  fontFamily: "Raleway",
+                  background: 'white',
+                  border: '1px solid #1DE19B',
+                  borderRadius: '40px',
+                  padding: '4px 18px',
+                  alignItems: 'right',
+                  height: '35px',
+                  width: '1600px',
+                  display: 'inline',
+                  margin: '10px'
+              }}
               />
             </Form.Group>
             <Form.Group id="email">
@@ -116,6 +113,19 @@ export default function EditProfile() {
                 ref={updateEmailRef}
                 required
                 placeholder="email"
+                style={{
+                  color: 'black',
+                  fontFamily: "Raleway",
+                  background: 'white',
+                  border: '1px solid #1DE19B',
+                  borderRadius: '40px',
+                  padding: '4px 18px',
+                  alignItems: 'right',
+                  height: '35px',
+                  width: '1610px',
+                  display: 'inline',
+                  margin: '10px'
+              }}
               />
             </Form.Group>
             <Form.Group id="password">
@@ -125,11 +135,42 @@ export default function EditProfile() {
                 ref={updatePasswordRef}
                 required
                 placeholder="password"
+                style={{
+                  color: 'black',
+                  fontFamily: "Raleway",
+                  background: 'white',
+                  border: '1px solid #1DE19B',
+                  borderRadius: '40px',
+                  padding: '4px 18px',
+                  alignItems: 'right',
+                  height: '35px',
+                  width: '1600px',
+                  display: 'inline',
+                  margin: '10px'
+              }}
               />
             </Form.Group>
-            <Button disabled={loading} className="w-100" type="submit">
+            {/* <Button disabled={loading} className="w-100" type="submit">
               Update
-            </Button>
+            </Button> */}
+
+                    <Button type="submit"
+                        
+                        style={{
+                            color: 'white',
+                            fontFamily: "Raleway",
+                            background: '#1DE19B',
+                            border: '2px solid #19B47C',
+                            borderRadius: '20px',
+                            padding: '6px 18px',
+                            alignItems: 'right',
+                            margin: '10px'
+                        }}
+                        // onClick={addIngredient}
+                        // disabled={loading}
+                        >
+                        update
+                    </Button>
           </Form>
         </Card.Body>
       </Card>
