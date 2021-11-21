@@ -113,14 +113,6 @@ export default function UploadRecipe() {
                 const filetype = recipeImage[0].type;
                 const newBase64 = base64.replace(`data:${filetype};base64,`, '');
                 const res = await uploadRecipe(newBase64, filetype);
-                // save recipe to mongodb
-                // const resumeData = {
-                //     link: res.data.s3Url,
-                //     uploadDate: res.data.uploadDate,
-                //     email: email,
-                //     major: info.major
-                // };
-                // await saveResume(resumeData);
                 setRecipeImage(null);
             };
         }

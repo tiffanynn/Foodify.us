@@ -149,7 +149,7 @@ app.route("/upload").post(async (req, res) => {
     ingredientList: ingredient,
     dietTagList: selectedTags,
     story: description,
-    userName: ID,
+    userName: ID
   };
 
   const filetype = req.body.filetype;
@@ -162,7 +162,7 @@ app.route("/upload").post(async (req, res) => {
     Key: fileName,
     Body: content,
     ContentType: filetype,
-    ACL: "public-read",
+    ACL: "public-read"
   };
   try {
     const results = new AWS.S3.ManagedUpload({ params: params });
@@ -177,7 +177,7 @@ app.route("/upload").post(async (req, res) => {
         return res.json({
           s3Url: data.Location,
           uploadDate: date,
-          recipeID: JSON._id.toString(),
+          recipeID: JSON._id.toString()
         });
       });
     });
@@ -250,7 +250,7 @@ app.route("/search/:filter").get((req, res) => {
 
   let result = {
     dietTags: [],
-    query: "",
+    query: ""
   };
 
   //compile parameters into result json object:
@@ -287,7 +287,7 @@ app.route("/search/:filter").get((req, res) => {
 
     finalQuery["hashTagList"] = {
       $regex: hashtagFilterCombined,
-      $options: "i",
+      $options: "i"
     };
 
     //remove Hashtags from filter's searchbox query text
@@ -415,7 +415,7 @@ app.route("/user/:userid").get((req, res) => {
 
 //QUERY DB FOR USER BY USERNAME (FOR LOADING PROFILE):
 app.route("/user/username/:username").get((req, res) => {
-  console.log("INCOMING REQUEST FOR USER WITH USERID: ", req.params.username);
+  console.log("INCOMING REQUEST FOR USER WITH USERNAME: ", req.params.username);
   var queryUserName = req.params.username;
 
   console.log(queryUserName);
@@ -529,7 +529,7 @@ app.route("/usersignup/:userID/:name").get((req, res) => {
     userName,
     name,
     bio,
-    profileImgUrl,
+    profileImgUrl
   });
 
   //Saves New User Object To MongoDB Atlas

@@ -18,9 +18,9 @@ export default function RecipeInfo(props) {
               <Col xs={6} lg={6}>
                 <div className="hashtag">
                   <span>
-                    {props.recipeData.hashTagList.map((hashtag) => (
+                    { props.recipeData.hashTagList.map((hashtag) => (
                       <a>{hashtag} </a>
-                    ))}
+                    )) }
                   </span>
                 </div>
                 <h1>{props.recipeData.title}</h1>

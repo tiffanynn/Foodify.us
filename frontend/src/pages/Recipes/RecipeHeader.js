@@ -7,36 +7,40 @@ import { Row, Col, Image } from "react-bootstrap";
 import "./Recipes.css";
 
 export default function RecipeHeader(props) {
-
-    const { urlRecipeId } = useParams();
-    let [userData, setUserData] = useState([]);
+    const [userData, setUserData] = useState([]);
+    console.log(`http://localhost:5000/user/username/${props.headerData.userName}`)
     useEffect(() => {
-        const user_id = props.headerData.userName
-        fetch(`http://localhost:5000/user/${user_id}`)
+        const userName = props.headerData.userName
+        console.log(userName)
+        fetch(`http://localhost:5000/user/username/${userName}`)
           .then((response) => response.json())
           // Setting recipe Data to the data that we received from the response above
           .then((data) => {
             console.log("RECIEVED API RESPONSE USER DATA: ", data);
             setUserData(data);
+            console.log(data);
           });
       }, []);
-    
+    console.log(userData)
+    const profilePic = userData.user[0].profileImgUrl
+
     return (
       <div>
           <Row>
               <Col lg={2}>
                     <Image
-                        src="https://64.media.tumblr.com/2f9e574d84ab082f1f16b96812d38c75/tumblr_oappq7XwlE1utr0aro8_250.png"
+                        src= { profilePic }
                         width={100}
                         height={100}
                         roundedCircle
                     />
-                <br></br>
+                <div>
                 <Button variant="outlined" id="outlined">
                     Follow
                 </Button>
                 <br></br>
-               {  props.headerData.userName }
+               {  userData.user[0].userName }
+               </div>
               </Col>
         
           </Row>
