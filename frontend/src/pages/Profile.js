@@ -9,22 +9,23 @@ import { useEffect, useState } from "react";
 
 function Profile() {
 
-  const ProfileData = {
+  // const ProfileData = {
 
-    username : "eats_by_franco",
-    bio : "Cook the change you want to see in the world - Gandhi",
-    recipes: "49",
-    followers: "241",
+  //   username : "eats_by_franco",
+  //   bio : "Cook the change you want to see in the world - Gandhi",
+  //   recipes: "49",
+  //   followers: "241",
 
-  };
+  // };
 
   const { urlRecipeId } = useParams();
   let [recipeStateData, setRecipeStateData] = useState([]); // recipeStateData Initialized to Null
+  let [profileStateData, setProfileStateData] = useState([]);
 
   //Fetches Recipe Data From API (After Component Is Rendered),
   //Saves Data to State using 'setRecipeStateData'
   useEffect(() => {
-    fetch(`http://localhost:5000/recipe/618d98cabd1ead865d55d186
+    fetch(`http://localhost:5000/recipe/619a1a8c8f4c97accad10a76
 
     `)
       .then((response) => response.json())
@@ -35,9 +36,27 @@ function Profile() {
       });
   }, []);
 
+  useEffect(() => {
+    fetch(`http://localhost:5000/user/username/mody1username
+
+    `)
+      .then((response) => response.json())
+      // Setting recipe Data to the data that we received from the response above
+      .then((data) => {
+        console.log("RECIEVED API RESPONSE RECIPE DATA: ", data);
+        setProfileStateData(data);
+      });
+  }, []);
+
     return (
       <Container className="mt-5">
-        <Row><ProfileInfo ProfileData={ProfileData} /></Row>
+        <Row>
+          {profileStateData.length == 0 ? (
+              <div>Loading Profile</div>
+            ) : (
+              <ProfileInfo ProfileData={profileStateData.user[0]} />
+            )}
+        </Row>
         <Row>
           <Col lg={2}></Col>
           <Col>
