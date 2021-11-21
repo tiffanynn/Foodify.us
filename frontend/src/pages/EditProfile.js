@@ -1,24 +1,24 @@
 import Button from "@restart/ui/esm/Button";
 import React, { useContext, useRef, useEffect, useState } from "react";
-import Cards from "./Cards"
+import Cards from "./Cards";
 
 import { useAuth } from "../config/Authentication.js";
 import { Link, useHistory } from "react-router-dom";
-import { Form, Card, Alert } from "react-bootstrap"
+import { Form, Card, Alert } from "react-bootstrap";
 import { db, usersCollection } from "../firebase";
 
- export default function EditProfile() {
-    const {currentUser, updatePassword, updateEmail} = useAuth();
-    const [dbData, setdbData] = useState([]); // retrieving firestore db info
-    const updateEmailRef = useRef()
-    const updatePasswordRef = useRef()
-    const userNameRef = useRef()
-    const [error, setError] = useState("")
-    const [loading, setLoading] = useState(false)
-    const history = useHistory()
-    const isLogginActive = useRef()
+export default function EditProfile() {
+  const { currentUser, updatePassword, updateEmail } = useAuth();
+  const [dbData, setdbData] = useState([]); // retrieving firestore db info
+  const updateEmailRef = useRef();
+  const updatePasswordRef = useRef();
+  const userNameRef = useRef();
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
+  const history = useHistory();
+  const isLogginActive = useRef();
 
-   /* UNCOMMENT to check DB data: Displays current user's information in console.log */
+  /* UNCOMMENT to check DB data: Displays current user's information in console.log */
   //  if (isLogginActive) {
   //     usersCollection.doc(currentUser.uid).get()
   //       .then((doc) => {
@@ -34,59 +34,67 @@ import { db, usersCollection } from "../firebase";
   //   } else{
   //     history.push("/login")
   //   }
-    /********************************************************************************/
-   async function handleSubmit(e) {
-     e.preventDefault()
+  /********************************************************************************/
+  async function handleSubmit(e) {
+    e.preventDefault();
 
-     try {
-       setError("")
-       setLoading(true)
-       // Query for existing username
-       db.collection("users").where('username', '==', userNameRef.current.value).get()
-       .then((doc) =>{
-         if(!doc.empty){
-           alert("username already exists")
-           console.log("ERROR: username already exists")
-         } else {
-           // UPDATES FIRESTORE DB fields
-           db.collection("users").doc(currentUser.uid).update({
-             // email: "atk12345@gmail.com"
-             email: updateEmailRef.current.value,
-             password: updatePasswordRef.current.value,
-             username: userNameRef.current.value
-           })
+    try {
+      setError("");
+      setLoading(true);
+      // Query for existing username
+      db.collection("users")
+        .where("username", "==", userNameRef.current.value)
+        .get()
+        .then((doc) => {
+          if (!doc.empty) {
+            alert("username already exists");
+            console.log("ERROR: username already exists");
+          } else {
+            // UPDATES FIRESTORE DB fields
+            db.collection("users").doc(currentUser.uid).update({
+              // email: "atk12345@gmail.com"
+              email: updateEmailRef.current.value,
+              password: updatePasswordRef.current.value,
+              username: userNameRef.current.value,
+            });
+            console.log("CURRENT USER UID: ", currentUser.uid);
+            //MongoDB stuffs goes here
+            const userID = currentUser.uid;
+            fetch(
+              `http://localhost:5000/usersignupfinalize/${userID}/${userNameRef.current.value}`
+            )
+              .then((response) => response.json())
+              .then((response) => console.log(response));
+          }
+        });
 
-           //MongoDB stuffs goes here
-           fetch(`http://localhost:5000/userupdate/${currentUser.uid}/${userNameRef.current.value}`)
-                        .then((response) => response.json())
-                        .then((response)=> console.log(response))
-         }
-       })
-       
-       const em = await updateEmail(updateEmailRef.current.value)
-       const pw = await updatePassword(updatePasswordRef.current.value)
-       // UPDATES FIREBASE Auth
-       if (em && pw) {
-         db.collection("users").doc(currentUser.uid).update({
-           email: updateEmailRef.current.value,
-           password: updatePasswordRef.current.value
-         })
-           .then(() => {
-             console.log('UPDATED');
-           }).catch(e => {
-             console.log('Error updating: ', e);
-           });
-       }
-       history.push("/profile") //goes to home page
-     } catch {
-       setError("Failed UPDATE")
-     }
+      const em = await updateEmail(updateEmailRef.current.value);
+      const pw = await updatePassword(updatePasswordRef.current.value);
+      // UPDATES FIREBASE Auth
+      if (em && pw) {
+        db.collection("users")
+          .doc(currentUser.uid)
+          .update({
+            email: updateEmailRef.current.value,
+            password: updatePasswordRef.current.value,
+          })
+          .then(() => {
+            console.log("UPDATED");
+          })
+          .catch((e) => {
+            console.log("Error updating: ", e);
+          });
+      }
+      history.push("/profile"); //goes to home page
+    } catch {
+      setError("Failed UPDATE");
+    }
 
-     setLoading(false)
-   }
-   
-      return (
-        <>
+    setLoading(false);
+  }
+
+  return (
+    <>
       <Card>
         <Card.Body>
           <h2 className="text-center mb-4">Update Profile</h2>
@@ -96,7 +104,8 @@ import { db, usersCollection } from "../firebase";
               <Form.Label>Username</Form.Label>
               <Form.Control
                 type="username"
-                ref={userNameRef} required
+                ref={userNameRef}
+                required
                 // defaultValue={currentUser.email}
               />
             </Form.Group>
@@ -104,7 +113,8 @@ import { db, usersCollection } from "../firebase";
               <Form.Label>Email</Form.Label>
               <Form.Control
                 type="email"
-                ref={updateEmailRef} required
+                ref={updateEmailRef}
+                required
                 placeholder="email"
               />
             </Form.Group>
@@ -112,7 +122,8 @@ import { db, usersCollection } from "../firebase";
               <Form.Label>Password</Form.Label>
               <Form.Control
                 type="password"
-                ref={updatePasswordRef} required
+                ref={updatePasswordRef}
+                required
                 placeholder="password"
               />
             </Form.Group>
@@ -137,15 +148,13 @@ import { db, usersCollection } from "../firebase";
               enter
             </Button> */}
     </>
-      );
-  }
-
+  );
+}
 
 // import React, { useRef, useState } from "react"
 // import { Form, Button, Card, Alert } from "react-bootstrap"
 // import { useAuth } from "../config/Authentication.js";
 // import { Link, useHistory } from "react-router-dom"
-
 
 // export default function EditProfile() {
 //   const emailRef = useRef()
@@ -184,7 +193,6 @@ import { db, usersCollection } from "../firebase";
 //         setLoading(false)
 //       })
 //   }
-
 
 //   return (
 //     <>

@@ -260,6 +260,9 @@ app.route("/search/:filter").get((req, res) => {
   //Hashtags in SearchBox (if any)
   let hashtagFilter = filter.match(/#[a-z]+/gi);
 
+  //Usernames in SearchBox (if any)
+  let usernameFilter = filter.match(/@[a-z]+/gi);
+
   //ADD HASHTAGS TO QUERY (IF ANY)
   if (!(hashtagFilter == null)) {
     //combine Hashtags into 1 string for mongodb to process
@@ -272,6 +275,21 @@ app.route("/search/:filter").get((req, res) => {
 
     //remove Hashtags from filter's searchbox query text
     var regexp = /\#\w\w+\s?/g;
+    filter = filter.replace(regexp, "");
+  }
+
+  //ADD USERNAMES TO QUERY (IF ANY)
+  if (!(usernameFilter == null)) {
+    //combine Usernames into 1 string for mongodb to process
+    usernameFilterCombined = usernameFilter.join("|");
+
+    finalQuery["username"] = {
+      $regex: usernameFilterCombined,
+      $options: "i",
+    };
+
+    //remove Usernames from filter's searchbox query text
+    var regexp = /\@\w\w+\s?/g;
     filter = filter.replace(regexp, "");
   }
 
@@ -393,6 +411,7 @@ app.route("/profile/:username").get((req, res) => {
 
 //ADD EDIT USER BY USERNAME AND SECURED USER ID
 app.route("/updateuser/").post((req, res) => {
+  let user = req.params.user;
   User.findOne({ username: oldUsername }, function (err, user) {
     user.username = newUser.username;
     user.password = newUser.password;
@@ -406,7 +425,28 @@ app.route("/updateuser/").post((req, res) => {
   });
 });
 
-//USER SIGNUP, ADDS USER TO USER DB
+//SECOND/FINAL USER SIGNUP STAGE, ADDS USERNAME:
+app.route("/usersignupfinalize/:userID/:username").get((req, res) => {
+  console.log(
+    "REQUEST USER SIGNUP, USERNAME UPDATE (STAGE 2 FINAL) FROM: ",
+    req.params.userID,
+    " ",
+    req.params.username
+  );
+  const userId = req.params.userID;
+  let newUserName = req.params.username;
+  User.findOne({ userId: userId }, function (err, user) {
+    user.userName = newUserName;
+
+    user.save(function (err) {
+      if (err) {
+        console.error("ERROR!");
+      }
+    });
+  });
+});
+
+//USER SIGNUP STAGE 1, ADDS USER TO USER DB
 app.route("/usersignup/:userID/:name").get((req, res) => {
   //GETS URL DATA FROM PARAMS
   var userId = req.params.userID;
@@ -426,7 +466,7 @@ app.route("/usersignup/:userID/:name").get((req, res) => {
       .json("Error: name is null, new user upload to MongoDB database failed");
   }
   console.log(
-    "INCOMING NEW USER POST REQUEST: /usersignup/",
+    "REQUEST USER SIGNUP, NEW USER (STAGE 1) FROM: /usersignup/",
     userId,
     "/",
     name
