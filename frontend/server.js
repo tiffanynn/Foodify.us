@@ -149,7 +149,7 @@ app.route("/upload").post(async (req, res) => {
     ingredientList: ingredient,
     dietTagList: selectedTags,
     story: description,
-    userName: ID
+    userName: ID,
   };
 
   const filetype = req.body.filetype;
@@ -162,7 +162,7 @@ app.route("/upload").post(async (req, res) => {
     Key: fileName,
     Body: content,
     ContentType: filetype,
-    ACL: 'public-read'
+    ACL: "public-read",
   };
   try {
     const results = new AWS.S3.ManagedUpload({ params: params });
@@ -172,9 +172,13 @@ app.route("/upload").post(async (req, res) => {
       // console.log(s3Url)
       JSON["imgUrl"] = s3Url;
       const collection = db.collection("recipes");
-      collection.insertOne(JSON, function(err){
+      collection.insertOne(JSON, function (err) {
         console.log(JSON._id.toString());
-        return res.json({ s3Url: data.Location, uploadDate: date, recipeID: JSON._id.toString() });
+        return res.json({
+          s3Url: data.Location,
+          uploadDate: date,
+          recipeID: JSON._id.toString(),
+        });
       });
     });
     console.log("Successfully uploaded data to S3");
@@ -188,7 +192,7 @@ app.route("/upload").post(async (req, res) => {
  *
  *
  */
-/************************* RECIPE SEARCH RELATED ROUTES: **********************************/
+/************************* RECIPE SEARCH AND SEARCH BAR RELATED ROUTES: **********************************/
 
 //SENDS BACK ALL RECIPES WITH CERTAIN DIET TAG
 app.route("/searchbydiet/:dietTag").get((req, res) => {
@@ -233,7 +237,7 @@ function paramsToObject(entries) {
   return result;
 }
 
-//SENDS BACK ALL RECIPES MATCHING SEARCH OR HASHTAG (OFFICIAL SEARCH BAR ROUTE)
+//SENDS BACK ALL RECIPES MATCHING SEARCH OR HASHTAG (OFFICIAL RECIPE SEARCH BAR ROUTE)
 app.route("/search/:filter").get((req, res) => {
   console.log("REQ PARAMS: ", req.params.filter);
   let urlParams = new URLSearchParams(req.params.filter);
@@ -296,13 +300,11 @@ app.route("/search/:filter").get((req, res) => {
   if (!(usernameFilter == null)) {
     //combine Usernames into 1 string for mongodb to process
     usernameFilterCombined = usernameFilter.join("|");
-
     finalQuery["userName"] = {
       //$regex: usernameFilterCombined,
       $regex: "mody",
       $options: "i",
     };
-
     //remove Usernames from filter's searchbox query text
     var regexp1 = /\@\w\w+\s?/g;
     filter = filter.replace(regexp1, "");
@@ -336,46 +338,34 @@ app.route("/search/:filter").get((req, res) => {
   } else {
   }
   */
+});
+/*
+ *
+ *
+ *
+ */
+/************************* USER SEARCH BAR RELATED ROUTES: **********************************/
 
-  /*
-  if (filter.substring(0, 1) == "#") {
-    console.log("HASHTAG QUERY", filter);
-    //QUERIES DB FOR MATCHING HASHTAG
-    Recipe.find({
-      hashTagList: { $regex: filter, $options: "i" },
-      dietTagList: { $all: dietTagFilter },
+//SENDS BACK ALL USERS MATCHING SEARCH (OFFICIAL USER SEARCH BAR ROUTE)
+app.route("/searchuser/:filter").get((req, res) => {
+  console.log("REQ PARAMS: ", req.params.filter);
+  let urlParams = new URLSearchParams(req.params.filter);
+  console.log("URL PARAMS: ", urlParams);
+
+  let finalQuery = {};
+
+  //SearchBox Text
+  let filter = result.query;
+
+  finalQuery["userName"] = { $regex: filter, $options: "i" };
+
+  //QUERY DB WITH FINALQUERY
+  User.find(finalQuery)
+    .then((users) => {
+      console.log("RESULT FROM DB: ", users);
+      res.send(JSON.parse('{"users" : ' + JSON.stringify(users) + "}"));
     })
-      .then((recipes) =>
-        res.send(JSON.parse('{"recipes" : ' + JSON.stringify(recipes) + "}"))
-      )
-      .catch((err) => res.status(400).json("Error: " + err));
-  } else {
-    // QUERIES DB FOR MATCHING RECIPE NAME
-    console.log("QUERYING FOR TITLE:", filter);
-
-    //QUERY DB WITHOUT DIET TAGS(NO DIET TAGS IN QUERY)
-    if (dietTagFilter == []) {
-      Recipe.find({
-        title: { $regex: filter, $options: "i" },
-        dietTagList: { $all: dietTagFilter },
-      })
-        .then((recipes) =>
-          res.send(JSON.parse('{"recipes" : ' + JSON.stringify(recipes) + "}"))
-        )
-        .catch((err) => res.status(400).json("Error: " + err));
-      //QUERY DB WITH DIET TAGS
-    } else {
-      Recipe.find({
-        title: { $regex: filter, $options: "i" },
-        dietTagList: { $all: dietTagFilter },
-      })
-        .then((recipes) =>
-          res.send(JSON.parse('{"recipes" : ' + JSON.stringify(recipes) + "}"))
-        )
-        .catch((err) => res.status(400).json("Error: " + err));
-    }
-  }
-  */
+    .catch((err) => res.status(400).json("Error: " + err));
 });
 
 /*
@@ -399,6 +389,48 @@ app.route("/user").get((req, res) => {
 
 //QUERY DB FOR USER BY USER ID (FOR LOADING PROFILE OF USER CURRRENTLY LOGGED IN):
 app.route("/user/:userid").get((req, res) => {
+  console.log("INCOMING REQUEST FOR USER WITH USERID: ", req.params.userid);
+  var queryUserId = req.params.userid;
+
+  console.log(queryUserId);
+
+  User.find({ userId: queryUserId })
+    .then((user) =>
+      res.send(JSON.parse('{"user" : ' + JSON.stringify(user) + "}"))
+    )
+    .catch((err) => res.status(400).json("User ID Query Error: " + err));
+});
+
+//QUERY DB FOR USER BY USERNAME (FOR LOADING PROFILE):
+app.route("/user/username/:username").get((req, res) => {
+  console.log("INCOMING REQUEST FOR USER WITH USERID: ", req.params.username);
+  var queryUserName = req.params.username;
+
+  console.log(queryUserName);
+
+  User.find({ userName: queryUserName })
+    .then((user) =>
+      res.send(JSON.parse('{"user" : ' + JSON.stringify(user) + "}"))
+    )
+    .catch((err) => res.status(400).json("UserName Query Error: " + err));
+});
+
+//QUERY DB FOR USER BY NAME (FOR LOADING PROFILE):
+app.route("/user/name/:name").get((req, res) => {
+  console.log("INCOMING REQUEST FOR USER WITH NAME: ", req.params.name);
+  var queryName = req.params.name;
+
+  console.log(queryName);
+
+  User.find({ name: queryName })
+    .then((user) =>
+      res.send(JSON.parse('{"user" : ' + JSON.stringify(user) + "}"))
+    )
+    .catch((err) => res.status(400).json("Name Query Error: " + err));
+});
+
+//QUERY DB FOR USER BY USERNAME (FOR LOADING PROFILE OF USER CURRRENTLY LOGGED IN):
+app.route("/user/username/:userid").get((req, res) => {
   console.log("INCOMING REQUEST FOR USER WITH USERID: ", req.params.userid);
   var queryUserId = req.params.userid;
 
@@ -485,7 +517,7 @@ app.route("/usersignup/:userID/:name").get((req, res) => {
     userName,
     name,
     bio,
-    profileImgUrl
+    profileImgUrl,
   });
 
   //Saves New User Object To MongoDB Atlas
