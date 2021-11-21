@@ -90,7 +90,13 @@ export default function EditProfile() {
                                 onChange={handleUploadRecipe}
                                 /> */}
             <Form.Group id="username">
-              <Form.Label>Username</Form.Label>
+              {/* <div style = {{border: "1px solid red", display: "flex"}}> */}
+              <Form.Label>
+              <div style = {{minWidth: "120px"}}>
+                Username
+                </div> 
+              </Form.Label>
+              {/* </div> */}
               <Form.Control
                 type="username"
                 ref={userNameRef}
@@ -113,7 +119,11 @@ export default function EditProfile() {
               />
             </Form.Group>
             <Form.Group id="email">
-              <Form.Label>Email</Form.Label>
+              <Form.Label>
+              <div style = {{minWidth: "120px"}}>
+                Email
+                </div> 
+              </Form.Label>
               <Form.Control
                 type="email"
                 ref={updateEmailRef}
@@ -135,7 +145,11 @@ export default function EditProfile() {
               />
             </Form.Group>
             <Form.Group id="password">
-              <Form.Label>Password</Form.Label>
+              <Form.Label>
+              <div style = {{minWidth: "120px"}}>
+                Password
+                </div> 
+              </Form.Label>
               <Form.Control
                 type="password"
                 ref={updatePasswordRef}
