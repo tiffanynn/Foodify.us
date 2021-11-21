@@ -83,6 +83,12 @@ export default function EditProfile() {
           <h2 className="text-center mb-4">Update Profile</h2>
           {error && <Alert variant="danger">{error}</Alert>}
           <Form id="info" onSubmit={handleSubmit}>
+          {/* <Form.Control type="file"
+                                style={{
+                                    width: '75%'
+                                }}
+                                onChange={handleUploadRecipe}
+                                /> */}
             <Form.Group id="username">
               <Form.Label>Username</Form.Label>
               <Form.Control
@@ -100,7 +106,7 @@ export default function EditProfile() {
                   padding: '4px 18px',
                   alignItems: 'right',
                   height: '35px',
-                  width: '1600px',
+                  width: '50%',
                   display: 'inline',
                   margin: '10px'
               }}
@@ -122,7 +128,7 @@ export default function EditProfile() {
                   padding: '4px 18px',
                   alignItems: 'right',
                   height: '35px',
-                  width: '1610px',
+                  width: '50%',
                   display: 'inline',
                   margin: '10px'
               }}
@@ -144,7 +150,7 @@ export default function EditProfile() {
                   padding: '4px 18px',
                   alignItems: 'right',
                   height: '35px',
-                  width: '1600px',
+                  width: '50%',
                   display: 'inline',
                   margin: '10px'
               }}

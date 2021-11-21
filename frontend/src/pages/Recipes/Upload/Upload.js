@@ -5,6 +5,8 @@ import image from "../../../Images/food_cropped.png";
 import axios from "axios";
 import { db } from "../../../firebase";
 import { useAuth } from "../../../config/Authentication.js";
+import { Link, useHistory } from "react-router-dom";
+
 
 import "./Upload.css";
 import "../Recipes.css";
@@ -16,6 +18,7 @@ export default function UploadRecipe() {
     const timeRef = useRef()
     const infoRef = useRef()
     const currentUser = useAuth();
+    const history = useHistory();
 
     // const username = db.collection("users").where('username', '==', userNameRef.current.value).get()
 
@@ -86,13 +89,15 @@ export default function UploadRecipe() {
             type: filetype,
             userName: currentUser["currentUser"]
         }).then(res => {
+            console.log(res)
+            history.push(`/recipe/${res.data.recipeID}`)
             return res;
         });
     }
 
     const handleSubmit = (e) => {
         //uncomment if u dont want the page to refresh and reset on form submit
-        // e.prevs2entDefault()
+        e.preventDefault()
         console.log("clicked handle submit")
         console.log(title)  
 

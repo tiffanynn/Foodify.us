@@ -1,24 +1,26 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Button } from "@material-ui/core";
-import { Container, Row, Col, Image } from "react-bootstrap";
+import { useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { Row, Col, Image } from "react-bootstrap";
 
 import "./Recipes.css";
 
 export default function RecipeHeader(props) {
-    // props.recipeData.recipe
-    // const { urlRecipeId } = useParams();
-    // let [userData, setUserData] = useState([]);
-    // useEffect(() => {
-    //     fetch(`http://localhost:5000/recipe/${urlRecipeId}`)
-    //       .then((response) => response.json())
-    //       // Setting recipe Data to the data that we received from the response above
-    //       .then((data) => {
-    //         console.log("RECIEVED API RESPONSE RECIPE DATA: ", data);
-    //         setUserData(data);
-    //       });
-    //   }, []);
 
-    // user_id = props.recipeData.userName
+    const { urlRecipeId } = useParams();
+    let [userData, setUserData] = useState([]);
+    useEffect(() => {
+        const user_id = props.headerData.userName
+        fetch(`http://localhost:5000/user/${user_id}`)
+          .then((response) => response.json())
+          // Setting recipe Data to the data that we received from the response above
+          .then((data) => {
+            console.log("RECIEVED API RESPONSE USER DATA: ", data);
+            setUserData(data);
+          });
+      }, []);
+    
     return (
       <div>
           <Row>
@@ -34,7 +36,7 @@ export default function RecipeHeader(props) {
                     Follow
                 </Button>
                 <br></br>
-                Franco Thomas
+               {  props.headerData.userName }
               </Col>
         
           </Row>

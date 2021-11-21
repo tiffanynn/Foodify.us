@@ -139,7 +139,7 @@ app.route("/upload").post(async (req, res) => {
     ingredientList: ingredient,
     dietTagList: selectedTags,
     story: description,
-    userName: ID,
+    userName: ID
   };
 
   const filetype = req.body.filetype;
@@ -152,6 +152,7 @@ app.route("/upload").post(async (req, res) => {
     Key: fileName,
     Body: content,
     ContentType: filetype,
+    ACL: 'public-read'
   };
   try {
     const results = new AWS.S3.ManagedUpload({ params: params });
@@ -161,8 +162,10 @@ app.route("/upload").post(async (req, res) => {
       // console.log(s3Url)
       JSON["imgUrl"] = s3Url;
       const collection = db.collection("recipes");
-      const insertResult = await collection.insertOne(JSON);
-      return res.json({ s3Url: data.Location, uploadDate: date });
+      collection.insertOne(JSON, function(err){
+        console.log(JSON._id.toString());
+        return res.json({ s3Url: data.Location, uploadDate: date, recipeID: JSON._id.toString() });
+      });
     });
     console.log("Successfully uploaded data to S3");
   } catch (err) {
@@ -377,20 +380,6 @@ app.route("/user/:userid").get((req, res) => {
     .catch((err) => res.status(400).json("User ID Query Error: " + err));
 });
 
-//QUERY DB FOR USER BY USERNAME (FOR VIEWING ANY USER PROFILE)
-app.route("/profile/:username").get((req, res) => {
-  console.log("INCOMING REQUEST FOR USER WITH USERNAME: ", req.params.username);
-  var queryUserName = req.params.username;
-
-  console.log(queryUserName);
-
-  User.find({ name: queryUserName })
-    .then((user) =>
-      res.send(JSON.parse('{"user" : ' + JSON.stringify(user) + "}"))
-    )
-    .catch((err) => res.status(400).json("User Name Query Error: " + err));
-});
-
 //ADD EDIT USER BY USERNAME AND SECURED USER ID
 app.route("/updateuser/").post((req, res) => {
   let user = req.params.user;
@@ -465,7 +454,7 @@ app.route("/usersignup/:userID/:name").get((req, res) => {
     userName,
     name,
     bio,
-    profileImgUrl,
+    profileImgUrl
   });
 
   //Saves New User Object To MongoDB Atlas
