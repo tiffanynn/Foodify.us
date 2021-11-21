@@ -28,6 +28,7 @@ function SearchArea() {
   //let [dietTags, setDietTags] = useState(["", "", "", "", ""]);
   let [fetchingResults, setFetchingResults] = useState(false);
   let [selectedTags, setTags] = useState([]);
+  let [profileSearchSelected, setProfileSearchSelected] = useState(false);
   const history = useHistory();
 
   const changeTag = (tag) => {
@@ -45,13 +46,20 @@ function SearchArea() {
   function newSearch(searchValue) {
     console.log("NEW SEARCH: ", searchValue);
     var encodedSearchValue = encodeURIComponent(searchValue);
-    var dietTagParams = "dietTags=" + selectedTags.join("&dietTags=");
-    //var dietTagParams = "test";
-    //console.log(`/search/${encodedSearchValue}/${dietTagParams}`);
-    // history.push(`/search/${encodedSearchValue}/${dietTagParams}`);
 
-    console.log(`/search/query=${encodedSearchValue}&${dietTagParams}`);
-    history.push(`/search/query=${encodedSearchValue}&${dietTagParams}`);
+    if (!profileSearchSelected) {
+      var dietTagParams = "dietTags=" + selectedTags.join("&dietTags=");
+      //var dietTagParams = "test";
+      //console.log(`/search/${encodedSearchValue}/${dietTagParams}`);
+      // history.push(`/search/${encodedSearchValue}/${dietTagParams}`);
+
+      console.log(`/search/query=${encodedSearchValue}&${dietTagParams}`);
+      history.push(`/search/query=${encodedSearchValue}&${dietTagParams}`);
+    } else {
+      console.log("PROFILE SEARCH");
+      console.log(`/searchuser/query=${encodedSearchValue}&${dietTagParams}`);
+      history.push(`/searchuser/query=${encodedSearchValue}&${dietTagParams}`);
+    }
 
     //Fetches Recipe Data From API (After Component Is Rendered),
     //Saves Data to State using 'setRecipeStateData'
@@ -68,8 +76,15 @@ function SearchArea() {
 
   return (
     <div style={SearchAreaBoxStyle}>
-      <Grid container justifyContent="center" spacing={2}>
-        <Grid item justifyContent="center" xs={6}>
+      <Grid container justifyContent="center">
+        <Grid
+          item
+          container
+          direction="row"
+          justifyContent="center"
+          alignItems="center"
+          xs={12}
+        >
           <SearchBar
             style={SearchBarStyle}
             value={searchBarText}
@@ -77,43 +92,76 @@ function SearchArea() {
             onRequestSearch={() => newSearch(searchBarText)}
           />
         </Grid>
-        <Grid container style={{}} justifyContent="center" spacing={2} item>
+        <Grid
+          container
+          style={{}}
+          container
+          direction="row"
+          justifyContent="center"
+          alignItems="center"
+          spacing={0.5}
+          item
+        >
           <Grid
             item
             container
-            justifyContent="center"
+            direction="row"
+            justifyContent="left"
+            alignItems="left"
             style={{
               maxWidth: "50%",
             }}
           >
+            <Grid item xs={2.5}></Grid>
+            <Grid item xs={profileSearchSelected ? 12 : 2.5}>
+              <Button
+                key={10}
+                variant="outlined"
+                id={profileSearchSelected ? "selected" : "outlined"}
+                className="tag"
+                onClick={() => {
+                  setProfileSearchSelected(!profileSearchSelected);
+                }}
+              >
+                {profileSearchSelected
+                  ? " ⓧ Showing only profiles"
+                  : "Show only profiles"}
+              </Button>
+            </Grid>
             {tags.map((item, index) => {
               if (selectedTags.includes(item)) {
                 return (
-                  <Grid item xs={3}>
-                    <Button
-                      key={index}
-                      variant="outlined"
-                      id="selected"
-                      className="tag"
-                      onClick={() => changeTag(item)}
-                    >
-                      {item}
-                    </Button>
-                  </Grid>
+                  !profileSearchSelected && (
+                    <Grid className="dietTag" item xs={3}>
+                      <Button
+                        key={index}
+                        variant="outlined"
+                        id="selected"
+                        className="tag"
+                        onClick={() => changeTag(item)}
+                      >
+                        {" ⓧ " + item}
+                      </Button>
+                    </Grid>
+                  )
                 );
               } else {
                 return (
-                  <Grid item xs={3}>
-                    <Button
-                      key={index}
-                      variant="outlined"
-                      id="outlined"
-                      className="tag"
-                      onClick={() => changeTag(item)}
-                    >
-                      {item}
-                    </Button>
-                  </Grid>
+                  !profileSearchSelected && (
+                    <Grid className="dietTag" item xs={3}>
+                      <Button
+                        key={index}
+                        variant="outlined"
+                        id="outlined"
+                        className="tag"
+                        onClick={() => {
+                          changeTag(item);
+                        }}
+                      >
+                        {item}
+                      </Button>
+                    </Grid>
+                  )
                 );
               }
             })}

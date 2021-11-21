@@ -352,12 +352,24 @@ app.route("/searchuser/:filter").get((req, res) => {
   let urlParams = new URLSearchParams(req.params.filter);
   console.log("URL PARAMS: ", urlParams);
 
+  let result = {
+    query: "",
+  };
+
+  //compile parameters into result json object:
+  for (var param of urlParams.entries()) {
+    if (param[0] == "query") {
+      result.query = param[1];
+    }
+  }
+
   let finalQuery = {};
 
   //SearchBox Text
   let filter = result.query;
 
   finalQuery["userName"] = { $regex: filter, $options: "i" };
+  finalQuery["name"] = { $regex: filter, $options: "i" };
 
   //QUERY DB WITH FINALQUERY
   User.find(finalQuery)

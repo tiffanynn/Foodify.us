@@ -3,6 +3,7 @@ import React from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { Home, Login, Register, Navigation, Footer } from "./pages";
 import SearchResults from "./pages/SearchResults";
+import ProfileSearchResults from "./pages/ProfileSearchResults";
 
 import Recipe from "./pages/Recipes/Recipes.js";
 import { AuthProvider } from "./config/Authentication.js";
@@ -28,10 +29,18 @@ function App() {
             <Route path="/recipe" exact component={() => <Recipe />} />
             <Route path="/upload" exact component={() => <UploadRecipe />} />
             <Route path="/recipe/:urlRecipeId" component={() => <Recipe />} />
-            <Route path="/edit-profile" exact component={() => <EditProfile />} />
+            <Route
+              path="/edit-profile"
+              exact
+              component={() => <EditProfile />}
+            />
             <Route
               path="/search/:urlSearchValue"
               component={() => <SearchResults />}
+            />
+            <Route
+              path="/searchuser/:urlSearchValue"
+              component={() => <ProfileSearchResults />}
             />
           </Switch>
         </Router>
