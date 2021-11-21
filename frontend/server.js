@@ -75,6 +75,16 @@ db.once("open", function () {
   var seeder = require("./backend/seeder/recipeSeeder");
   console.log("SEED COMPLETED");
   */
+
+  /*UNCOMMENT BELOW TO ADD RANDOM USERNAMES FROM USERS DB TO RECIPE POSTS*/
+
+  /*
+  console.log(
+    "BEGINNING USER RECIPE SEEDING (GIVES USER ACCOUNTS RANDOM RECIPE POSTS)"
+  );
+  var userRecipesSeeder = require("./backend/seeder/userRecipesSeeder");
+  console.log("USER RECIPE SEED COMPLETED");
+  */
 });
 
 //SERVER API REQUESTS FROM OTHER FILES:
@@ -220,7 +230,7 @@ function paramsToObject(entries) {
   return result;
 }
 
-//SENDS BACK ALL RECIPES MATCHING SEARCH OR HASHTAG
+//SENDS BACK ALL RECIPES MATCHING SEARCH OR HASHTAG (OFFICIAL SEARCH BAR ROUTE)
 app.route("/search/:filter").get((req, res) => {
   console.log("REQ PARAMS: ", req.params.filter);
   let urlParams = new URLSearchParams(req.params.filter);
@@ -258,7 +268,10 @@ app.route("/search/:filter").get((req, res) => {
   let dietTagFilter = result.dietTags;
 
   //Hashtags in SearchBox (if any)
-  let hashtagFilter = filter.match(/#[a-z]+/gi);
+  let hashtagFilter = filter.match(/#[a-zA-Z0-9_.-]+/gi);
+
+  //Usernames in SearchBox (if any)
+  let usernameFilter = filter.match(/@[a-zA-Z0-9_.-]+/gi);
 
   //ADD HASHTAGS TO QUERY (IF ANY)
   if (!(hashtagFilter == null)) {
@@ -274,6 +287,24 @@ app.route("/search/:filter").get((req, res) => {
     var regexp = /\#\w\w+\s?/g;
     filter = filter.replace(regexp, "");
   }
+
+  //ADD USERNAMES TO QUERY (IF ANY)
+  /*
+  if (!(usernameFilter == null)) {
+    //combine Usernames into 1 string for mongodb to process
+    usernameFilterCombined = usernameFilter.join("|");
+
+    finalQuery["userName"] = {
+      //$regex: usernameFilterCombined,
+      $regex: "mody",
+      $options: "i",
+    };
+
+    //remove Usernames from filter's searchbox query text
+    var regexp1 = /\@\w\w+\s?/g;
+    filter = filter.replace(regexp1, "");
+  }
+  */
 
   //ADD DIET TAGS TO QUERY (IF ANY)
   if (!(dietTagFilter.length == 0)) {
