@@ -32,9 +32,10 @@ export default function Recipe() {
           <div>Loading Recipe</div>
         ) : (
           <Container className="mt-5">
-            <Row><Col lg={2}>
-            <RecipeHeader headerData={recipeStateData.recipe[0]} />
-            </Col>
+            <Row>
+              <Col lg={2}>
+                <RecipeHeader headerData={recipeStateData.recipe[0]} />
+              </Col>
             <Col>
             <RecipeInfo recipeData={recipeStateData.recipe[0]} /><Row><Reviews/></Row>
           </Col></Row>

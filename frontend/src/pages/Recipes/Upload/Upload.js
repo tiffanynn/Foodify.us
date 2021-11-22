@@ -20,8 +20,6 @@ export default function UploadRecipe() {
     const currentUser = useAuth();
     const history = useHistory();
 
-    // const username = db.collection("users").where('username', '==', userNameRef.current.value).get()
-
     const [title, setTitle] = useState("")
     const [estimatedPrepTime, setEstimatedTime] = useState("")
     const [selectedTags, setTags] = useState([])
@@ -32,6 +30,7 @@ export default function UploadRecipe() {
     const [description, setDescription] = useState("")
     const [recipeImage, setRecipeImage] = useState(null)
     
+    console.log(currentUser)
     const addHashtag = () =>{
         var temp = [...hashtag]
         temp.push(tempHashtag)
@@ -99,7 +98,6 @@ export default function UploadRecipe() {
         //uncomment if u dont want the page to refresh and reset on form submit
         e.preventDefault()
         console.log("clicked handle submit")
-        console.log(title)  
 
         if(recipeImage !== null){
             // upload resume to s3 bucket
@@ -113,14 +111,6 @@ export default function UploadRecipe() {
                 const filetype = recipeImage[0].type;
                 const newBase64 = base64.replace(`data:${filetype};base64,`, '');
                 const res = await uploadRecipe(newBase64, filetype);
-                // save recipe to mongodb
-                // const resumeData = {
-                //     link: res.data.s3Url,
-                //     uploadDate: res.data.uploadDate,
-                //     email: email,
-                //     major: info.major
-                // };
-                // await saveResume(resumeData);
                 setRecipeImage(null);
             };
         }

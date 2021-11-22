@@ -6,7 +6,7 @@ import { Link, withRouter, useHistory } from "react-router-dom";
 import { useAuth } from "../config/Authentication.js";
 
 import Grid from "@material-ui/core/Grid";
-import { Navbar, Nav, Container, Dropdown } from 'react-bootstrap';
+import { Navbar, Nav, Container, Dropdown, Image } from 'react-bootstrap';
 import { DropdownMenu, MenuItem } from 'react-bootstrap-dropdown-menu';
 
 
@@ -61,7 +61,7 @@ function Navigation(props) {
     let[showSearchBar, setShowSearchBar] = useState(false);
     let[showSearchText, setShowSearchText] = useState(false);
    
-   
+    let [userData, setUserData] = useState(null);
 
 
     const noSpacingStyle = {
@@ -73,10 +73,15 @@ function Navigation(props) {
         marginBottom: "0px",
         fontSize: "120%",
       };
-
-
     //IF ON HOME SCREEN PAGE LOCALHOST:3000/ CHANGE STYLE BACKGROUND TO LIGHT GREEN TO MATCH SEARCHBOX
-    useEffect(() => {
+    useEffect(() => {const user_id = currentUser
+        fetch(`http://localhost:5000/user/${user_id.uid}`)
+          .then((response) => response.json())
+          // Setting recipe Data to the data that we received from the response above
+          .then((data) => {
+            console.log("RECIEVED API RESPONSE USER DATA: ", data);
+            setUserData(data);
+          });
         if(window.location.pathname == "/" ){
             setNavbarContainerStyle( { backgroundColor: "#c7f4e2",}); 
             setShowSearchBar(true);
@@ -95,22 +100,6 @@ function Navigation(props) {
     }, []);
     
     return (
-        // <div className="navigation">
-        //     <AppBar color = "transparent">
-        //         <Toolbar>
-        //             <Grid container alignItems="center" justifyContent="center" direction="row" className="appbar-grid">
-                        
-        //                 <NavLink to="/"><div className="title"><img src={logo}></img>Foodify</div></NavLink>
-                        
-        //                 <Grid container item alignItems="center" justifyContent="flex-end">
-        //                     {/* https://material-ui.com/guides/composition/#button */}
-        //                     <Button id="login-btn" component={Link} to="/Login">Login</Button>
-        //                     <Button id="signup-btn" component={Link} to="/Register">Register</Button>
-        //                 </Grid>
-        //             </Grid>
-        //         </Toolbar>
-        //     </AppBar>
-        // </div>
         <div style = {NavbarContainerStyle}>
         <Navbar >
             <Container >
@@ -152,15 +141,15 @@ function Navigation(props) {
                                             borderRadius: "400px"
                                         }}
                                     ></Dropdown.Toggle>
-                                <img src={userIcon}
-                                    style={{
-                                        width: "58px",
-                                        height: "54px",
-                                        background: "transparent",
-                                        outline: "none",
-                                        borderRadius: "400px"
-                                    }}
-                                ></img>
+                                {
+                                    userData != null &&
+                                    <Image
+                                        src={userData.user[0].profileImgUrl}
+                                        width={60}
+                                        height={60}
+                                        roundedCircle
+                                    />
+                                }
                                 </Container>
                             <Dropdown.Menu style={{
                                 justifyContent: "end",

@@ -211,6 +211,11 @@ app.route("/upload").post(async (req, res) => {
   const date_ob = new Date();
   const date = date_ob.toISOString();
   const ID = req.body.userName.uid;
+  
+  const userCollection = db.collection("users");
+  const userName = response.userName;
+  console.log(userName)
+
   const JSON = {
     title: title,
     hashTagList: hashtag,
@@ -219,7 +224,7 @@ app.route("/upload").post(async (req, res) => {
     ingredientList: ingredient,
     dietTagList: selectedTags,
     story: description,
-    userName: ID,
+    userName: userName
   };
 
   const filetype = req.body.filetype;
@@ -232,22 +237,27 @@ app.route("/upload").post(async (req, res) => {
     Key: fileName,
     Body: content,
     ContentType: filetype,
-    ACL: "public-read",
+    ACL: "public-read"
   };
   try {
     const results = new AWS.S3.ManagedUpload({ params: params });
     var s3Url;
     results.send(async function (err, data) {
       s3Url = data.Location;
-      // console.log(s3Url)
       JSON["imgUrl"] = s3Url;
       const collection = db.collection("recipes");
+      const userCollection = db.collection("users");
+      console.log(JSON)
       collection.insertOne(JSON, function (err) {
-        console.log(JSON._id.toString());
+        userCollection.updateOne(
+          {"_id": JSON.userName.toString()},
+          {$push: {"recipeIdList" : JSON._id.toString()}
+        
+        });
         return res.json({
           s3Url: data.Location,
           uploadDate: date,
-          recipeID: JSON._id.toString(),
+          recipeID: JSON._id.toString()
         });
       });
     });
@@ -517,13 +527,13 @@ app.route("/user/username/:username").get((req, res) => {
   console.log("INCOMING REQUEST FOR USER WITH USERID: ", req.params.username);
   var queryUserName = req.params.username;
 
-  console.log(queryUserName);
-
+  // console.log(queryUserName);
   User.find({ userName: queryUserName })
-    .then((user) =>
-      res.send(JSON.parse('{"user" : ' + JSON.stringify(user) + "}"))
+    .then((user) => {
+      console.log(user)
+      res.send(JSON.parse('{"user" : ' + JSON.stringify(user) + "}"))}
     )
-    .catch((err) => res.status(400).json("UserName Query Error: " + err));
+    // .catch((err) => res.status(400).json("UserName Query Error: " + err));
 });
 
 //QUERY DB FOR USER BY NAME (FOR LOADING PROFILE):
@@ -544,8 +554,6 @@ app.route("/user/name/:name").get((req, res) => {
 app.route("/user/username/:userid").get((req, res) => {
   console.log("INCOMING REQUEST FOR USER WITH USERID: ", req.params.userid);
   var queryUserId = req.params.userid;
-
-  console.log(queryUserId);
 
   User.find({ userId: queryUserId })
     .then((user) =>
