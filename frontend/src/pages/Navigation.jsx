@@ -135,8 +135,6 @@ function Navigation(props) {
                         <Dropdown>
                             <Container 
                                 style={{
-                                    // position: "absolute",
-                                    // flexDirection:"row"
                                     justifyContent:"end",
                                     marginLeft: "-200px"
                                 }}>
@@ -161,11 +159,14 @@ function Navigation(props) {
                                         background: "transparent",
                                         outline: "none",
                                         borderRadius: "400px"
-                                        // position: "absolute"
                                     }}
                                 ></img>
                                 </Container>
-                                <Dropdown.Menu>
+                            <Dropdown.Menu style={{
+                                justifyContent: "end",
+                                marginLeft: "-200px",
+                                width: "fit-content"
+                            }}>
                                     <Dropdown.Item id="btn" href="/Profile" style={{ background: "transparent" }}>Profile</Dropdown.Item>
                                     <Dropdown.Item id="btn" href="/upload" style={{ background: "transparent" }}>Upload Recipe</Dropdown.Item>
                                     <Dropdown.Item id="btn" href="/Edit-Profile" style={{ background: "transparent" }}>Setting - Update</Dropdown.Item>
