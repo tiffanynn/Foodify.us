@@ -114,7 +114,15 @@ function Navigation(props) {
         <div style = {NavbarContainerStyle}>
         <Navbar >
             <Container >
-                    <Navbar.Brand className="mx-auto d-sm-flex d-block flex-sm-nowrap" href="/" ><div className="center">
+                    <Navbar.Brand className="mx-auto d-sm-flex d-block flex-sm-nowrap" href="/" 
+                        style={{
+                            // position: "absolute",
+                            // flexDirection:"row"
+                            justifyContent: "end",
+                            marginLeft: "-200px"
+                        }}
+                    >
+                    <div className="center">
                         <div className="title" ><img src={logo} height={35}></img>Foodify</div>
                     </div>
                             
@@ -127,9 +135,8 @@ function Navigation(props) {
                         <Dropdown>
                             <Container 
                                 style={{
-                                    // position: "absolute",
-                                    // flexDirection:"row"
-                                    justifyContent:"end"
+                                    justifyContent:"end",
+                                    marginLeft: "-200px"
                                 }}>
                                     <Dropdown.Toggle
                                         style={{
@@ -152,22 +159,20 @@ function Navigation(props) {
                                         background: "transparent",
                                         outline: "none",
                                         borderRadius: "400px"
-                                        // position: "absolute"
                                     }}
                                 ></img>
                                 </Container>
-                                <Dropdown.Menu>
+                            <Dropdown.Menu style={{
+                                justifyContent: "end",
+                                marginLeft: "-200px",
+                                width: "fit-content"
+                            }}>
                                     <Dropdown.Item id="btn" href="/Profile" style={{ background: "transparent" }}>Profile</Dropdown.Item>
-                                    <Dropdown.Item id="btn" href="/upload" style={{ background: "transparent" }}>Upload</Dropdown.Item>
-                                    <Dropdown.Item id="btn" href="/Edit-Profile" style={{ background: "transparent" }}>Setting</Dropdown.Item>
+                                    <Dropdown.Item id="btn" href="/upload" style={{ background: "transparent" }}>Upload Recipe</Dropdown.Item>
+                                    <Dropdown.Item id="btn" href="/Edit-Profile" style={{ background: "transparent" }}>Setting - Update</Dropdown.Item>
                                     <Dropdown.Item id="btn" onClick={logoutSession} style={{ background: "transparent" }}>Logout</Dropdown.Item>
                                 </Dropdown.Menu>
                             </Dropdown>
-                            // <DropdownMenu> 
-                            //     <MenuItem id="btn" location="/upload" text="Upload"/>
-                            //     <MenuItem id="btn" location="/Edit-Profile" text="Setting"/>
-                            //     <MenuItem id="btn" onClick={logoutSession} text="Logout"/>
-                            // </DropdownMenu>
                         }
                         
                 </div>
@@ -181,8 +186,6 @@ function Navigation(props) {
             {showSearchText &&<p style={noSpacingStyleAndLarge}> All in one place</p>}
             {showSearchBar && <SearchArea />}
          </Grid>
-        
-        
         
         </div>
     );

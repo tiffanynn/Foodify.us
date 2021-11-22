@@ -35,13 +35,12 @@ export default function EditProfile() {
           } else {
             // UPDATES FIRESTORE DB fields
             db.collection("users").doc(currentUser.uid).update({
-              // email: "atk12345@gmail.com"
               email: updateEmailRef.current.value,
               password: updatePasswordRef.current.value,
               username: userNameRef.current.value,
             });
             console.log("CURRENT USER UID: ", currentUser.uid);
-            //MongoDB stuffs goes here
+            // MongoDB stuffs goes here
             const userID = currentUser.uid;
             fetch(
               `http://localhost:5000/usersignupfinalize/${userID}/${userNameRef.current.value}`
@@ -90,7 +89,13 @@ export default function EditProfile() {
                                 onChange={handleUploadRecipe}
                                 /> */}
             <Form.Group id="username">
-              <Form.Label>Username</Form.Label>
+              {/* <div style = {{border: "1px solid red", display: "flex"}}> */}
+              <Form.Label>
+              <div style = {{minWidth: "120px"}}>
+                Username
+                </div> 
+              </Form.Label>
+              {/* </div> */}
               <Form.Control
                 type="username"
                 ref={userNameRef}
@@ -113,7 +118,11 @@ export default function EditProfile() {
               />
             </Form.Group>
             <Form.Group id="email">
-              <Form.Label>Email</Form.Label>
+              <Form.Label>
+              <div style = {{minWidth: "120px"}}>
+                Email
+                </div> 
+              </Form.Label>
               <Form.Control
                 type="email"
                 ref={updateEmailRef}
@@ -135,7 +144,11 @@ export default function EditProfile() {
               />
             </Form.Group>
             <Form.Group id="password">
-              <Form.Label>Password</Form.Label>
+              <Form.Label>
+              <div style = {{minWidth: "120px"}}>
+                Password
+                </div> 
+              </Form.Label>
               <Form.Control
                 type="password"
                 ref={updatePasswordRef}

@@ -16,7 +16,6 @@ export default function Login() {
     const [error, setError] = useState("")
     const [loading, setLoading] = useState(false)
     const history = useHistory()
-    const [dbData, setdbData] = useState([]); // retrieving firestore db info
 
     async function handleSubmit(e) {
         e.preventDefault()
@@ -25,23 +24,13 @@ export default function Login() {
             setError("")
             setLoading(true)
             await login(emailRef.current.value, passwordRef.current.value)
-            history.push("/profile") //goes to profile page
+            history.push("/") //goes to the Home page
         } catch {
             setError("Failed to login")
         }
 
         setLoading(false)
     }
-
-    // usersCollection.onSnapshot(function (querySnapshot) {
-    //     const data = [];
-    //     querySnapshot.forEach(doc => {
-    //         console.log("Name: ", doc.data().name)
-    //         console.log("Email: ", doc.data().email)
-    //         data.push({ name: doc.data().name, email: doc.data().email })
-    //     })
-    //     setdbData(data);
-    // })
 
     return (
         <>

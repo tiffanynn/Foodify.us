@@ -15,7 +15,7 @@ export default function Register(){
     const passwordRef = useRef()
     const nameRef = useRef()
     const provider = useRef()
-    const { signup, currentUser } = useAuth()
+    const { register, currentUser } = useAuth()
     // const { authWithGoogle } = AuthPage()
     const [error, setError] = useState("")
  
@@ -31,7 +31,7 @@ export default function Register(){
         setError("")
         setLoading(true)
        
-          const reg = await signup(emailRef.current.value, passwordRef.current.value)
+          const reg = await register(emailRef.current.value, passwordRef.current.value)
             if (reg){
                 console.log({reg})
                 const userID = reg.user.uid
@@ -54,29 +54,6 @@ export default function Register(){
                         console.log('Error adding user to the DB: ', e);
                     });
             }
-        // Query for username field to make sure it's unique
-        //   usersCollection.where('username', '==', usernameRef.current.value).get()
-        //       .then(doc => {
-        //           if (!doc.empty) {
-        //               console.log("Username already in use - Failed to create an account")
-        //               alert("Username already in use - Failed to create an account")
-        //           } else {
-        //               // reg & add users - username not taken
-        //               usersCollection.doc(userID).set(userData)
-        //                   .then(() => {
-        //                       console.log('User successfully added to the Firebase DB!');
-        //                       //console.log("NEW USER ID: " ,userID);
-        //                       console.log('ATTEMPTING ADDING USER TO MONGODB')
-        //                       fetch(`http://localhost:5000/usersignup/${userID}/${userData.name}`)
-        //                           .then((response) => response.json())
-        //                           .then((response) => console.log(response))
-        //                       // Setting recipe Data to the data that we received from the response above
-
-        //                   }).catch(e => {
-        //                       console.log('Error adding user to the DB: ', e);
-        //                   });
-        //           }
-        //       })
             
         history.push("/Edit-Profile") //goes to edit profile page
       } catch {
@@ -258,36 +235,3 @@ export default function Register(){
 
     )
 }
-
-/************************Attempt 2********************************** */
-// //Create a new collection & doc manually
-// db.collection('users').add({
-//     displayName: 'Choo',
-//     email: 'choo@example.com',
-//     password: '1234'
-// })
-// .then((docRef)=>{
-//     console.log("Written with ID: ", docRef.id)
-// })
-// .catch((error)=>{
-//     console.error("Error", error)
-// })
-
-
-// // read data
-// const snapshot = await db.collection('users').get()
-// snapshot.forEach((doc)=>{
-//     console.log(doc.id, '=>', doc.data())
-// })
-
-/***********************Attempt 1*********************************** */
-
-// Retrieving data from a document in firebase : WORKS
-// db.collection('users').get().then((snapshot)=>{
-//     snapshot.docs.forEach(doc =>{
-//         console.log(doc.data())
-//         // renderUser(doc)
-//     })
-// })
-
-/************************************************************************/

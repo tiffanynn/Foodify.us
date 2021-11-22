@@ -22,7 +22,7 @@ export function AuthProvider({ children }) {
   const passwordRef = useRef()
   const [error, setError] = useState("")
 
-  function signup(email, password) {
+  function register(email, password) {
     return auth.createUserWithEmailAndPassword(email, password)
   }
 
@@ -32,10 +32,6 @@ export function AuthProvider({ children }) {
 
   function logout() {
     return auth.signOut()
-  }
-
-  function resetPassword(email) {
-    return auth.sendPasswordResetEmail(email)
   }
 
   function updateEmail(email) {
@@ -58,9 +54,8 @@ export function AuthProvider({ children }) {
   const value = {
     currentUser,
     login,
-    signup,
+    register,
     logout,
-    resetPassword,
     updateEmail,
     updatePassword
   }
