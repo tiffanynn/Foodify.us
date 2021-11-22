@@ -122,6 +122,45 @@ app.route("/review/recipeid/:recipeId").get((req, res) => {
     .catch((err) => res.status(400).json("Error: " + err));
 });
 
+//SENDS BACK ALL COMMENTS/REVIEWS POSTED UNDER USERNAME(FOR GETTING ALL REVIEWS/COMMENTS A USER HAS POSTED)
+app.route("/review/username/:userName").get((req, res) => {
+  var userName = req.params.userName;
+  console.log(
+    "INCOMING REQUEST FOR ALL REVIEWS/COMMENTS POSTED UNDER USERNAME: ",
+    userName
+  );
+  /* QUERIES DB FOR ALL RECIPES */
+  Review.find({ userName: userName })
+    .then((reviews) =>
+      res.send(JSON.parse('{"reviews" : ' + JSON.stringify(reviews) + "}"))
+    )
+    .catch((err) => res.status(400).json("Error: " + err));
+});
+
+//UPLOAD NEW REVIEW USING RECIPEID AND USERNAME
+app
+  .route("/reviewupload/:recipeId/:userName/:reviewBody/:rating")
+  .get((req, res) => {
+    var recipeId = req.params.recipeId;
+    var userName = req.params.userName;
+    var reviewBody = req.params.reviewBody;
+    var rating = req.params.rating;
+    const newReview = new Review({
+      recipeId,
+      reviewBody,
+      rating,
+      userName,
+    });
+
+    newReview
+      .save()
+      .then(() =>
+        console.log(
+          `review: ${recipeId}, ${reviewBody}, ${rating}, ${userName}, saved`
+        )
+      );
+  });
+
 /*
  *
  *
@@ -596,6 +635,54 @@ app.route("/usersignup/:userID/:name").get((req, res) => {
   newUser
     .save()
     .then(() => console.log(`USER: ${name}, ID: ${userId} ,  saved`));
+});
+
+//UPDATE USER PROFILE BIO USING LOGGED IN USERID
+app.route("/profileedit/bio/:userID/:bio").get((req, res) => {
+  console.log("REQUEST USER BIO EDIT, TO: ", req.params.bio);
+  const userId = req.params.userID;
+  let newBio = req.params.bio;
+  User.findOne({ userId: userId }, function (err, user) {
+    user.bio = newBio;
+
+    user.save(function (err) {
+      if (err) {
+        console.error("ERROR!");
+      }
+    });
+  });
+});
+
+//UPDATE USER PROFILE BIO USING LOGGED IN USERID
+app.route("/profileedit/profileimg/:userID/:profileImgUrl").get((req, res) => {
+  console.log("REQUEST USER BIO EDIT, TO: ", req.params.bio);
+  const userId = req.params.userID;
+  let newProfileImg = req.params.profileImgUrl;
+  User.findOne({ userId: userId }, function (err, user) {
+    user.profileImgUrl = newProfileImg;
+
+    user.save(function (err) {
+      if (err) {
+        console.error("ERROR!");
+      }
+    });
+  });
+});
+
+//UPDATE USER PROFILE BIO USING LOGGED IN USERID
+app.route("/profileedit/profileimg/:userID/:profileImgUrl").get((req, res) => {
+  console.log("REQUEST USER BIO EDIT, TO: ", req.params.bio);
+  const userId = req.params.userID;
+  let newProfileImg = req.params.profileImgUrl;
+  User.findOne({ userId: userId }, function (err, user) {
+    user.profileImgUrl = newProfileImg;
+
+    user.save(function (err) {
+      if (err) {
+        console.error("ERROR!");
+      }
+    });
+  });
 });
 
 app.listen(port, () => {
