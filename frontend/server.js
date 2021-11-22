@@ -8,6 +8,7 @@ const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const Recipe = require("./backend/recipeModel");
 const User = require("./backend/userModel");
+const Review = require("./backend/reviewsModel");
 const querystring = require("querystring");
 
 // MONGODB CREDENTIALS
@@ -85,11 +86,41 @@ db.once("open", function () {
   var userRecipesSeeder = require("./backend/seeder/userRecipesSeeder");
   console.log("USER RECIPE SEED COMPLETED");
   */
+
+  /*UNCOMMENT BELOW TO SEED FRESH COMMENTS/REVIEWS TABLE */
+  /*
+  console.log(
+    "BEGINNING COMMENT/REVIEW SEEDING (INSERTS COMMENTS/REVIEWS UNDER RANDOM EXISTING USERS AND RECIPES)"
+  );
+  var reviewSeeder = require("./backend/seeder/reviewSeeder");
+  console.log("REVIEW SEED COMPLETED");
+  */
 });
 
 //SERVER API REQUESTS FROM OTHER FILES:
 const mainRouter = require("./backend/routes/mainRouter");
 //app.use("/REPLACE ME WITH A SINGLE ROUTE", mainRouter);
+
+/*
+ *
+ *
+ *
+ */
+/************************* REVIEWS/COMMENT RELATED ROUTES: **********************************/
+//SENDS BACK ALL COMMENTS/REVIEWS POSTED UNDER RECIPE
+app.route("/review/recipeid/:recipeId").get((req, res) => {
+  var recipeId = req.params.recipeId;
+  console.log(
+    "INCOMING REQUEST FOR ALL REVIEWS/COMMENTS POSTED UNDER RECIPE: ",
+    recipeId
+  );
+  /* QUERIES DB FOR ALL RECIPES */
+  Review.find({ recipeId: recipeId })
+    .then((reviews) =>
+      res.send(JSON.parse('{"reviews" : ' + JSON.stringify(reviews) + "}"))
+    )
+    .catch((err) => res.status(400).json("Error: " + err));
+});
 
 /*
  *
@@ -203,6 +234,35 @@ app.route("/searchbydiet/:dietTag").get((req, res) => {
     .then((recipes) =>
       res.send(JSON.parse('{"recipes" : ' + JSON.stringify(recipes) + "}"))
     )
+    .catch((err) => res.status(400).json("Error: " + err));
+});
+
+//SENDS BACK ALL RECIPES POSTED BY USERNAME
+app.route("/recipe/username/:username").get((req, res) => {
+  var userName = req.params.username;
+  console.log("INCOMING REQUEST FOR ALL RECIPES POSTED BY: ", userName);
+  /* QUERIES DB FOR ALL RECIPES */
+  Recipe.find({ userName: userName })
+    .then((recipes) =>
+      res.send(JSON.parse('{"recipes" : ' + JSON.stringify(recipes) + "}"))
+    )
+    .catch((err) => res.status(400).json("Error: " + err));
+});
+
+//SENDS BACK ALL RECIPES POSTED BY NAME
+app.route("/recipe/name/:name").get((req, res) => {
+  var name = req.params.name;
+  console.log("INCOMING REQUEST FOR ALL RECIPES POSTED BY: ", name);
+
+  /*Queries Users DB to find username from name, then Queries Recipe ID to find recipes posted by username*/
+  User.findOne({ name: name })
+    .then((user) => {
+      Recipe.find({ userName: user.userName })
+        .then((recipes) =>
+          res.send(JSON.parse('{"recipes" : ' + JSON.stringify(recipes) + "}"))
+        )
+        .catch((err) => res.status(400).json("Error: " + err));
+    })
     .catch((err) => res.status(400).json("Error: " + err));
 });
 
