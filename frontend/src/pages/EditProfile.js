@@ -35,13 +35,12 @@ export default function EditProfile() {
           } else {
             // UPDATES FIRESTORE DB fields
             db.collection("users").doc(currentUser.uid).update({
-              // email: "atk12345@gmail.com"
               email: updateEmailRef.current.value,
               password: updatePasswordRef.current.value,
               username: userNameRef.current.value,
             });
             console.log("CURRENT USER UID: ", currentUser.uid);
-            //MongoDB stuffs goes here
+            // MongoDB stuffs goes here
             const userID = currentUser.uid;
             fetch(
               `http://localhost:5000/usersignupfinalize/${userID}/${userNameRef.current.value}`
