@@ -187,8 +187,6 @@ function Navigation(props) {
             {showSearchBar && <SearchArea />}
          </Grid>
         
-        
-        
         </div>
     );
 }
