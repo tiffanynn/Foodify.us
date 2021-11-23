@@ -3,7 +3,7 @@ import React from 'react';
 function Footer(){
     return(
         <div className="footer">
-            <footer class="py-3 bg-darl fixed-bottom" 
+            <footer class="py-3 bg-darl fixed-bottom"
                 style={{ 
                 position: 'relative',
                 bottom: '0'
