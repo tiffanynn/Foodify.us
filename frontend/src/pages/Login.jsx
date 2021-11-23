@@ -6,12 +6,13 @@ import { auth, usersCollection } from "../firebase.js";
 import { useAuth } from "../config/Authentication.js";
 
 import google from '../Images/google-logo-9824.png';
-import avo2 from '../Images/lobster.png';
+import lobster from '../Images/lobster.png';
+import entre from '../Images/entre.png';
 
 export default function Login() {
     const emailRef = useRef()
     const passwordRef = useRef()
-    
+
     const { login, currentUser } = useAuth()
     const [error, setError] = useState("")
     const [loading, setLoading] = useState(false)
@@ -43,15 +44,24 @@ export default function Login() {
                     alignItems: 'right',
                     position: 'relative'
                 }}>
-                    <img src={avo2}
-                        align="right"
-                        height="450px"
-                        width="700px"
-                        display="inline"
-                        flexDirection="column"
-                        position="relative"
-                        // height="363px"
-                        // width="513px"
+                    <img src={entre}
+                        style={{
+                            align: "right",
+                            height: "1000px",
+                            width: "640px",
+                            display: "inline",
+                            flexDirection: "column",
+                            position: "absolute",
+                            marginLeft: "180px",
+                            marginTop: "-100px"
+                        }}
+                    // align="right"
+                    // height="1000px"
+                    // width="800px"
+                    // display="inline"
+                    // flexDirection="column"
+                    // position="absolute"
+                    // marginLeft="-100px"
                     >
                     </img>
                     <h1
@@ -61,28 +71,38 @@ export default function Login() {
                             display: 'inline',
                             flexDirection: 'column',
                             textalign: 'left',
-                            position:'relative'
+                            position: 'relative',
+                            marginLeft: '-400px'
                         }}><b>Let's continue what we started</b>
-                        
+
                     </h1>
                     <div>
                         {error && <Alert variant="danger" style={{
                             marginTop: '100px',
                             flexDirection: 'column',
                             opacity: '80%',
-                            timeout:'opacity 100ms',
+                            timeout: 'opacity 100ms',
                             display: 'inline',
                             alignItems: 'right',
                             textAlign: 'center',
                             borderRadius: '400px',
                             padding: '4px 93px',
-                            width: '340px'
+                            width: '340px',
+
                             // display: 'inline',
                             // flexDirection: 'column'
 
                         }}
                         >{error}</Alert>}
                     </div>
+                    <p style={{
+                        color: '#000000',
+                        marginLeft: '-400px',
+                        marginTop: '50px',
+                        fontSize: '23px'
+                    }}>
+                        - Don't have an account? -
+                    </p>
                     <li style={{
                         margin: '10px',
                         color: 'black',
@@ -90,9 +110,11 @@ export default function Login() {
                         flexDirection: 'column',
                         textAlign: 'center',
                         position: 'relative',
-                        fontSize: '22px'
+                        fontSize: '22px',
+                        marginLeft: '-400px',
+                        marginTop: '20px'
                     }}>
-                        <Link to="/Register">Don't have an account? Register here </Link>
+                        <Link to="/Register">Register here</Link>
                     </li>
                     {/* <Button type="googleAPI"
                         style={{
@@ -140,10 +162,13 @@ export default function Login() {
                                     borderRadius: '40px',
                                     padding: '14px 18px',
                                     alignItems: 'right',
-                                    height:'35px',
+                                    height: '35px',
                                     width: '340px',
                                     display: 'inline',
-                                    margin: '10px'
+                                    margin: '10px',
+                                    marginTop: '40px',
+                                    marginBottom: '30px',
+                                    marginLeft: '-400px'
                                 }}>
                             </Form.Control>
                         </Form.Group>
@@ -160,10 +185,12 @@ export default function Login() {
                                     borderRadius: '40px',
                                     padding: '14px 18px',
                                     alignItems: 'right',
-                                    height:'35px',
+                                    height: '35px',
                                     width: '340px',
                                     display: 'inline',
-                                    margin: '10px'
+                                    margin: '10px',
+                                    marginBottom: '30px',
+                                    marginLeft: '-400px'
                                 }}>
                             </Form.Control>
                         </Form.Group>
@@ -176,7 +203,8 @@ export default function Login() {
                                 borderRadius: '20px',
                                 padding: '6px 18px',
                                 alignItems: 'right',
-                                margin: '10px'
+                                margin: '10px',
+                                marginLeft: '-400px'
                             }}
                             disabled={loading}>
                             login
@@ -184,7 +212,7 @@ export default function Login() {
                     </Form>
                 </Card.Body>
             </Card>
-            
+
         </>
     )
 }
