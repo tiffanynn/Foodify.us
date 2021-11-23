@@ -130,8 +130,8 @@ function Navigation(props) {
                                     <Dropdown.Toggle
                                         style={{
                                             outline: "none",
-                                            width: "54.5px",
-                                            height: "55px",
+                                            width: "59.5px",
+                                            height: "60px",
                                             position: "fixed",
                                             background: "transparent",
                                             color:"transparent", //for the triangle
@@ -157,9 +157,9 @@ function Navigation(props) {
                                 width: "fit-content"
                             }}>
                                     <Dropdown.Item id="btn" href="/Profile" style={{ background: "transparent" }}>Profile</Dropdown.Item>
-                                    <Dropdown.Item id="btn" href="/upload" style={{ background: "transparent" }}>Upload Recipe</Dropdown.Item>
-                                    <Dropdown.Item id="btn" href="/Edit-Profile" style={{ background: "transparent" }}>Setting - Update</Dropdown.Item>
+                                    <Dropdown.Item id="btn" href="/upload" style={{ background: "transparent" }}>Upload </Dropdown.Item>
                                     <Dropdown.Item id="btn" onClick={logoutSession} style={{ background: "transparent" }}>Logout</Dropdown.Item>
+                                    <Dropdown.Item id="btn" href="/Edit-Profile" style={{ background: "transparent" }}>Setting</Dropdown.Item>
                                 </Dropdown.Menu>
                             </Dropdown>
                         }
