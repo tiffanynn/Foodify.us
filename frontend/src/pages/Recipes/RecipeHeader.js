@@ -8,11 +8,11 @@ import "./Recipes.css";
 
 export default function RecipeHeader(props) {
 
-    const { urlRecipeId } = useParams();
-    let [userData, setUserData] = useState([]);
+    let [userData, setUserData] = useState(null);
+
     useEffect(() => {
         const user_id = props.headerData.userName
-        fetch(`http://localhost:5000/user/${user_id}`)
+        fetch(`http://localhost:5000/user/username/${user_id}`)
           .then((response) => response.json())
           // Setting recipe Data to the data that we received from the response above
           .then((data) => {
@@ -24,19 +24,24 @@ export default function RecipeHeader(props) {
     return (
       <div>
           <Row>
-              <Col lg={2}>
+              <Col className="d-flex flex-column justify-content-center">
+                  <div>
+                {
+                    userData != null &&
                     <Image
-                        src="https://64.media.tumblr.com/2f9e574d84ab082f1f16b96812d38c75/tumblr_oappq7XwlE1utr0aro8_250.png"
+                        src={userData.user[0].profileImgUrl}
                         width={100}
                         height={100}
                         roundedCircle
                     />
+                }
                 <br></br>
                 <Button variant="outlined" id="outlined">
                     Follow
                 </Button>
                 <br></br>
                {  props.headerData.userName }
+               </div>
               </Col>
         
           </Row>
