@@ -1,5 +1,6 @@
 import Button from "@restart/ui/esm/Button";
 import React, { useContext, useRef, useEffect, useState } from "react";
+import axios from "axios";
 import Cards from "./Cards";
 
 import { useAuth } from "../config/Authentication.js";
@@ -15,8 +16,38 @@ export default function EditProfile() {
   const userNameRef = useRef();
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+
   const history = useHistory();
   const isLogginActive = useRef();
+
+  const handleProfilePic = (e) => {
+    //uncomment if u dont want the page to refresh and reset on form submit
+    e.preventDefault()
+    console.log("clicked handle submit")
+    const file = e.target.files[0]
+    if(file.type === "image/jpeg"){
+        // upload resume to s3 bucket
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = async (e) => {
+            const json = JSON.stringify({
+                dataURL: reader.result
+            });
+            const base64 = JSON.parse(json).dataURL;
+            const filetype = file.type;
+            const newBase64 = base64.replace(`data:${filetype};base64,`, '');
+            console.log(currentUser)
+            return axios.post('http://localhost:5000/profile/upload', {
+              data: newBase64, 
+              type: filetype,
+              userId: currentUser["uid"]
+          }).then(res => {
+              console.log(res)
+              window.location.reload()
+              return res;
+          });        };
+    }
+}
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -82,12 +113,15 @@ export default function EditProfile() {
           <h2 className="text-center mb-4">Update Profile</h2>
           {error && <Alert variant="danger">{error}</Alert>}
           <Form id="info" onSubmit={handleSubmit}>
-          {/* <Form.Control type="file"
+          <Form.Group><Form.Control type="file"
                                 style={{
-                                    width: '75%'
+                                    margin: '10px',
+                                    width: '50%',
+                                    alignItems: 'right',
+                                    display: 'inline'
                                 }}
-                                onChange={handleUploadRecipe}
-                                /> */}
+                                onChange={handleProfilePic}
+                                /></Form.Group>
             <Form.Group id="username">
               {/* <div style = {{border: "1px solid red", display: "flex"}}> */}
               <Form.Label>

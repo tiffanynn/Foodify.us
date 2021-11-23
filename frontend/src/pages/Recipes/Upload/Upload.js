@@ -30,7 +30,6 @@ export default function UploadRecipe() {
     const [description, setDescription] = useState("")
     const [recipeImage, setRecipeImage] = useState(null)
     
-    console.log(currentUser)
     const addHashtag = () =>{
         var temp = [...hashtag]
         temp.push(tempHashtag)
