@@ -74,30 +74,30 @@ function Navigation(props) {
         fontSize: "120%",
       };
     //IF ON HOME SCREEN PAGE LOCALHOST:3000/ CHANGE STYLE BACKGROUND TO LIGHT GREEN TO MATCH SEARCHBOX
-    useEffect(() => {const user_id = currentUser
-        fetch(`http://localhost:5000/user/${user_id.uid}`)
-          .then((response) => response.json())
-          // Setting recipe Data to the data that we received from the response above
-          .then((data) => {
-            console.log("RECIEVED API RESPONSE USER DATA: ", data);
-            setUserData(data);
-          });
-        if(window.location.pathname == "/" ){
-            setNavbarContainerStyle( { backgroundColor: "#c7f4e2",}); 
-            setShowSearchBar(true);
-            setShowSearchText(true);
-        } else if(window.location.pathname.includes("/search/")){
-            setNavbarContainerStyle( { backgroundColor: "#c7f4e2", }); 
-            setShowSearchBar(true);
-            setShowSearchText(false);
-        } else {
-            setNavbarContainerStyle({ backgroundColor: "white"});
-            setShowSearchBar(false);
-            setShowSearchText(false);
-        }
+    // useEffect(() => {const user_id = currentUser
+    //     fetch(`http://localhost:5000/user/${user_id.uid}`)
+    //       .then((response) => response.json())
+    //       // Setting recipe Data to the data that we received from the response above
+    //       .then((data) => {
+    //         console.log("RECIEVED API RESPONSE USER DATA: ", data);
+    //         setUserData(data);
+    //       });
+    //     if(window.location.pathname == "/" ){
+    //         setNavbarContainerStyle( { backgroundColor: "#c7f4e2",}); 
+    //         setShowSearchBar(true);
+    //         setShowSearchText(true);
+    //     } else if(window.location.pathname.includes("/search/")){
+    //         setNavbarContainerStyle( { backgroundColor: "#c7f4e2", }); 
+    //         setShowSearchBar(true);
+    //         setShowSearchText(false);
+    //     } else {
+    //         setNavbarContainerStyle({ backgroundColor: "white"});
+    //         setShowSearchBar(false);
+    //         setShowSearchText(false);
+    //     }
 
        
-    }, []);
+    // }, []);
     
     return (
         <div style = {NavbarContainerStyle}>
