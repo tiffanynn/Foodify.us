@@ -1,7 +1,7 @@
-import React, {useContext, useRef, useEffect, useState} from "react";
-import {Card, Form, Button, FormGroup, Alert} from 'react-bootstrap';
+import React, { useContext, useRef, useEffect, useState } from "react";
+import { Card, Form, Button, FormGroup, Alert } from 'react-bootstrap';
 import { Link, useHistory } from "react-router-dom";
-import {useAuthState} from "react-firebase-hooks/auth";
+import { useAuthState } from "react-firebase-hooks/auth";
 import { auth, app, db, firebase, usersCollection } from "../firebase.js";
 import { useAuth, AuthPage } from "../config/Authentication.js";
 
@@ -10,7 +10,7 @@ import food from '../Images/food.png';
 
 import { Fragment as _Fragment } from "react/jsx-dev-runtime";
 
-export default function Register(){
+export default function Register() {
     const emailRef = useRef()
     const passwordRef = useRef()
     const nameRef = useRef()
@@ -18,22 +18,22 @@ export default function Register(){
     const { register, currentUser } = useAuth()
     // const { authWithGoogle } = AuthPage()
     const [error, setError] = useState("")
- 
+
     const [loading, setLoading] = useState(false)
     const history = useHistory()
     const [users, setUsers] = useState()
 
 
     async function handleSubmit(e) {
-      e.preventDefault()
-  
-      try {
-        setError("")
-        setLoading(true)
-       
-          const reg = await register(emailRef.current.value, passwordRef.current.value)
-            if (reg){
-                console.log({reg})
+        e.preventDefault()
+
+        try {
+            setError("")
+            setLoading(true)
+
+            const reg = await register(emailRef.current.value, passwordRef.current.value)
+            if (reg) {
+                console.log({ reg })
                 const userID = reg.user.uid
                 const userData = {
                     name: nameRef.current.value,
@@ -46,23 +46,23 @@ export default function Register(){
                         //console.log("NEW USER ID: " ,userID);
                         console.log('ATTEMPTING ADDING USER TO MONGODB')
                         fetch(`http://localhost:5000/usersignup/${userID}/${userData.name}`)
-                        .then((response) => response.json())
-                        .then((response)=> console.log(response))
+                            .then((response) => response.json())
+                            .then((response) => console.log(response))
                         // Setting recipe Data to the data that we received from the response above
 
                     }).catch(e => {
                         console.log('Error adding user to the DB: ', e);
                     });
             }
-            
-        history.push("/Edit-Profile") //goes to edit profile page
-      } catch {
-        setError("Failed to create an account")
-      }
-  
-      setLoading(false)
+
+            history.push("/Edit-Profile") //goes to edit profile page
+        } catch {
+            setError("Failed to create an account")
+        }
+
+        setLoading(false)
     }
-   
+
     return (
         <>
             <Card style={{
@@ -85,12 +85,12 @@ export default function Register(){
 
                     <h1
                         style={{
-
-                            color:'black', 
+                            color: 'black',
                             fontFamily: "Raleway",
-                            display:'inline',
-                            flexDirection:'column',
+                            display: 'inline',
+                            flexDirection: 'column',
                             textalign: 'right',
+                            marginTop: "-10px",
                             margin: '10px'
                         }}> <b>Let's begin our journey </b>
                     </h1>
@@ -112,6 +112,14 @@ export default function Register(){
                         }}
                         >{error}</Alert>}
                     </div>
+                    <p style={{
+                        color: '#000000',
+                        marginLeft: '-400px',
+                        marginTop: '50px',
+                        fontSize: '23px'
+                    }}>
+                        - Already have an account? -
+                    </p>
                     <li style={{
                         margin: '10px',
                         color: 'black',
@@ -120,7 +128,7 @@ export default function Register(){
                         textAlign: 'center',
                         fontSize: '22px'
                     }}>
-                        <Link to="/Login">  Already have an account? Login here </Link>
+                        <Link to="/Login"> Login here </Link>
                     </li>
                     {/* <Button type="googleAPI"
                         style={{
@@ -170,7 +178,8 @@ export default function Register(){
                                     height: '35px',
                                     width: '360px',
                                     display: 'inline',
-                                    margin: '10px'
+                                    margin: '10px',
+                                    marginTop: '30px'
                                 }}>
                             </Form.Control>
                         </Form.Group>
@@ -190,7 +199,8 @@ export default function Register(){
                                     height: '35px',
                                     width: '360px',
                                     display: 'inline',
-                                    margin: '10px'
+                                    margin: '10px',
+                                    marginTop: '30px'
                                 }}>
                             </Form.Control>
                         </Form.Group>
@@ -210,7 +220,9 @@ export default function Register(){
                                     height: '35px',
                                     width: '360px',
                                     display: 'inline',
-                                    margin: '10px'
+                                    margin: '10px',
+                                    marginTop: '30px',
+                                    marginBottom: '30px'
                                 }}>
                             </Form.Control>
                         </Form.Group>
@@ -218,9 +230,9 @@ export default function Register(){
                             style={{
                                 color: 'white',
                                 fontFamily: "Raleway",
-                                background:'#1DE19B',
-                                border:'2px solid #19B47C',
-                                borderRadius:'20px',
+                                background: '#1DE19B',
+                                border: '2px solid #19B47C',
+                                borderRadius: '20px',
                                 padding: '6px 18px',
                                 alignItems: 'right',
                                 margin: '10px'
