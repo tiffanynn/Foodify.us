@@ -211,11 +211,11 @@ app.route("/upload").post(async (req, res) => {
   const date_ob = new Date();
   const date = date_ob.toISOString();
   const ID = req.body.userName.uid;
-  
-  //get username of the user that uploaded the recipe by using the user ID  
+
+  //get username of the user that uploaded the recipe by using the user ID
   const userCollection = db.collection("users");
-  const user = await userCollection.findOne({ "userId": ID})
-  const userName = user.userName
+  const user = await userCollection.findOne({ userId: ID });
+  const userName = user.userName;
 
   const JSON = {
     title: title,
@@ -225,7 +225,7 @@ app.route("/upload").post(async (req, res) => {
     ingredientList: ingredient,
     dietTagList: selectedTags,
     story: description,
-    userName: userName
+    userName: userName,
   };
 
   const filetype = req.body.filetype;
@@ -238,7 +238,7 @@ app.route("/upload").post(async (req, res) => {
     Key: fileName,
     Body: content,
     ContentType: filetype,
-    ACL: "public-read"
+    ACL: "public-read",
   };
   try {
     const results = new AWS.S3.ManagedUpload({ params: params });
@@ -248,18 +248,18 @@ app.route("/upload").post(async (req, res) => {
       JSON["imgUrl"] = s3Url;
       const collection = db.collection("recipes");
       const userCollection = db.collection("users");
-      console.log(JSON)
+      console.log(JSON);
       //insert recipe in recipes collection
       collection.insertOne(JSON, function (err) {
         //update document in users collection and add recipe id to user
         userCollection.updateOne(
-          {"userName": userName},
-          {$push: {"recipeIdList" : JSON._id.toString()}
-        });
+          { userName: userName },
+          { $push: { recipeIdList: JSON._id.toString() } }
+        );
         return res.json({
           s3Url: data.Location,
           uploadDate: date,
-          recipeID: JSON._id.toString()
+          recipeID: JSON._id.toString(),
         });
       });
     });
@@ -530,12 +530,11 @@ app.route("/user/username/:username").get((req, res) => {
   var queryUserName = req.params.username;
 
   // console.log(queryUserName);
-  User.find({ userName: queryUserName })
-    .then((user) => {
-      console.log(user)
-      res.send(JSON.parse('{"user" : ' + JSON.stringify(user) + "}"))}
-    )
-    // .catch((err) => res.status(400).json("UserName Query Error: " + err));
+  User.find({ userName: queryUserName }).then((user) => {
+    console.log(user);
+    res.send(JSON.parse('{"user" : ' + JSON.stringify(user) + "}"));
+  });
+  // .catch((err) => res.status(400).json("UserName Query Error: " + err));
 });
 
 //QUERY DB FOR USER BY NAME (FOR LOADING PROFILE):
@@ -663,20 +662,19 @@ app.route("/profileedit/bio/:userID/:bio").get((req, res) => {
   });
 });
 
-
 app.route("/profile/upload").post(async (req, res) => {
   console.log("INCOMING PROFILE IMAGE UPLOAD REQUEST");
-  console.log(req.body.userId)
+  console.log(req.body.userId);
   const ID = req.body.userId;
-  
-  //get username of the user that uploaded the recipe by using the user ID  
+
+  //get username of the user that uploaded the recipe by using the user ID
   const userCollection = db.collection("users");
-  const user = await userCollection.findOne({ "userId": ID})
-  const profileImgUrl = user.profileImgUrl
+  const user = await userCollection.findOne({ userId: ID });
+  const profileImgUrl = user.profileImgUrl;
 
   const JSON = {
-    userId : ID,
-    profileImgUrl : profileImgUrl
+    userId: ID,
+    profileImgUrl: profileImgUrl,
   };
 
   const filetype = req.body.filetype;
@@ -692,37 +690,37 @@ app.route("/profile/upload").post(async (req, res) => {
     Key: fileName,
     Body: content,
     ContentType: filetype,
-    ACL: "public-read"
+    ACL: "public-read",
   };
 
   try {
     const results = new AWS.S3.ManagedUpload({ params: params });
     var s3Url;
     results.send(async function (err, data) {
-    s3Url = data.Location;
-    JSON["imgUrl"] = s3Url;
-    console.log(JSON)
-    userCollection.updateOne(
-      { "userId": ID },
-      { $set: {"profileImgUrl" : s3Url.toString() }
+      s3Url = data.Location;
+      JSON["imgUrl"] = s3Url;
+      console.log(JSON);
+      userCollection.updateOne(
+        { userId: ID },
+        { $set: { profileImgUrl: s3Url.toString() } }
+      );
+      return res.json({
+        s3Url: data.Location,
+      });
     });
-    return res.json({
-      s3Url: data.Location
-    });
-  });
-  console.log("Successfully uploaded data to S3");
-} catch (err) {
-  console.log("Error", err);
-}
+    console.log("Successfully uploaded data to S3");
+  } catch (err) {
+    console.log("Error", err);
+  }
 });
 
 //UPDATE USER PROFILE BIO USING LOGGED IN USERID
-app.route("/profileedit/profileimg/:userID/:profileImgUrl").get((req, res) => {
+app.route("/profileedit/bio/:userID/:bio").get((req, res) => {
   console.log("REQUEST USER BIO EDIT, TO: ", req.params.bio);
   const userId = req.params.userID;
-  let newProfileImg = req.params.profileImgUrl;
+  let bio = req.params.bio;
   User.findOne({ userId: userId }, function (err, user) {
-    user.profileImgUrl = newProfileImg;
+    user.bio = bio;
 
     user.save(function (err) {
       if (err) {
@@ -732,9 +730,9 @@ app.route("/profileedit/profileimg/:userID/:profileImgUrl").get((req, res) => {
   });
 });
 
-//UPDATE USER PROFILE BIO USING LOGGED IN USERID
+//UPDATE USER PROFILE IMAGE USING LOGGED IN USERID
 app.route("/profileedit/profileimg/:userID/:profileImgUrl").get((req, res) => {
-  console.log("REQUEST USER BIO EDIT, TO: ", req.params.bio);
+  console.log("REQUEST USER PROFILEIMG EDIT, TO: ", req.params.profileImgUrl);
   const userId = req.params.userID;
   let newProfileImg = req.params.profileImgUrl;
   User.findOne({ userId: userId }, function (err, user) {
