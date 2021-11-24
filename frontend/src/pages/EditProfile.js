@@ -119,13 +119,13 @@ export default function EditProfile() {
               <img src={dessert}
                 style={{
                   align: "left",
-                  marginTop: "-100px",
-                  height: "900px",
+                  marginTop: "-160px",
+                  height: "1000px",
                   width: "810px",
                   display: "inline",
                   position: "static",
                   flexdirection: "column",
-                  marginLeft: "250px"
+                  marginLeft: "130px"
                 }}
               >
               </img>
@@ -133,7 +133,7 @@ export default function EditProfile() {
             <Col>
               <Form id="info" onSubmit={handleSubmit}>
                 <Form.Label>
-                  <div style={{ minWidth: "120px", marginRight: "100px" }}>
+                  <div style={{ minWidth: "120px", marginRight: "200px" }}>
                     <b>  - Upload your profile picture - </b>
                   </div>
                 </Form.Label>
@@ -143,17 +143,17 @@ export default function EditProfile() {
                     width: '50%',
                     alignItems: 'right',
                     display: 'inline',
-                    marginRight: "100px"
+                    marginRight: "200px"
                   }}
                   onChange={handleProfilePic}
                 />
                 </Form.Group>
                 <Form.Label>
-                  <div style={{ minWidth: "120px", marginTop: "150px", marginRight: "100px"  }}>
+                  <div style={{ minWidth: "120px", marginTop: "150px", marginRight: "200px"  }}>
                     <b> - Update your information - </b>
                   </div>
                 </Form.Label>
-                <Form.Group id="username" style={{ marginRight: "200px" }}>
+                <Form.Group id="username" style={{ marginRight: "300px" }}>
                   {/* <div style = {{border: "1px solid red", display: "flex"}}> */}
                   <Form.Label>
                     <div style={{ minWidth: "120px" }}>
@@ -182,7 +182,7 @@ export default function EditProfile() {
                     }}
                   />
                 </Form.Group>
-                <Form.Group id="email" style={{ marginRight: "200px" }}>
+                <Form.Group id="email" style={{ marginRight: "300px" }}>
                   <Form.Label>
                     <div style={{ minWidth: "120px" }}>
                       Email
@@ -208,7 +208,7 @@ export default function EditProfile() {
                     }}
                   />
                 </Form.Group>
-                <Form.Group id="password" style={{ marginRight: "200px" }}>
+                <Form.Group id="password" style={{ marginRight: "300px" }}>
                   <Form.Label>
                     <div style={{ minWidth: "120px" }}>
                       Password
@@ -249,7 +249,7 @@ export default function EditProfile() {
                     padding: '6px 18px',
                     alignItems: 'right',
                     margin: '10px',
-                    marginRight: "100px"
+                    marginRight: "200px"
                   }}
                 // onClick={addIngredient}
                 // disabled={loading}
