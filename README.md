@@ -35,6 +35,8 @@ npm install react-bootstrap-dropdown-menu --save
 
 npm install @aws-sdk/client-s3
 
+npm install --save react-toastify
+
 
 ## For Amazon S3
 Create a folder in your user on any OS called: `.aws`. This is what it should look like:
