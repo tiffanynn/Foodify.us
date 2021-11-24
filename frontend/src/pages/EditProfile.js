@@ -16,11 +16,27 @@ export default function EditProfile() {
   const updateEmailRef = useRef();
   const updatePasswordRef = useRef();
   const userNameRef = useRef();
+  const bioRef = useRef();
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+  const [email, setEmail] = useState('')
+  const [username, setUsername] = useState('')
+  const [bio, setBio] = useState('')
 
   const history = useHistory();
   const isLogginActive = useRef();
+
+  useEffect(() => {
+    if(currentUser) {
+      axios.get(`http://localhost:5000/user/${currentUser.uid}`)
+      .then(data => {
+        console.log(data)
+        setEmail(currentUser.email)
+        setBio(data.data.user[0].bio)
+        setUsername(data.data.user[0].userName)
+      })      
+    }
+  },[])
 
   const handleProfilePic = (e) => {
     //uncomment if u dont want the page to refresh and reset on form submit
@@ -53,6 +69,11 @@ export default function EditProfile() {
 
   async function handleSubmit(e) {
     e.preventDefault();
+
+    if (bioRef.current.value !== bio) {
+      axios.get(`http://localhost:5000/profileedit/bio/${currentUser.uid}/${bioRef.current.value}`)
+      .then(response => console.log('response', response))
+    }
 
     try {
       setError("");
@@ -102,9 +123,9 @@ export default function EditProfile() {
       }
       history.push("/profile"); //goes to home page
     } catch {
-      setError("Failed UPDATE");
-    }
-
+      // setError("Failed UPDATE");
+      // history.push("/profile");
+    }    
     setLoading(false);
   }
 
@@ -165,8 +186,38 @@ export default function EditProfile() {
                     type="username"
                     ref={userNameRef}
                     required
+                    defaultValue={username}
+                    placeholder={username}
+                    style={{
+                      color: 'black',
+                      fontFamily: "Raleway",
+                      background: 'white',
+                      border: '1px solid #1DE19B',
+                      borderRadius: '40px',
+                      padding: '4px 18px',
+                      alignItems: 'right',
+                      height: '35px',
+                      width: '50%',
+                      display: 'inline',
+                      margin: '10px'
+                    }}
+                  />
+                </Form.Group>
+                <Form.Group id="bio" style={{ marginRight: "300px" }}>
+                  {/* <div style = {{border: "1px solid red", display: "flex"}}> */}
+                  <Form.Label>
+                    <div style={{ minWidth: "120px" }}>
+                      Bio
+                    </div>
+                  </Form.Label>
+                  {/* </div> */}
+                  <Form.Control
+                    type='username'
+                    ref={bioRef}
+                    required
                     // defaultValue={currentUser.email}
-                    placeholder="username"
+                    placeholder={bio}
+                    defaultValue={bio}
                     style={{
                       color: 'black',
                       fontFamily: "Raleway",
@@ -192,7 +243,9 @@ export default function EditProfile() {
                     type="email"
                     ref={updateEmailRef}
                     required
-                    placeholder="email"
+                    placeholder={email}
+                    value={email}
+                    disabled
                     style={{
                       color: 'black',
                       fontFamily: "Raleway",

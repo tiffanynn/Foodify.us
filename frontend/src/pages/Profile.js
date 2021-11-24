@@ -6,6 +6,7 @@ import { Container, Row, Col, Image } from "react-bootstrap";
 
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
+import {useAuth} from '../config/Authentication' 
 
 function Profile() {
 
@@ -17,27 +18,32 @@ function Profile() {
   //   followers: "241",
 
   // };
-
+  const {currentUser} = useAuth()
   const { urlRecipeId } = useParams();
   let [recipeStateData, setRecipeStateData] = useState([]); // recipeStateData Initialized to Null
   let [profileStateData, setProfileStateData] = useState([]);
+  let [reviewStateData, setReviewStateData] = useState([]);
+  const [recipes, setRecipes] = useState([]);
 
   //Fetches Recipe Data From API (After Component Is Rendered),
   //Saves Data to State using 'setRecipeStateData'
   useEffect(() => {
-    fetch(`http://localhost:5000/recipe/619a1a8c8f4c97accad10a76
+    fetch(`http://localhost:5000/recipe/619a1a8c8f4c97accad10a75`)
+    // console.log(recipes.length)
+    // if (recipes?.length > 0){
+      // fetch(`http://localhost:5000/recipe/${recipes[0]}`)
+        .then((response) => response.json())
+        // Setting recipe Data to the data that we received from the response above
+        .then((data) => {
+          console.log("RECIEVED API RESPONSE RECIPE DATA: ", data);
+          setRecipeStateData(data);
+        });
+    // }
 
-    `)
-      .then((response) => response.json())
-      // Setting recipe Data to the data that we received from the response above
-      .then((data) => {
-        console.log("RECIEVED API RESPONSE RECIPE DATA: ", data);
-        setRecipeStateData(data);
-      });
   }, []);
 
   useEffect(() => {
-    fetch(`http://localhost:5000/user/username/mody1username
+    fetch(`http://localhost:5000/user/${currentUser.uid}
 
     `)
       .then((response) => response.json())
@@ -45,6 +51,19 @@ function Profile() {
       .then((data) => {
         console.log("RECIEVED API RESPONSE RECIPE DATA: ", data);
         setProfileStateData(data);
+        setRecipes(data.recipeIdList)
+      });
+  }, []);
+
+  useEffect(() => {
+    fetch(`http://localhost:5000/review/recipeid/619a1a8c8f4c97accad10a75
+
+    `)
+      .then((response) => response.json())
+      // Setting recipe Data to the data that we received from the response above
+      .then((data) => {
+        console.log("RECIEVED API RESPONSE RECIPE DATA: ", data);
+        setReviewStateData(data);
       });
   }, []);
 
@@ -65,9 +84,14 @@ function Profile() {
             ) : (
               <RecipeInfo recipeData={recipeStateData.recipe[0]} />
             )}
-            <Comment/>
+            <h2> Comments </h2>
+
+            {reviewStateData.length == 0 ? (
+              <div>Loading Review</div>
+            ) : (
+              reviewStateData.reviews.map(data => <Comment ReviewData={data} />)
+            )}
           </Col></Row>
-        
       </Container>
     );
   }

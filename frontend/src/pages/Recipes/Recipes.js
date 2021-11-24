@@ -37,7 +37,10 @@ export default function Recipe() {
                 <RecipeHeader headerData={recipeStateData.recipe[0]} />
               </Col>
             <Col>
-            <RecipeInfo recipeData={recipeStateData.recipe[0]} /><Row><Reviews/></Row>
+            <RecipeInfo recipeData={recipeStateData.recipe[0]} />
+            <Row>
+              <Reviews/>
+            </Row>
           </Col></Row>
             
           <div className="d-flex justify-content-end">

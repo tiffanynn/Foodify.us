@@ -3,16 +3,17 @@ import { Button } from "@material-ui/core";
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { Row, Col, Image } from "react-bootstrap";
+import {useAuth} from '../../config/Authentication'
 
 import "./Recipes.css";
 
 export default function RecipeHeader(props) {
-
+    const {currentUser} = useAuth()
     let [userData, setUserData] = useState(null);
 
     useEffect(() => {
-        const user_id = props.headerData.userName
-        fetch(`http://localhost:5000/user/username/${user_id}`)
+        const user_id = currentUser.uid
+        fetch(`http://localhost:5000/user/${user_id}`)
           .then((response) => response.json())
           // Setting recipe Data to the data that we received from the response above
           .then((data) => {
