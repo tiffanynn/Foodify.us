@@ -75,7 +75,13 @@ export default function Register() {
                     alignItems: 'left'
                 }}>
                     <Row>
-                        <Col>
+                        <Col style={{
+                            marginTop: '40px',
+                            color: 'white',
+                            border: 'white',
+                            alignItems: 'left',
+                            marginLeft: '120px'
+                        }}>
                             <img src={food}
                                 style={{
                                     align:"left",
@@ -85,17 +91,12 @@ export default function Register() {
                                     position:"static",
                                     flexdirection:"column"
                                 }}
-                                // align="left"
-                                // height="510px"
-                                // width="810px"
-                                // display="inline"
-                                // flexdirection="column"
                             >
                             </img>
                         </Col>
                         <Col 
                             style={{
-                                marginRight: "-400px",
+                                marginRight: "-250px",
                                 height: "510px",
                                 width: "810px",
                                 display: "inline",
