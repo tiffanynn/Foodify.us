@@ -1,5 +1,5 @@
 import React, { useContext, useRef, useEffect, useState } from "react";
-import { Card, Form, Button, FormGroup, Alert, Row, Col } from 'react-bootstrap';
+import { Card, Form, Button, FormGroup, Alert, Row, Col, Container } from 'react-bootstrap';
 import { Link, useHistory } from "react-router-dom";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth, app, db, firebase, usersCollection } from "../firebase.js";
@@ -68,7 +68,7 @@ export default function Register() {
             <Card style={{
                 border: 'white'
             }}>
-                <Card.Body style={{
+                <Container style={{
                     margin: '100px',
                     color: 'white',
                     border: 'white',
@@ -214,7 +214,7 @@ export default function Register() {
                             </Form>
                         </Col>
                     </Row>
-                </Card.Body>
+                </Container>
             </Card>
         </>
 

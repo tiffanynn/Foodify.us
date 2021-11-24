@@ -165,7 +165,8 @@ export default function Login() {
                                 style={{
                                     align: "right",
                                     height: "1000px",
-                                    width: "640px",
+                                    width:"auto",
+                                    // width: "640px",
                                     display: "inline",
                                     flexDirection: "column",
                                     position: "absolute",
