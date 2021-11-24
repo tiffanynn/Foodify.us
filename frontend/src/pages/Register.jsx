@@ -109,9 +109,6 @@ export default function Register() {
                                     borderRadius: '400px',
                                     padding: '4px 93px',
                                     width: '330px'
-                                    // display: 'inline',
-                                    // flexDirection: 'column'
-
                                 }}
                                 >{error}</Alert>}
                             </div>

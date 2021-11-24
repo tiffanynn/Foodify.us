@@ -46,7 +46,7 @@ export default function Login() {
                 }}>
                     <Row>
                         <Col style={{
-                            marginLeft: '400px'
+                            marginLeft: '500px'
                         }}>
                             <h1
                                 style={{
@@ -71,11 +71,7 @@ export default function Login() {
                                     textAlign: 'center',
                                     borderRadius: '400px',
                                     padding: '4px 93px',
-                                    width: '340px',
-
-                                    // display: 'inline',
-                                    // flexDirection: 'column'
-
+                                    width: '340px'
                                 }}
                                 >{error}</Alert>}
                             </div>
