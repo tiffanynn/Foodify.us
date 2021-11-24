@@ -37,6 +37,8 @@ export default function SearchResults() {
           <ul className="cards__items">
             {recipeStateData.length == 0 ? (
               <div>Loading</div>
+            ) : recipeStateData.recipes.length == 0 ? (
+              <div>No Results</div>
             ) : (
               recipeStateData.recipes.map((recipe) => (
                 <CardItem
