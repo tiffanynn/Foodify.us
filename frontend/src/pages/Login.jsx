@@ -1,5 +1,5 @@
 import React, { useContext, useRef, useEffect, useState } from "react";
-import { Card, Form, Button, FormGroup, Alert } from 'react-bootstrap';
+import { Card, Form, Button, FormGroup, Alert, Row, Col } from 'react-bootstrap';
 import { Link, useHistory } from "react-router-dom";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth, usersCollection } from "../firebase.js";
@@ -44,172 +44,142 @@ export default function Login() {
                     alignItems: 'right',
                     position: 'relative'
                 }}>
-                    <img src={entre}
-                        style={{
-                            align: "right",
-                            height: "1000px",
-                            width: "640px",
-                            display: "inline",
-                            flexDirection: "column",
-                            position: "absolute",
-                            marginLeft: "180px",
-                            marginTop: "-100px"
-                        }}
-                    // align="right"
-                    // height="1000px"
-                    // width="800px"
-                    // display="inline"
-                    // flexDirection="column"
-                    // position="absolute"
-                    // marginLeft="-100px"
-                    >
-                    </img>
-                    <h1
-                        style={{
-                            color: 'black',
-                            fontFamily: "Raleway",
-                            display: 'inline',
-                            flexDirection: 'column',
-                            textalign: 'left',
-                            position: 'relative',
-                            marginLeft: '-400px'
-                        }}><b>Let's continue what we started</b>
-
-                    </h1>
-                    <div>
-                        {error && <Alert variant="danger" style={{
-                            marginTop: '100px',
-                            flexDirection: 'column',
-                            opacity: '80%',
-                            timeout: 'opacity 100ms',
-                            display: 'inline',
-                            alignItems: 'right',
-                            textAlign: 'center',
-                            borderRadius: '400px',
-                            padding: '4px 93px',
-                            width: '340px',
-
-                            // display: 'inline',
-                            // flexDirection: 'column'
-
-                        }}
-                        >{error}</Alert>}
-                    </div>
-                    <p style={{
-                        color: '#000000',
-                        marginLeft: '-400px',
-                        marginTop: '50px',
-                        fontSize: '23px'
-                    }}>
-                        - Don't have an account? -
-                    </p>
-                    <li style={{
-                        margin: '10px',
-                        color: 'black',
-                        display: 'flex',
-                        flexDirection: 'column',
-                        textAlign: 'center',
-                        position: 'relative',
-                        fontSize: '22px',
-                        marginLeft: '-400px',
-                        marginTop: '20px'
-                    }}>
-                        <Link to="/Register">Register here</Link>
-                    </li>
-                    {/* <Button type="googleAPI"
-                        style={{
-                            color: '#767575',
-                            background: 'white',
-                            fontFamily: "Raleway",
-                            border: '1px solid #1DE19B',
-                            borderRadius: '400px',
-                            padding: '4px 93px',
-                            alignItems: 'right',
-                            height:'35px',
-                            width:'auto',
-                            display: 'inline',
-                            margin: '10px'
-                        }}
-                        // onClick={signInWithGoogle}>
-                        >
-
-                        Login with Google
-                        <img src={google}
-                            align="right"
-                            width="auto"
-                            height="25px">
-                        </img>
-
-                    </Button> */}
-                    {/* <p style={{
-                        color: '#767575',
-                        margin: '5px',
-                        fontSize: '15px'
-                    }}>
-                        - OR -
-                    </p> */}
-                    <Form onSubmit={handleSubmit}>
-                        <Form.Group id="email">
-                            <Form.Control
-                                type="email"
-                                placeholder="email"
-                                ref={emailRef} required
+                    <Row>
+                        <Col style={{
+                            marginLeft: '400px'
+                        }}>
+                            <h1
                                 style={{
                                     color: 'black',
-                                    background: 'white',
                                     fontFamily: "Raleway",
-                                    border: '1px solid #1DE19B',
-                                    borderRadius: '40px',
-                                    padding: '14px 18px',
-                                    alignItems: 'right',
-                                    height: '35px',
-                                    width: '340px',
                                     display: 'inline',
-                                    margin: '10px',
-                                    marginTop: '40px',
-                                    marginBottom: '30px',
+                                    flexDirection: 'column',
+                                    textalign: 'left',
+                                    position: 'relative',
                                     marginLeft: '-400px'
-                                }}>
-                            </Form.Control>
-                        </Form.Group>
-                        <Form.Group id="password">
-                            <Form.Control
-                                type="password"
-                                placeholder="password"
-                                ref={passwordRef} required
-                                style={{
-                                    color: 'black',
-                                    background: 'white',
-                                    fontFamily: "Raleway",
-                                    border: '1px solid #1DE19B',
-                                    borderRadius: '40px',
-                                    padding: '14px 18px',
-                                    alignItems: 'right',
-                                    height: '35px',
-                                    width: '340px',
+                                }}><b>Let's continue what we started</b>
+
+                            </h1>
+                            <div>
+                                {error && <Alert variant="danger" style={{
+                                    marginTop: '100px',
+                                    flexDirection: 'column',
+                                    opacity: '80%',
+                                    timeout: 'opacity 100ms',
                                     display: 'inline',
-                                    margin: '10px',
-                                    marginBottom: '30px',
-                                    marginLeft: '-400px'
-                                }}>
-                            </Form.Control>
-                        </Form.Group>
-                        <Button type="loginButton"
-                            style={{
-                                color: 'white',
-                                fontFamily: "Raleway",
-                                background: '#1DE19B',
-                                border: '2px solid #19B47C',
-                                borderRadius: '20px',
-                                padding: '6px 18px',
-                                alignItems: 'right',
+                                    alignItems: 'right',
+                                    textAlign: 'center',
+                                    borderRadius: '400px',
+                                    padding: '4px 93px',
+                                    width: '340px',
+
+                                    // display: 'inline',
+                                    // flexDirection: 'column'
+
+                                }}
+                                >{error}</Alert>}
+                            </div>
+                            <p style={{
+                                color: '#000000',
+                                marginLeft: '-400px',
+                                marginTop: '50px',
+                                fontSize: '23px'
+                            }}>
+                                - Don't have an account? -
+                            </p>
+                            <li style={{
                                 margin: '10px',
-                                marginLeft: '-400px'
-                            }}
-                            disabled={loading}>
-                            login
-                        </Button>
-                    </Form>
+                                color: 'black',
+                                display: 'flex',
+                                flexDirection: 'column',
+                                textAlign: 'center',
+                                position: 'relative',
+                                fontSize: '22px',
+                                marginLeft: '-400px',
+                                marginTop: '20px'
+                            }}>
+                                <Link to="/Register">Register here</Link>
+                            </li>
+
+                            <Form onSubmit={handleSubmit}>
+                                <Form.Group id="email">
+                                    <Form.Control
+                                        type="email"
+                                        placeholder="email"
+                                        ref={emailRef} required
+                                        style={{
+                                            color: 'black',
+                                            background: 'white',
+                                            fontFamily: "Raleway",
+                                            border: '1px solid #1DE19B',
+                                            borderRadius: '40px',
+                                            padding: '14px 18px',
+                                            alignItems: 'right',
+                                            height: '35px',
+                                            width: '340px',
+                                            display: 'inline',
+                                            margin: '10px',
+                                            marginTop: '40px',
+                                            marginBottom: '30px',
+                                            marginLeft: '-400px'
+                                        }}>
+                                    </Form.Control>
+                                </Form.Group>
+                                <Form.Group id="password">
+                                    <Form.Control
+                                        type="password"
+                                        placeholder="password"
+                                        ref={passwordRef} required
+                                        style={{
+                                            color: 'black',
+                                            background: 'white',
+                                            fontFamily: "Raleway",
+                                            border: '1px solid #1DE19B',
+                                            borderRadius: '40px',
+                                            padding: '14px 18px',
+                                            alignItems: 'right',
+                                            height: '35px',
+                                            width: '340px',
+                                            display: 'inline',
+                                            margin: '10px',
+                                            marginBottom: '30px',
+                                            marginLeft: '-400px'
+                                        }}>
+                                    </Form.Control>
+                                </Form.Group>
+                                <Button type="loginButton"
+                                    style={{
+                                        color: 'white',
+                                        fontFamily: "Raleway",
+                                        background: '#1DE19B',
+                                        border: '2px solid #19B47C',
+                                        borderRadius: '20px',
+                                        padding: '6px 18px',
+                                        alignItems: 'right',
+                                        margin: '10px',
+                                        marginLeft: '-400px'
+                                    }}
+                                    disabled={loading}>
+                                    login
+                                </Button>
+                            </Form>
+                        </Col>
+                        <Col>
+                            <img src={entre}
+                                style={{
+                                    align: "right",
+                                    height: "1000px",
+                                    width: "640px",
+                                    display: "inline",
+                                    flexDirection: "column",
+                                    position: "absolute",
+                                    marginLeft: "-480px",
+                                    marginTop: "-100px"
+                                }}
+                            >
+                            </img>
+                        </Col>
+                    </Row>
                 </Card.Body>
             </Card>
 
