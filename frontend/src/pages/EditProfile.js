@@ -5,8 +5,10 @@ import Cards from "./Cards";
 
 import { useAuth } from "../config/Authentication.js";
 import { Link, useHistory } from "react-router-dom";
-import { Form, Card, Alert } from "react-bootstrap";
+import { Form, Card, Alert, Col, Row } from "react-bootstrap";
 import { db, usersCollection } from "../firebase";
+
+import dessert from "../Images/dessert.png"
 
 export default function EditProfile() {
   const { currentUser, updatePassword, updateEmail } = useAuth();
@@ -112,119 +114,152 @@ export default function EditProfile() {
         <Card.Body>
           <h2 className="text-center mb-4">Update Profile</h2>
           {error && <Alert variant="danger">{error}</Alert>}
-          <Form id="info" onSubmit={handleSubmit}>
-          <Form.Group><Form.Control type="file"
-                                style={{
-                                    margin: '10px',
-                                    width: '50%',
-                                    alignItems: 'right',
-                                    display: 'inline'
-                                }}
-                                onChange={handleProfilePic}
-                                /></Form.Group>
-            <Form.Group id="username">
-              {/* <div style = {{border: "1px solid red", display: "flex"}}> */}
-              <Form.Label>
-              <div style = {{minWidth: "120px"}}>
-                Username
-                </div> 
-              </Form.Label>
-              {/* </div> */}
-              <Form.Control
-                type="username"
-                ref={userNameRef}
-                required
-                // defaultValue={currentUser.email}
-                placeholder = "username"
+          <Row> 
+            <Col>
+              <img src={dessert}
                 style={{
-                  color: 'black',
-                  fontFamily: "Raleway",
-                  background: 'white',
-                  border: '1px solid #1DE19B',
-                  borderRadius: '40px',
-                  padding: '4px 18px',
-                  alignItems: 'right',
-                  height: '35px',
-                  width: '50%',
-                  display: 'inline',
-                  margin: '10px'
-              }}
-              />
-            </Form.Group>
-            <Form.Group id="email">
-              <Form.Label>
-              <div style = {{minWidth: "120px"}}>
-                Email
-                </div> 
-              </Form.Label>
-              <Form.Control
-                type="email"
-                ref={updateEmailRef}
-                required
-                placeholder="email"
-                style={{
-                  color: 'black',
-                  fontFamily: "Raleway",
-                  background: 'white',
-                  border: '1px solid #1DE19B',
-                  borderRadius: '40px',
-                  padding: '4px 18px',
-                  alignItems: 'right',
-                  height: '35px',
-                  width: '50%',
-                  display: 'inline',
-                  margin: '10px'
-              }}
-              />
-            </Form.Group>
-            <Form.Group id="password">
-              <Form.Label>
-              <div style = {{minWidth: "120px"}}>
-                Password
-                </div> 
-              </Form.Label>
-              <Form.Control
-                type="password"
-                ref={updatePasswordRef}
-                required
-                placeholder="password"
-                style={{
-                  color: 'black',
-                  fontFamily: "Raleway",
-                  background: 'white',
-                  border: '1px solid #1DE19B',
-                  borderRadius: '40px',
-                  padding: '4px 18px',
-                  alignItems: 'right',
-                  height: '35px',
-                  width: '50%',
-                  display: 'inline',
-                  margin: '10px'
-              }}
-              />
-            </Form.Group>
-            {/* <Button disabled={loading} className="w-100" type="submit">
+                  align: "left",
+                  marginTop: "-100px",
+                  height: "900px",
+                  width: "810px",
+                  display: "inline",
+                  position: "static",
+                  flexdirection: "column",
+                  marginLeft: "250px"
+                }}
+              >
+              </img>
+            </Col>
+            <Col>
+              <Form id="info" onSubmit={handleSubmit}>
+                <Form.Label>
+                  <div style={{ minWidth: "120px", marginRight: "100px" }}>
+                    <b>  - Upload your profile picture - </b>
+                  </div>
+                </Form.Label>
+                <Form.Group><Form.Control type="file"
+                  style={{
+                    margin: '10px',
+                    width: '50%',
+                    alignItems: 'right',
+                    display: 'inline',
+                    marginRight: "100px"
+                  }}
+                  onChange={handleProfilePic}
+                />
+                </Form.Group>
+                <Form.Label>
+                  <div style={{ minWidth: "120px", marginTop: "150px", marginRight: "100px"  }}>
+                    <b> - Update your information - </b>
+                  </div>
+                </Form.Label>
+                <Form.Group id="username" style={{ marginRight: "200px" }}>
+                  {/* <div style = {{border: "1px solid red", display: "flex"}}> */}
+                  <Form.Label>
+                    <div style={{ minWidth: "120px" }}>
+                      Username
+                    </div>
+                  </Form.Label>
+                  {/* </div> */}
+                  <Form.Control
+                    type="username"
+                    ref={userNameRef}
+                    required
+                    // defaultValue={currentUser.email}
+                    placeholder="username"
+                    style={{
+                      color: 'black',
+                      fontFamily: "Raleway",
+                      background: 'white',
+                      border: '1px solid #1DE19B',
+                      borderRadius: '40px',
+                      padding: '4px 18px',
+                      alignItems: 'right',
+                      height: '35px',
+                      width: '50%',
+                      display: 'inline',
+                      margin: '10px'
+                    }}
+                  />
+                </Form.Group>
+                <Form.Group id="email" style={{ marginRight: "200px" }}>
+                  <Form.Label>
+                    <div style={{ minWidth: "120px" }}>
+                      Email
+                    </div>
+                  </Form.Label>
+                  <Form.Control
+                    type="email"
+                    ref={updateEmailRef}
+                    required
+                    placeholder="email"
+                    style={{
+                      color: 'black',
+                      fontFamily: "Raleway",
+                      background: 'white',
+                      border: '1px solid #1DE19B',
+                      borderRadius: '40px',
+                      padding: '4px 18px',
+                      alignItems: 'right',
+                      height: '35px',
+                      width: '50%',
+                      display: 'inline',
+                      margin: '10px'
+                    }}
+                  />
+                </Form.Group>
+                <Form.Group id="password" style={{ marginRight: "200px" }}>
+                  <Form.Label>
+                    <div style={{ minWidth: "120px" }}>
+                      Password
+                    </div>
+                  </Form.Label>
+                  <Form.Control
+                    type="password"
+                    ref={updatePasswordRef}
+                    required
+                    placeholder="password"
+                    style={{
+                      color: 'black',
+                      fontFamily: "Raleway",
+                      background: 'white',
+                      border: '1px solid #1DE19B',
+                      borderRadius: '40px',
+                      padding: '4px 18px',
+                      alignItems: 'right',
+                      height: '35px',
+                      width: '50%',
+                      display: 'inline',
+                      margin: '10px'
+                    }}
+                  />
+                </Form.Group>
+                {/* <Button disabled={loading} className="w-100" type="submit">
               Update
             </Button> */}
 
-                    <Button type="submit"
-                        
-                        style={{
-                            color: 'white',
-                            fontFamily: "Raleway",
-                            background: '#1DE19B',
-                            border: '2px solid #19B47C',
-                            borderRadius: '20px',
-                            padding: '6px 18px',
-                            alignItems: 'right',
-                            margin: '10px'
-                        }}
-                        // onClick={addIngredient}
-                        // disabled={loading}
-                        >
-                        update
-                    </Button>
-          </Form>
+                <Button type="submit"
+
+                  style={{
+                    color: 'white',
+                    fontFamily: "Raleway",
+                    background: '#1DE19B',
+                    border: '2px solid #19B47C',
+                    borderRadius: '20px',
+                    padding: '6px 18px',
+                    alignItems: 'right',
+                    margin: '10px',
+                    marginRight: "100px"
+                  }}
+                // onClick={addIngredient}
+                // disabled={loading}
+                >
+                  update
+                </Button>
+              </Form>
+            </Col>
+          </Row>
+          
         </Card.Body>
       </Card>
       {/* <Button type="registerButton"
