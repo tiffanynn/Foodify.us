@@ -16,8 +16,6 @@ import EditProfile from "./pages/EditProfile";
 function App() {
   return (
     <div className="App">
-      {/* <header className="App-header"> */}
-      {/* <img src={logo} className="App-logo" alt="logo" /> */}
       <AuthProvider>
         <Router>
           <Navigation />
@@ -52,26 +50,3 @@ function App() {
 }
 
 export default App;
-
-// class App extends React.Component {
-//   constructor(props) {
-//     super(props);
-//     this.state = {
-//       isLogginActive: true
-//     }
-//   }
-
-//   render() {
-//     const {isLogginActive} = this.state;
-//     return(
-//       <div className="App">
-// <div className="Login">
-//   <div className="container">
-//     {isLogginActive && <Login containerRef={(ref) => this.current = ref}/>}
-//     {!isLogginActive && <Register containerRef={(ref) => this.current = ref}/>}
-//   </div>
-// </div>
-//       </div>
-//     )
-//   }
-// }

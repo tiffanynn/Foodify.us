@@ -76,6 +76,7 @@ export default function UploadRecipe() {
     //called when user clicks on Submit button
     //sends image data to backend which will handle uploading to S3
     const uploadRecipe = (recipe, filetype) => {
+        console.log(currentUser["currentUser"])
         return axios.post('http://localhost:5000/upload', {
             title: title,
             estimatedTime: estimatedPrepTime,

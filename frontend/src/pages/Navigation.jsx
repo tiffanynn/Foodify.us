@@ -35,13 +35,29 @@ function Navigation(props) {
     // Display Logout only if User is logged in 
     let [showEntry, setshowEntry] = useState(false);
     useEffect(()=>{
+        console.log("hi")
         if(currentUser){
             setshowEntry(true);
+            // if(userData === null){
+            //     getProfilePic()
+            // }
+            
         } else{
             setshowEntry(false);
         }
     })
     
+    async function getProfilePic(){
+        if(showEntry){
+            const user_id = currentUser
+            fetch(`http://localhost:5000/user/${user_id.uid}`)
+            .then((response) => response.json())
+            .then((data) => {
+                console.log("RECIEVED API RESPONSE USER DATA: ", data);
+                setUserData(data);
+            });}
+    }
+
     // Logging out user from Profile
     async function logoutSession(){
         setError("")
@@ -74,14 +90,15 @@ function Navigation(props) {
         fontSize: "120%",
       };
     //IF ON HOME SCREEN PAGE LOCALHOST:3000/ CHANGE STYLE BACKGROUND TO LIGHT GREEN TO MATCH SEARCHBOX
-    useEffect(() => {//const user_id = currentUser
-    //     fetch(`http://localhost:5000/user/${user_id.uid}`)
-    //       .then((response) => response.json())
-    //       // Setting recipe Data to the data that we received from the response above
-    //       .then((data) => {
-    //         console.log("RECIEVED API RESPONSE USER DATA: ", data);
-    //         setUserData(data);
-    //       });
+    useEffect(() => {
+        if(currentUser !== null){
+        const user_id = currentUser
+        fetch(`http://localhost:5000/user/${user_id.uid}`)
+        .then((response) => response.json())
+        .then((data) => {
+            console.log("RECIEVED API RESPONSE USER DATA: ", data);
+            setUserData(data);
+        });}
          if(window.location.pathname == "/" ){
              setNavbarContainerStyle( { backgroundColor: "#c7f4e2",}); 
              setShowSearchBar(true);
@@ -95,7 +112,7 @@ function Navigation(props) {
              setShowSearchBar(false);
              setShowSearchText(false);
          }
-     }, []);
+     }, [currentUser]);
     
     return (
         <div style = {NavbarContainerStyle}>
