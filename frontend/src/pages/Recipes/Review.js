@@ -23,22 +23,14 @@ export default function Reviews(){
 
     return (
         <div>
-                <div className="mt-3">
-                  {/* <Button variant="outlined" id="leave_review" className="mx-3">
-                    Leave a Review
-                  </Button>
-                  <Button variant="text" id="save">
-                    Save
-                  </Button> */}
-                </div>
                 <Row>
-                  <Col>
+                  <Col xs lg="6">
                     <h2>Reviews and Remarks</h2>
 
                     <InputGroup>
                       <FormControl 
                           style={{
-                            height: '126px',
+                            height: '206px',
                             width: '506px', 
                             borderRadius: '10px',
                             background: '#ececec',
@@ -65,21 +57,13 @@ export default function Reviews(){
                         <div style={{marginLeft: '50px'}}>{`${rating} / 5`}</div>
                       </ButtonGroup>
                     </ButtonToolbar>
-                    
-                    {/* <div className="review">
-                      <div className="review_text">
-                      <div className="reviews">
-                      feel like cooking? leave your thoughts?
-                      </div>
-                      <div className="rating">_/5 stars</div>
-                      </div>
-                    </div> */}
-                  </Col>
-
                     <Button variant='outlined' id='leave_review' onClick={e => handleSubmit(e)}>
                       Leave a Review
                     </Button>
                   {/* <button type='button' onClick={() => console.log(review, rating)}>click</button> */}
+                  </Col>
+
+                    
                 </Row>
         </div>
       );
