@@ -30,9 +30,9 @@ export default function RecipeInfo(props) {
                 </div>
               </Col>
               <Col>
-                {/* <div className="text" align="right">
+                <div className="text" align="right">
                   Reviewed 10 stars
-                </div> */}
+                </div>
               </Col>
             </Row>
 
