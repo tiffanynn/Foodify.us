@@ -169,9 +169,11 @@ function Navigation(props) {
                             <Dropdown.Menu style={{
                                 justifyContent: "end",
                                 marginLeft: "-200px",
-                                width: "fit-content"
+                                width: "min-content",
+                                alignItems: "center",
+                                borderRadius: "20px"
                             }}>
-                                    <Dropdown.Item id="btn" href="/Profile" style={{ background: "transparent" }}>Profile</Dropdown.Item>
+                                <Dropdown.Item id="btn" href="/Profile" style={{ background: "transparent" }}>Profile</Dropdown.Item>
                                     <Dropdown.Item id="btn" href="/upload" style={{ background: "transparent" }}>Upload </Dropdown.Item>
                                     <Dropdown.Item id="btn" href="/Edit-Profile" style={{ background: "transparent" }}>Setting</Dropdown.Item>
                                     <Dropdown.Item id="btn" onClick={logoutSession} style={{ background: "transparent" }}>Logout</Dropdown.Item>
