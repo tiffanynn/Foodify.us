@@ -77,15 +77,32 @@ export default function Register() {
                     <Row>
                         <Col>
                             <img src={food}
-                                align="left"
-                                height="510px"
-                                width="810px"
-                                display="inline"
-                                flexdirection="column"
+                                style={{
+                                    align:"left",
+                                    height:"510px",
+                                    width:"810px",
+                                    display:"inline",
+                                    position:"static",
+                                    flexdirection:"column"
+                                }}
+                                // align="left"
+                                // height="510px"
+                                // width="810px"
+                                // display="inline"
+                                // flexdirection="column"
                             >
                             </img>
                         </Col>
-                        <Col>
+                        <Col 
+                            style={{
+                                marginRight: "-400px",
+                                height: "510px",
+                                width: "810px",
+                                display: "inline",
+                                position: "static",
+                                flexdirection: "column"
+                            }}
+                        >
                             <h1
                                 style={{
                                     color: 'black',

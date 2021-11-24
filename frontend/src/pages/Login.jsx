@@ -169,7 +169,7 @@ export default function Login() {
                                     // width: "640px",
                                     display: "inline",
                                     flexDirection: "column",
-                                    position: "absolute",
+                                    position: "static",
                                     marginLeft: "-480px",
                                     marginTop: "-100px"
                                 }}
@@ -181,5 +181,6 @@ export default function Login() {
             </Card>
 
         </>
+        
     )
 }
