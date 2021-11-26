@@ -18,6 +18,10 @@ export default function Reviews(){
 
     const handleSubmit = (e) => {
       // logic to save to database
+      e.preventDefault()
+      axios.get(`http://localhost:5000/reviewupload/${urlRecipeId}/mody1username/${review}/${rating}`)
+      toast('successfully added comment for recipe!')
+      setTimeout(() => {window.location.reload()}, 1000)
     }
     
 
@@ -30,7 +34,7 @@ export default function Reviews(){
                     <InputGroup>
                       <FormControl 
                           style={{
-                            height: '206px',
+                            height: '126px',
                             width: '506px', 
                             borderRadius: '10px',
                             background: '#ececec',
