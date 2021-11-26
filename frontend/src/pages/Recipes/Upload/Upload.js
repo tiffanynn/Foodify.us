@@ -3,9 +3,8 @@ import { Container, Button, Row, Col, Form } from "react-bootstrap";
 import { VscChromeClose } from "react-icons/vsc";
 import image from "../../../Images/food_cropped.png";
 import axios from "axios";
-import { db } from "../../../firebase";
 import { useAuth } from "../../../config/Authentication.js";
-import { Link, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 
 
 import "./Upload.css";

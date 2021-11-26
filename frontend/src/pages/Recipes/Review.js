@@ -1,17 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router";
-import {ToastContainer, toast} from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-import axios from 'axios';
 // import { Button } from "@material-ui/core";
-import { Container, Row, Col, Image, InputGroup, FormControl, ButtonToolbar, ButtonGroup, Button, Alert } from "react-bootstrap";
+import { Container, Row, Col, Image, InputGroup, FormControl, ButtonToolbar, ButtonGroup, Button } from "react-bootstrap";
 
 import "./Recipes.css";
 
 export default function Reviews(){
     const [review, setReview] = useState('')
     const [rating, setRating] = useState('')
-    const {urlRecipeId}= useParams()
 
     const handleStateChange = (e, setState) => {
         setState(e.target.value)      
@@ -22,17 +17,12 @@ export default function Reviews(){
     }
 
     const handleSubmit = (e) => {
-      e.preventDefault()
-      axios.get(`http://localhost:5000/reviewupload/${urlRecipeId}/mody1username/${review}/${rating}`)
-      toast('successfully added comment for recipe!')
-      setTimeout(() => {window.location.reload()}, 1000)
-
+      // logic to save to database
     }
     
 
     return (
         <div>
-            <ToastContainer />
                 <Row>
                   <Col xs lg="6">
                     <h2>Reviews and Remarks</h2>
@@ -50,12 +40,6 @@ export default function Reviews(){
                           onChange={e => handleStateChange(e, setReview)}
                       />
                       
-
-                    {/* <FormControl
-                      placeholder="feel like cooking? leave your thoughts!"
-                    /> */}
-                      
-                    
                     </InputGroup>
                     <ButtonToolbar>
                       <ButtonGroup>
@@ -67,12 +51,13 @@ export default function Reviews(){
                         <div style={{marginLeft: '50px'}}>{`${rating} / 5`}</div>
                       </ButtonGroup>
                     </ButtonToolbar>
+                  
+                  
+
                     <Button variant='outlined' id='leave_review' onClick={e => handleSubmit(e)}>
                       Leave a Review
-                    </Button>                  
-                  </Col>
-
-                    
+                    </Button>
+                    </Col>
                 </Row>
         </div>
       );

@@ -6,11 +6,6 @@ import image from "../../Images/Rectangle 2.png";
 import "./Recipes.css";
 
 export default function RecipeInfo(props) {
-  // API call saved as json file
-  // make a component for list of ingredients
-  // useEffect(() => {
-  //     console.log(recipeData.Hashtag);
-  //   });
 
   return (
     <div>

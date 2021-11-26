@@ -16,7 +16,7 @@ function Comment(props) {
                   {/* <h2> Reviewed 4.8/5 stars </h2> */}
 
                   <div className = "box_2">
-                    <Image src="https://64.media.tumblr.com/2f9e574d84ab082f1f16b96812d38c75/tumblr_oappq7XwlE1utr0aro8_250.png" width={50} height= {50}
+                    <Image src={props.ReviewData.profileImgUrl} width={50} height= {50}
                              roundedCircle />
 
                     <Col>
