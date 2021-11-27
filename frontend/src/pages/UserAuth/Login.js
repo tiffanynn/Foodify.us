@@ -2,12 +2,12 @@ import React, { useContext, useRef, useEffect, useState } from "react";
 import { Card, Form, Button, FormGroup, Alert, Row, Col } from 'react-bootstrap';
 import { Link, useHistory } from "react-router-dom";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { auth, usersCollection } from "../firebase.js";
-import { useAuth } from "../config/Authentication.js";
+import { auth, usersCollection } from "../../firebase.js";
+import { useAuth } from "../../config/Authentication.js";
 
-import google from '../Images/google-logo-9824.png';
-import lobster from '../Images/lobster.png';
-import entre from '../Images/entre.png';
+import google from '../../Images/google-logo-9824.png';
+import lobster from '../../Images/lobster.png';
+import entre from '../../Images/entre.png';
 
 export default function Login() {
     const emailRef = useRef()
@@ -165,7 +165,7 @@ export default function Login() {
                                 style={{
                                     align: "right",
                                     height: "1000px",
-                                    width:"auto",
+                                    width: "auto",
                                     // width: "640px",
                                     display: "inline",
                                     flexDirection: "column",
@@ -181,6 +181,6 @@ export default function Login() {
             </Card>
 
         </>
-        
+
     )
 }

@@ -1,7 +1,11 @@
 // import logo from './logo.svg';
 import React from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import { Home, Login, Register, Navigation, Footer } from "./pages";
+import { Home, Navigation } from "./pages";
+import Register from "./pages/UserAuth/Register";
+import Login from "./pages/UserAuth/Login";
+import Footer from "./pages/Sections/Footer";
+
 import SearchResults from "./pages/SearchResults";
 import ProfileSearchResults from "./pages/ProfileSearchResults";
 

@@ -2,11 +2,11 @@ import React, { useContext, useRef, useEffect, useState } from "react";
 import { Card, Form, Button, FormGroup, Alert, Row, Col, Container } from 'react-bootstrap';
 import { Link, useHistory } from "react-router-dom";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { auth, app, db, firebase, usersCollection } from "../firebase.js";
-import { useAuth, AuthPage } from "../config/Authentication.js";
+import { auth, app, db, firebase, usersCollection } from "../../firebase.js";
+import { useAuth, AuthPage } from "../../config/Authentication.js";
 
-import logo from '../Images/google-logo-9824.png';
-import food from '../Images/food.png';
+import logo from '../../Images/google-logo-9824.png';
+import food from '../../Images/food.png';
 
 import { Fragment as _Fragment } from "react/jsx-dev-runtime";
 
@@ -84,17 +84,17 @@ export default function Register() {
                         }}>
                             <img src={food}
                                 style={{
-                                    align:"left",
-                                    height:"510px",
-                                    width:"810px",
-                                    display:"inline",
-                                    position:"static",
-                                    flexdirection:"column"
+                                    align: "left",
+                                    height: "510px",
+                                    width: "810px",
+                                    display: "inline",
+                                    position: "static",
+                                    flexdirection: "column"
                                 }}
                             >
                             </img>
                         </Col>
-                        <Col 
+                        <Col
                             style={{
                                 marginRight: "-250px",
                                 height: "510px",
