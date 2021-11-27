@@ -1,10 +1,11 @@
 // import logo from './logo.svg';
 import React from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import { Home, Navigation } from "./pages";
+import { Home } from "./pages";
 import Register from "./pages/UserAuth/Register";
 import Login from "./pages/UserAuth/Login";
 import Footer from "./pages/Sections/Footer";
+import Navigation2 from "./pages/Sections/Navigation2";
 
 import SearchResults from "./pages/SearchResults";
 import ProfileSearchResults from "./pages/ProfileSearchResults";
@@ -22,7 +23,7 @@ function App() {
     <div className="App">
       <AuthProvider>
         <Router>
-          <Navigation />
+          <Navigation2 />
           <Switch>
             <Route path="/" exact component={() => <Home />} />
             <Route path="/register" exact component={() => <Register />} />
