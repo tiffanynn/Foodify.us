@@ -67,7 +67,7 @@ export default function Login() {
                                     opacity: '80%',
                                     timeout: 'opacity 100ms',
                                     display: 'inline',
-                                    alignItems: 'right',
+                                    marginLeft: '-400px',
                                     textAlign: 'center',
                                     borderRadius: '400px',
                                     padding: '4px 93px',
