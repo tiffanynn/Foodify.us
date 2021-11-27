@@ -26,7 +26,7 @@ export default function RecipeInfo(props) {
               </Col>
               <Col>
                 <div className="text" align="right">
-                  Reviewed 10 stars
+                  {/* Reviewed 10 stars */}
                 </div>
               </Col>
             </Row>

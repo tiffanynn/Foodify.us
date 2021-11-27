@@ -125,8 +125,8 @@ function Profile() {
             <Col lg={2}></Col>
             <Col>
               <RecipeInfo recipeData={obj.recipe}/>
+              {obj.reviews.map(review => (<Comment reviewData={review} />))}
             </Col>
-            {obj.reviews.map(review => (<Comment reviewData={review} />))}
           </Row>
         ))}
         {/* <Row>
