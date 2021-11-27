@@ -6,21 +6,21 @@ import image from "../../Images/Rectangle 2.png";
 import "./Recipes.css";
 
 export default function RecipeInfo(props) {
-
+  
   return (
     <div>
             <Row className="d-flex justify-content-between align-items-start">
               <Col xs={6} lg={6}>
                 <div className="hashtag">
                   <span>
-                    {props.recipeData.hashTagList.map((hashtag) => (
+                    {props.recipeData[0].hashTagList.map((hashtag) => (
                       <a>{hashtag} </a>
                     ))}
                   </span>
                 </div>
-                <h1>{props.recipeData.title}</h1>
+                <h1>{props.recipeData[0].title}</h1>
                 <div className="time">
-                  {props.recipeData.postDate} • {props.recipeData.estimatedTime}{" "}
+                  {props.recipeData[0].postDate} • {props.recipeData[0].estimatedTime}{" "}
                   preparation
                 </div>
               </Col>
@@ -35,7 +35,7 @@ export default function RecipeInfo(props) {
               <Col>
                 <div className="post_pic">
                   <img
-                    src={props.recipeData.imgUrl}
+                    src={props.recipeData[0].imgUrl}
                     width="550"
                     max-height="400"
                   ></img>
@@ -48,7 +48,7 @@ export default function RecipeInfo(props) {
                       {" "}
                       <div className="text">
                         {" "}
-                        {props.recipeData.ingredientList.map((ingredient) => (
+                        {props.recipeData[0].ingredientList.map((ingredient) => (
                           <p>{ingredient}</p>
                         ))}
                       </div>
@@ -57,7 +57,7 @@ export default function RecipeInfo(props) {
                   <Col>
                     <div className="description">
                       {" "}
-                      {props.recipeData.dietTagList.map((tag) => (
+                      {props.recipeData[0].dietTagList.map((tag) => (
                         <p>
                           {" "}
                           <Button
@@ -75,7 +75,7 @@ export default function RecipeInfo(props) {
                 <Row></Row>
                 <div className="description">
                   {" "}
-                  <div className="text"> {props.recipeData.story}</div>
+                  <div className="text"> {props.recipeData[0].story}</div>
                 </div>
               </Col>
             </Row>

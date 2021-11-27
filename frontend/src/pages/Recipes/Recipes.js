@@ -50,14 +50,16 @@ export default function Recipe() {
                 <RecipeHeader headerData={recipeStateData.recipe[0]} />
               </Col>
             <Col>
-            <RecipeInfo recipeData={recipeStateData.recipe[0]} />
-            <Row>
-              <Reviews/>
+            <RecipeInfo recipeData={recipeStateData.recipe} />
+            <Row>              
               {reviewStateData.length == 0 ? (
                 <div>Loading Review</div>
               ) : (
-                reviewStateData.reviews.map(data => <Comment ReviewData={data} />)
+                reviewStateData.reviews.map(data => 
+                <Comment reviewData={data} />
+                )
               )}
+              <Reviews/>
             </Row>
           </Col></Row>
             

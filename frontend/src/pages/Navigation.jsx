@@ -35,7 +35,7 @@ function Navigation(props) {
     // Display Logout only if User is logged in 
     let [showEntry, setshowEntry] = useState(false);
     useEffect(()=>{
-        console.log("hi")
+        // console.log("hi")
         if(currentUser){
             setshowEntry(true);
             // if(userData === null){

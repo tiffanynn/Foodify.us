@@ -4,7 +4,7 @@ import RecipeInfo from "./Recipes/RecipeInfo";
 import Comment from "./Comment";
 import { Container, Row, Col, Image } from "react-bootstrap";
 
-import { useParams } from "react-router-dom";
+import axios from 'axios';
 import { useEffect, useState } from "react";
 import {useAuth} from '../config/Authentication' 
 
@@ -18,54 +18,97 @@ function Profile() {
   //   followers: "241",
 
   // };
-  const {currentUser} = useAuth()
-  const { urlRecipeId } = useParams();
+  const {currentUser} = useAuth()  
   let [recipeStateData, setRecipeStateData] = useState([]); // recipeStateData Initialized to Null
   let [profileStateData, setProfileStateData] = useState([]);
   let [reviewStateData, setReviewStateData] = useState([]);
+  const [recipeAndReviewData, setRecipeAndReviewData] = useState([]);
   const [recipes, setRecipes] = useState([]);
 
-  //Fetches Recipe Data From API (After Component Is Rendered),
-  //Saves Data to State using 'setRecipeStateData'
+  const apiCall = async(ind) => {
+    const [recipeData, reviewData] = await Promise.all([
+      axios.get(`http://localhost:5000/recipe/${recipes[ind]}`),
+      axios.get(`http://localhost:5000/review/recipeid/${recipes[ind]}`)
+    ])
+    return [recipeData, reviewData];
+    // setRecipeStateData(recipeData.data);
+    // setReviewStateData(reviewData.data);
+  };
   useEffect(() => {
-    fetch(`http://localhost:5000/recipe/619a1a8c8f4c97accad10a75`)
-    // console.log(recipes.length)
-    // if (recipes?.length > 0){
-      // fetch(`http://localhost:5000/recipe/${recipes[0]}`)
-        .then((response) => response.json())
-        // Setting recipe Data to the data that we received from the response above
-        .then((data) => {
-          console.log("RECIEVED API RESPONSE RECIPE DATA: ", data);
-          setRecipeStateData(data);
-        });
-    // }
+    axios.get(`http://localhost:5000/user/${currentUser.uid}`)
+    .then(response => {
+      setProfileStateData(response.data);      
+      setRecipes(response.data.user[0].recipeIdList)
+    })
+  },[])
 
-  }, []);
+  useEffect(() => {   
+    const getAllRecipeReview = async() => {
+      if (recipes.length > 0){
+        const formattedData = await Promise.all(recipes.map(async(recipe, ind) => {
+  
+          const data = await apiCall(ind)
+          
+          const returnObj = {
+            recipe: data[0].data.recipe,
+            reviews: data[1].data.reviews 
+          }
+          return returnObj;
+        }))
+        
+        setRecipeAndReviewData(formattedData)
+      }
+    }
+
+    getAllRecipeReview()
+  }, [recipes])
 
   useEffect(() => {
-    fetch(`http://localhost:5000/user/${currentUser.uid}
+    console.log('recipe and review data');
+    console.log(recipeAndReviewData)
+  }, [recipeAndReviewData])
 
-    `)
-      .then((response) => response.json())
-      // Setting recipe Data to the data that we received from the response above
-      .then((data) => {
-        console.log("RECIEVED API RESPONSE RECIPE DATA: ", data);
-        setProfileStateData(data);
-        setRecipes(data.recipeIdList)
-      });
-  }, []);
+  // //Fetches Recipe Data From API (After Component Is Rendered),
+  // //Saves Data to State using 'setRecipeStateData'
+  // useEffect(() => {
+  //   fetch(`http://localhost:5000/recipe/619a1a8c8f4c97accad10a75`)
+  //   // console.log(recipes.length)
+  //   // if (recipes?.length > 0){
+  //     // fetch(`http://localhost:5000/recipe/${recipes[0]}`)
+  //       .then((response) => response.json())
+  //       // Setting recipe Data to the data that we received from the response above
+  //       .then((data) => {
+  //         console.log("RECIEVED API RESPONSE RECIPE DATA: ", data);
+  //         setRecipeStateData(data);
+  //       });
+  //   // }
 
-  useEffect(() => {
-    fetch(`http://localhost:5000/review/recipeid/619a1a8c8f4c97accad10a75
+  // }, []);
 
-    `)
-      .then((response) => response.json())
-      // Setting recipe Data to the data that we received from the response above
-      .then((data) => {
-        console.log("RECIEVED API RESPONSE RECIPE DATA: ", data);
-        setReviewStateData(data);
-      });
-  }, []);
+  // useEffect(() => {
+  //   fetch(`http://localhost:5000/user/${currentUser.uid}
+
+  //   `)
+  //     .then((response) => response.json())
+  //     // Setting recipe Data to the data that we received from the response above
+  //     .then((data) => {
+  //       console.log("RECIEVED API RESPONSE RECIPE DATA: ", data);
+  //       setProfileStateData(data);
+  //       setRecipes(data.recipeIdList)
+  //     });
+  // }, []);
+
+  // useEffect(() => {
+  //   fetch(`http://localhost:5000/review/recipeid/619a1a8c8f4c97accad10a75
+
+  //   `)
+  //     .then((response) => response.json())
+  //     // Setting recipe Data to the data that we received from the response above
+  //     .then((data) => {
+  //       console.log("RECIEVED API RESPONSE RECIPE DATA: ", data);
+  //       setReviewStateData(data);
+  //     });
+  // }, []);
 
     return (
       <Container className="mt-5">
@@ -73,25 +116,39 @@ function Profile() {
           {profileStateData.length == 0 ? (
               <div>Loading Profile</div>
             ) : (
-              <ProfileInfo ProfileData={profileStateData.user[0]} />
+              <ProfileInfo ProfileData={profileStateData.user[0]} />                            
             )}
         </Row>
-        <Row>
+
+        {recipeAndReviewData.map(obj => (
+          <Row>
+            <Col lg={2}></Col>
+            <Col>
+              <RecipeInfo recipeData={obj.recipe}/>
+            </Col>
+            {obj.reviews.map(review => (<Comment reviewData={review} />))}
+          </Row>
+        ))}
+        {/* <Row>
           <Col lg={2}></Col>
           <Col>
             {recipeStateData.length == 0 ? (
               <div>Loading Recipe</div>
             ) : (
-              <RecipeInfo recipeData={recipeStateData.recipe[0]} />
+              // <RecipeInfo recipeData={recipeStateData.recipe[0]} />            
+              <div>hello</div>
             )}
             <h2> Comments </h2>
 
             {reviewStateData.length == 0 ? (
               <div>Loading Review</div>
             ) : (
-              reviewStateData.reviews.map(data => <Comment ReviewData={data} />)
+              // reviewStateData.reviews.map(data => <Comment ReviewData={data} />)              
+              <div>hello</div>
             )}
-          </Col></Row>
+          </Col>
+        </Row> */}
+        
       </Container>
     );
   }

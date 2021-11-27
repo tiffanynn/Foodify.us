@@ -5,6 +5,7 @@ import { Container, Row, Col, Image } from "react-bootstrap";
 import "./Comment.css";
 
 function Comment(props) {
+    console.log(props);
     return (
 
         <div>
@@ -16,7 +17,7 @@ function Comment(props) {
                   {/* <h2> Reviewed 4.8/5 stars </h2> */}
 
                   <div className = "box_2">
-                    <Image src={props.ReviewData.profileImgUrl} width={50} height= {50}
+                    <Image src={props.reviewData.profileImgUrl} width={50} height= {50}
                              roundedCircle />
 
                     <Col>
@@ -24,17 +25,17 @@ function Comment(props) {
 
                           <div className = "name">
                               {/* Llama . 45 mins ago */}
-                              {props.ReviewData.userName}  .  {props.ReviewData.postDate}
+                              {props.reviewData.userName}  .  {props.reviewData.postDate}
                           </div>
 
                           <div className = "text">
                             {/* "quite a great recipe, I love it" */}
-                            {props.ReviewData.reviewBody}
+                            {props.reviewData.reviewBody}
                           </div>
 
                           <div>
                             {/* 4.8/5 */}
-                            {props.ReviewData.rating} / 5
+                            {props.reviewData.rating} / 5
                           </div>
 
 
