@@ -116,9 +116,9 @@ app.route("/review/recipeid/:recipeId").get((req, res) => {
   );
   /* QUERIES DB FOR ALL RECIPES */
   Review.find({ recipeId: recipeId })
-    .then((reviews) =>
-      res.send(JSON.parse('{"reviews" : ' + JSON.stringify(reviews) + "}"))
-    )
+    .then((reviews) => {
+      res.send(JSON.parse('{"reviews" : ' + JSON.stringify(reviews) + "}"));
+    })
     .catch((err) => res.status(400).json("Error: " + err));
 });
 
@@ -140,7 +140,7 @@ app.route("/review/username/:userName").get((req, res) => {
 //UPLOAD NEW REVIEW USING RECIPEID AND USERNAME
 app
   .route("/reviewupload/:recipeId/:userName/:reviewBody/:rating")
-  .get((req, res) => {
+  .get(async (req, res) => {
     var recipeId = req.params.recipeId;
     var enteredUserName = req.params.userName;
     var reviewBody = req.params.reviewBody;
@@ -151,14 +151,16 @@ app
     const date = date_ob.toISOString();
 
     //get profile picture of user commenting
-    User.findOne({ userName: enteredUserName  }).then((user) => {
+    /*
+    User.findOne({ userName: enteredUserName }).then((user) => {
       console.log(user);
       temp = JSON.parse('{"user" : ' + JSON.stringify(user) + "}");
     });
-    
-    const profileImgUrl = temp.profileImgUrl;
-    console.log(temp)
-    console.log(profileImgUrl)
+    */
+
+    const profileImgUrl = await getUserProfileImgUrl(enteredUserName);
+    console.log(temp);
+    console.log(profileImgUrl);
 
     const newReview = new Review({
       recipeId,
@@ -166,7 +168,7 @@ app
       profileImgUrl,
       rating,
       postDate: date,
-      userName: enteredUserName
+      userName: enteredUserName,
     });
 
     newReview
@@ -177,6 +179,20 @@ app
         )
       );
   });
+
+function getUserProfileImgUrl(username) {
+  return new Promise((resolve, reject) => {
+    User.findOne({ userName: username })
+      .then((user) => {
+        console.log(username);
+        console.log(user.profileImgUrl);
+        resolve(user.profileImgUrl);
+      })
+      .catch((err) =>
+        console.log("ERROR FETCHING ALL USER FOR USER PROFILE FETCH: ", err)
+      );
+  });
+}
 
 /*
  *

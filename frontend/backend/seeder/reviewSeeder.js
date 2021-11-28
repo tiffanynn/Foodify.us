@@ -32,6 +32,20 @@ function getAllRecipes() {
   });
 }
 
+function getUserProfileImgUrl(username) {
+  return new Promise((resolve, reject) => {
+    User.findOne({ userName: username })
+      .then((user) => {
+        console.log(username);
+        console.log(user.profileImgUrl);
+        resolve(user.profileImgUrl);
+      })
+      .catch((err) =>
+        console.log("ERROR FETCHING ALL USER FOR USER PROFILE FETCH: ", err)
+      );
+  });
+}
+
 async function seedComments() {
   Review.collection.drop();
   console.log("REVIEW COLLECTION DROPPED");
@@ -65,6 +79,7 @@ async function seedComments() {
       const recipeId = randomRecipe._id;
       const userName = randomUser.userName;
       const reviewBody = commentData[i];
+      const profileImgUrl = await getUserProfileImgUrl(randomUser.userName);
       const rating =
         ratingArray[Math.floor(Math.random() * ratingArray.length)];
 
@@ -73,13 +88,14 @@ async function seedComments() {
         reviewBody,
         rating,
         userName,
+        profileImgUrl,
       });
 
       newReview
         .save()
         .then(() =>
           console.log(
-            `review: ${recipeId}, ${reviewBody}, ${rating}, ${userName}, saved`
+            `review: ${recipeId}, ${reviewBody}, ${rating}, ${userName}, ${profileImgUrl}, saved`
           )
         );
     }
