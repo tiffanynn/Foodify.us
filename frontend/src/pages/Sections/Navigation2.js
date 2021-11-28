@@ -137,6 +137,10 @@ function Navigation2(props) {
                     <div className="justify-content-end">
                         {!showEntry && <Button id="btn" component={Link} to="/Login">Login</Button>}
                         {!showEntry && <Button id="btn" component={Link} to="/Register">Register</Button>}
+
+                        {/* Comment out Line 142 if syncing other user profile pic works */}
+                        {/* {showEntry && <Button id="btn" onClick={logoutSession} style={{ background: "transparent" }}>Logout</Button>}
+                         */}
                         {showEntry &&
                             <Dropdown>
                                 <Container
