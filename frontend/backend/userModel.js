@@ -16,9 +16,6 @@ const UserSchema = new Schema({
     type: String,
     required: true,
   },
-  userName: {
-    type: String,
-  },
   profileImgUrl: {
     type: String,
   },

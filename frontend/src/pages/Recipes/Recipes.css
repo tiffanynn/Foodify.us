@@ -112,6 +112,18 @@ h2 {
     margin-top: 6%;    
 }
 
+#followed{
+    color: white;
+    font-family: "Raleway";
+    text-transform: lowercase;
+    font-size: 15px;
+    font-style: normal;
+    background: #19B47C;
+    box-sizing: border-box;
+    border-radius: 45px;
+    margin-top: 6%;    
+}
+
 #selected{
     color: white;
     background: #19B47C;

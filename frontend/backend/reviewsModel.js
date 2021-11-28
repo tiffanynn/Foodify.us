@@ -14,6 +14,9 @@ const ReviewSchema = new Schema({
     required: false,
     default: undefined,
   },
+  profileImgUrl: {
+    type: String
+  },
   rating: {
     type: Number,
     required: false,

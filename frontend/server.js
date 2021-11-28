@@ -142,21 +142,38 @@ app
   .route("/reviewupload/:recipeId/:userName/:reviewBody/:rating")
   .get((req, res) => {
     var recipeId = req.params.recipeId;
-    var userName = req.params.userName;
+    var enteredUserName = req.params.userName;
     var reviewBody = req.params.reviewBody;
     var rating = req.params.rating;
+    var temp = "";
+
+    const date_ob = new Date();
+    const date = date_ob.toISOString();
+
+    //get profile picture of user commenting
+    User.findOne({ userName: enteredUserName  }).then((user) => {
+      console.log(user);
+      temp = JSON.parse('{"user" : ' + JSON.stringify(user) + "}");
+    });
+    
+    const profileImgUrl = temp.profileImgUrl;
+    console.log(temp)
+    console.log(profileImgUrl)
+
     const newReview = new Review({
       recipeId,
       reviewBody,
+      profileImgUrl,
       rating,
-      userName,
+      postDate: date,
+      userName: enteredUserName
     });
 
     newReview
       .save()
       .then(() =>
         console.log(
-          `review: ${recipeId}, ${reviewBody}, ${rating}, ${userName}, saved`
+          `review: ${recipeId}, ${reviewBody}, ${profileImgUrl}, ${rating}, ${date}, ${enteredUserName}, saved`
         )
       );
   });

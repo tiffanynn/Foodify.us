@@ -3,6 +3,7 @@ import { useParams } from "react-router";
 import {ToastContainer, toast} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import axios from 'axios';
+import {useAuth} from '../../config/Authentication';
 // import { Button } from "@material-ui/core";
 import { Container, Row, Col, Image, InputGroup, FormControl, ButtonToolbar, ButtonGroup, Button, Alert } from "react-bootstrap";
 
@@ -12,6 +13,9 @@ export default function Reviews(){
     const [review, setReview] = useState('')
     const [rating, setRating] = useState('')
     const {urlRecipeId}= useParams()
+    let [userData, setUserData] = useState(null);
+    const {currentUser} = useAuth()
+    const user_id = currentUser.uid
 
     const handleStateChange = (e, setState) => {
         setState(e.target.value)      
@@ -20,14 +24,26 @@ export default function Reviews(){
     const handleRatingChange = (value, setState) => {
       setState(value)
     }
+  
+    useEffect(() => {
+
+      fetch(`http://localhost:5000/user/${user_id}`)
+          .then((response) => response.json())
+          // Setting recipe Data to the data that we received from the response above
+          .then((data) => {
+            console.log("RECIEVED API RESPONSE USER DATA: ", data);
+            setUserData(data);
+          });
+      }, []);
 
     const handleSubmit = (e) => {
       e.preventDefault()
-      axios.get(`http://localhost:5000/reviewupload/${urlRecipeId}/mody1username/${review}/${rating}`)
+      axios.get(`http://localhost:5000/reviewupload/${urlRecipeId}/${userData.user[0].userName}/${review}/${rating}`)
+      console.log(`http://localhost:5000/reviewupload/${urlRecipeId}/${userData.user[0].userName}/${review}/${rating}`)
       toast('successfully added comment for recipe!')
       setTimeout(() => {window.location.reload()}, 1000)
-
     }
+    
     
 
     return (
