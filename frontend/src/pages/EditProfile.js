@@ -133,7 +133,10 @@ export default function EditProfile() {
     <>
       <Card style={{ border: "white" }}>
         <Card.Body>
-          <h2 className="text-center mb-4">Update Profile</h2>
+          <h2 className="text-center mb-4" 
+            style={{ 
+              color: "#000000", fontWeight: "bold", fontSize: "40px", fontFamily: "Raleway" 
+            }}>Update Profile</h2>
           {error && <Alert variant="danger">{error}</Alert>}
           <Row> 
             <Col>
