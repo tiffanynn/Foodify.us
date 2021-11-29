@@ -48,7 +48,7 @@ function UserProfileInfo(props) {
           .then(() => {setTimeout(() => {fetchUserData()}, 1000)});
         }
         else{
-          console.log("follow user request " + user_id)
+          // console.log("follow user request " + user_id)
           const user_id = currentUser.uid
           fetch(`http://localhost:5000/follow/${user_id}/${props.ProfileData.userName}`)
           .then(() => {setTimeout(() => {fetchUserData()}, 1000)});
