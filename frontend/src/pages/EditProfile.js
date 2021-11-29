@@ -135,8 +135,9 @@ export default function EditProfile() {
         <Card.Body>
           <h2 className="text-center mb-4" 
             style={{ 
-              color: "#000000", fontWeight: "bold", fontSize: "40px", fontFamily: "Raleway" 
-            }}>Update Profile</h2>
+              color: "#000000", fontWeight: "bold", fontSize: "37px", fontFamily: "Raleway",
+              marginLeft:"700px", marginBottom:"10px", marginTop:"30px" 
+            }}>Let's complete your profile</h2>
           {error && <Alert variant="danger">{error}</Alert>}
           <Row> 
             <Col>
@@ -157,7 +158,7 @@ export default function EditProfile() {
             <Col>
               <Form id="info" onSubmit={handleSubmit}>
                 <Form.Label>
-                  <div style={{ minWidth: "120px", marginRight: "200px" }}>
+                  <div style={{ minWidth: "120px", marginRight: "200px", marginTop:"20px" }}>
                     <b>  - Upload your profile picture - </b>
                   </div>
                 </Form.Label>
@@ -173,7 +174,7 @@ export default function EditProfile() {
                 />
                 </Form.Group>
                 <Form.Label>
-                  <div style={{ minWidth: "120px", marginTop: "150px", marginRight: "200px"  }}>
+                  <div style={{ minWidth: "120px", marginTop: "130px", marginRight: "200px"  }}>
                     <b> - Update your information - </b>
                   </div>
                 </Form.Label>

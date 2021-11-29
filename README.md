@@ -4,13 +4,20 @@ Contributed by Tiffany Nguyen, Christine Nguyen, Jia Cherng Ng, Mohammad Sleiman
 ## Description
 Foodify.us is an application that generates recipes recommendations based on users’ diet preferences, restrictions, calorie limit and etc.  Aside from being a recipe generator, Foodify.us also provides a platform for fellow foodies out there to share their recipes, and allow users to follow accounts that they are interested in. These interactions with the app would provide a more tailored experience for users, as it helps to improve the algorithm on what you would like best.
 
-## Credit for Code Referenced & Sourced
+## Reference Acknowledgements 
 1. Firebase Authentication from Web Dev Simplified Tutorial: https://youtu.be/PKwu15ldZ7k
+
+## How to run the application with
+2 terminals need to be open in order to run the application. After cd frontend for both terminals:
+
+1. Terminal 1: Type "nodemon server"
+
+2. Terminal 2: Type "npm start"
 
 ## Required Installation
 Download Node.js: https://nodejs.org/en/download/
 
-## Cmds to install manually (not included in the bundle)
+## Cmds to install manually
 npm install
 
 npm install cors --save
