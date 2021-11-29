@@ -9,6 +9,7 @@ export default function RecipeInfo(props) {
   
   return (
     <div>
+      <Container className="mt-5">
             <Row className="d-flex justify-content-between align-items-start">
               <Col xs={6} lg={6}>
                 <div className="hashtag">
@@ -79,6 +80,7 @@ export default function RecipeInfo(props) {
                 </div>
               </Col>
             </Row>
+        </Container>
     {" "}
     </div>
   );
