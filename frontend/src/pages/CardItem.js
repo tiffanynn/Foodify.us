@@ -1,7 +1,11 @@
 import React from "react";
+import "./Cards.css";
+
+
 import { Link } from "react-router-dom";
 
 function CardItem(props) {
+
   return (
     <>
       <li className="cards__item">
@@ -14,8 +18,13 @@ function CardItem(props) {
             />
           </figure>
           <div className="cards__item__info">
-            <h5 className="cards__item__text">{props.text}</h5>
-            <h6 className="cards__item_text">{props.label}</h6>
+            <div className="recipe_title">{props.text}</div>
+            <h6 className="hashtags">{props.label}</h6>
+
+
+
+
+
           </div>
         </Link>
       </li>

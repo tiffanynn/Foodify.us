@@ -3,11 +3,15 @@ import { Button } from "@material-ui/core";
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { Row, Col, Image } from "react-bootstrap";
+import {useAuth} from '../../config/Authentication';
+
 
 import "./Recipes.css";
 
 export default function RecipeHeader(props) {
     let [userData, setUserData] = useState(null);
+    // const {currentUser} = useAuth()
+    // const user_id = currentUser.uid
 
     useEffect(() => {
         const username = props.headerData.userName

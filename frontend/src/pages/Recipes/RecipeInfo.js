@@ -1,12 +1,11 @@
 import React, { useEffect } from "react";
 import { Button } from "@material-ui/core";
 import { Container, Row, Col, Image } from "react-bootstrap";
-import image from "../../Images/Rectangle 2.png";
 
 import "./Recipes.css";
 
 export default function RecipeInfo(props) {
-  
+
   return (
     <div>
       <Container className="mt-5">
@@ -61,6 +60,7 @@ export default function RecipeInfo(props) {
                       {props.recipeData[0].dietTagList.map((tag) => (
                         <p>
                           {" "}
+                        
                           <Button
                             variant="outlined"
                             id="outlined"

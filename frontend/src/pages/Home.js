@@ -1,12 +1,12 @@
 // import logo from './logo.svg';
 import React from "react";
-import Cards from "./Cards";
+import CardFeed from "./CardFeed";
 import SearchArea from "./SearchArea";
 
 function Home() {
   return (
     <div>
-      <Cards />
+      <CardFeed />
     </div>
   );
 }

@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import "./Cards.css";
-import CardItem from "./CardItem";
+import CardFeedItem from "./CardFeedItem";
 import { Container, Row, Col, Image, Card } from "react-bootstrap";
 
 
-function Cards() {
+function CardFeed() {
   //Browser's Temporary Workspace Data (React State).
   //Anytime State Is Set, Render/Return Function Is Run Again
   let [recipeStateData, setRecipeStateData] = useState([]); // recipeStateData Initialized to Null
@@ -36,7 +36,7 @@ function Cards() {
                 <div>Loading</div>
               ) : (
                 recipeStateData.recipes.map((recipe) => (
-                  <CardItem
+                  <CardFeedItem
                     src={recipe.imgUrl}
                     text={recipe.title}
                     username = {recipe.userName}
@@ -55,4 +55,4 @@ function Cards() {
   );
 }
 
-export default Cards;
+export default CardFeed;

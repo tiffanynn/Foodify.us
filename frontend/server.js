@@ -150,14 +150,6 @@ app
     const date_ob = new Date();
     const date = date_ob.toISOString();
 
-    //get profile picture of user commenting
-    /*
-    User.findOne({ userName: enteredUserName }).then((user) => {
-      console.log(user);
-      temp = JSON.parse('{"user" : ' + JSON.stringify(user) + "}");
-    });
-    */
-
     const profileImgUrl = await getUserProfileImgUrl(enteredUserName);
     console.log(temp);
     console.log(profileImgUrl);
