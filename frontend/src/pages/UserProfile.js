@@ -1,5 +1,5 @@
 import React from "react";
-import ProfileInfo from "./ProfileInfo";
+import UserProfileInfo from "./UserProfileInfo";
 import RecipeInfo from "./Recipes/RecipeInfo";
 import Comment from "./Comment";
 import { Container, Row, Col, Image } from "react-bootstrap";
@@ -66,7 +66,7 @@ function UserProfile() {
           {profileStateData.length == 0 ? (
               <div>Loading Profile</div>
             ) : (
-              <ProfileInfo ProfileData={profileStateData.user[0]} />                            
+              <UserProfileInfo ProfileData={profileStateData.user[0]} />                            
             )}
         </Row>
 

@@ -4,7 +4,7 @@ import { Container, Row, Col, Image } from "react-bootstrap";
 
 import "./Profile.css";
 
-function ProfileInfo(props) {
+function UserProfileInfo(props) {
     return (
       <div>
         <Container className="mt-5">
@@ -12,7 +12,8 @@ function ProfileInfo(props) {
             <Col lg={2}>
                 <Image src={props.ProfileData.profileImgUrl} width={100} height= {100}
                 roundedCircle />
-                <br></br>
+                <br></br>   
+                <Button variant="outlined" id="outlined">Follow</Button><br></br>
                 {props.ProfileData.userName}
             </Col>
             <Col>
@@ -45,6 +46,6 @@ function ProfileInfo(props) {
     );
   }
   
-  export default ProfileInfo;
+  export default UserProfileInfo;
 
 //https://64.media.tumblr.com/2f9e574d84ab082f1f16b96812d38c75/tumblr_oappq7XwlE1utr0aro8_250.png
