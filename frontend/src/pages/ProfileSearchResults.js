@@ -1,6 +1,5 @@
 import "./Recipes/Recipes.css";
 import React from "react";
-import RecipeInfo from "./Recipes/RecipeInfo.js";
 import CardItem from "./CardItem";
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
@@ -43,7 +42,7 @@ export default function ProfileSearchResults() {
                   src={user.profileImgUrl}
                   text={user.userName}
                   label={user.name}
-                  path={`/user/username/${user.userName}`}
+                  path={`/profile/${user.userName}`}
                 />
               ))
             )}

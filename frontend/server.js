@@ -684,7 +684,7 @@ app.route("/user/:userid").get((req, res) => {
 
 //QUERY DB FOR USER BY USERNAME (FOR LOADING PROFILE):
 app.route("/user/username/:username").get((req, res) => {
-  console.log("INCOMING REQUEST FOR USER WITH USERID: ", req.params.username);
+  console.log("INCOMING REQUEST FOR USER WITH USERNAME: ", req.params.username);
   var queryUserName = req.params.username;
 
   // console.log(queryUserName);
