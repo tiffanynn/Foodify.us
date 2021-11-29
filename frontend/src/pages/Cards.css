@@ -13,19 +13,18 @@ h1 {
   line-height: 47px;
   letter-spacing: 0em;
   text-align: left;
-
 }
 
 .cards__container {
   display: flex;
   flex-flow: column;
-  
+
   /* new
   flex-direction: row;
   flex-wrap: wrap; */
 
   align-items: center;
-  max-width: 70%;
+  max-width: 80%;
   width: 90%;
   margin: 0 auto;
 }
@@ -40,18 +39,18 @@ h1 {
   justify-content: center; */
 }
 
-
 .cards__items {
   margin-bottom: 5px;
   max-width: 100%;
+  min-width: 600px;
 }
 
 .cards__item {
   display: flex;
   flex: 1;
   margin: 0 1rem;
-  min-width: 150px;
-  min-height: 150px;
+  min-width: 300px;
+  min-height: 300px;
   border-radius: 10px;
   max-width: 50%;
 }
@@ -87,7 +86,7 @@ h1 {
 }
 
 .cards__item__info {
-  background: #F6F6F6;
+  background: #f6f6f6;
   padding: 0px 5px 5px;
   min-width: 200px;
   min-height: 100px;
@@ -99,9 +98,9 @@ h1 {
   line-height: 20px;
 }
 
-.recipe_title{
+.recipe_title {
   font-family: "Radley";
-  color: #3D3D3D;
+  color: #3d3d3d;
   font-size: 25px;
   font-style: normal;
   font-weight: 400;
@@ -118,7 +117,7 @@ h1 {
 
 @media only screen and (min-width: 1024px) {
   .cards__items {
-    display:inline;
+    display: inline;
   }
 }
 

@@ -13,19 +13,18 @@ h1 {
   line-height: 47px;
   letter-spacing: 0em;
   text-align: left;
-
 }
 
 .cards__container {
   display: flex;
   flex-flow: column;
-  
+
   /* new
   flex-direction: row;
   flex-wrap: wrap; */
 
   align-items: center;
-  max-width: 70%;
+  max-width: 80%;
   width: 90%;
   margin: 0 auto;
 }
@@ -40,7 +39,6 @@ h1 {
   justify-content: center; */
 }
 
-
 .cards__items {
   margin-bottom: 5px;
   max-width: 100%;
@@ -53,7 +51,7 @@ h1 {
   min-width: 150px;
   min-height: 150px;
   border-radius: 10px;
-  max-width: 50%;
+  max-width: 75%;
 }
 
 .cards__item__link {
@@ -73,6 +71,7 @@ h1 {
 }
 
 .cards__item__img {
+  background-color: rgb(245, 245, 245);
   position: absolute;
   top: 0;
   right: 0;
@@ -87,7 +86,7 @@ h1 {
 }
 
 .cards__item__info {
-  background: #F6F6F6;
+  background: #f6f6f6;
   padding: 0px 5px 5px;
   min-width: 200px;
   min-height: 100px;
@@ -99,52 +98,53 @@ h1 {
   line-height: 20px;
 }
 
-.recipe_header{
+.recipe_header {
   background-color: white;
   font-family: "Raleway";
   color: black;
   font-size: 20px;
   font-style: normal;
-  font-weight: 100;
+  font-weight: 300;
   line-height: 23px;
   letter-spacing: 0em;
   text-align: left;
-
+  padding-left: 5px;
+  padding-bottom: 10px;
+  padding-top: 10px;
 }
 
-.hashtags{
+.hashtags {
   font-family: "Ramabhadra";
-  color: #AAAAAA;
+  color: #aaaaaa;
   font-size: 15px;
   font-style: normal;
   font-weight: 400;
   line-height: 38px;
   letter-spacing: 0.01em;
   text-align: left;
-
 }
 
-.recipe_title{
-  font-family: "Radley";
-  color: #3D3D3D;
-  font-size: 20px;
+.recipe_title {
+  font-family: "Raleway";
+  color: #3d3d3d;
+  font-size: 23px;
   font-style: normal;
-  font-weight: 400;
+  font-weight: 600;
   line-height: 30px;
   letter-spacing: 0.01em;
   text-align: left;
 }
 
-#outlined{
+#outlined {
   font-family: "Raleway";
   font-size: 15px;
   font-style: normal;
   font-weight: 400;
   text-transform: lowercase;
-  border: 1px solid #19B47C;
+  border: 1px solid #19b47c;
   box-sizing: border-box;
   border-radius: 45px;
-  margin-top: 6%;    
+  margin-top: 6%;
 }
 
 @media only screen and (min-width: 1200px) {
@@ -155,7 +155,7 @@ h1 {
 
 @media only screen and (min-width: 1024px) {
   .cards__items {
-    display:inline;
+    display: inline;
   }
 }
 

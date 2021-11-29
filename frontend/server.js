@@ -199,15 +199,119 @@ app.route("/").get((req, res) => {
   res.send("Hello World From Foodify Backend Server! :)");
 });
 
-// SENDS BACK ALL RECIPES IN DB
+// SENDS BACK ALL RECIPES IN DB (OLD WORKING ONE:)
+/*
 app.route("/feed").get((req, res) => {
   console.log("INCOMING FEED REQUEST");
 
-  /* QUERIES DB FOR ALL RECIPES */
   Recipe.find()
     .then((recipes) =>
       res.send(JSON.parse('{"recipes" : ' + JSON.stringify(recipes) + "}"))
     )
+    .catch((err) => res.status(400).json("Error: " + err));
+});
+*/
+app.route("/feed").get((req, res) => {
+  console.log("INCOMING FEED REQUEST");
+  //DisplayLength controls how may recipes are per section
+  const displayLength = 6;
+  let query = {};
+  /* QUERIES DB AND GENERATES TRENDING RECIPES */
+  Recipe.find()
+    .then((recipes) => {
+      const shuffled = recipes.sort(() => 0.5 - Math.random());
+      let trendyRecipes = shuffled.slice(0, displayLength / 2);
+      query.trending = trendyRecipes;
+      console.log("ADDED TRENDING: ", query);
+
+      Recipe.find({ dietTagList: "vegetarian" })
+        .then((recipes) => {
+          const shuffled = recipes.sort(() => 0.5 - Math.random());
+          let vegetarianRecipes = shuffled.slice(0, displayLength / 2);
+          query.vegetarian = vegetarianRecipes;
+          console.log("ADDED VEGETARIAN: ", query);
+
+          Recipe.find({ dietTagList: "paleo" })
+            .then((recipes) => {
+              const shuffled = recipes.sort(() => 0.5 - Math.random());
+              let paleoRecipes = shuffled.slice(0, displayLength);
+              query.paleo = paleoRecipes;
+              console.log("ADDED PALEO: ", query);
+
+              //res.send(JSON.parse('{"recipes" : ' + JSON.stringify(recipes) + "}"));
+            })
+            .catch((err) => res.status(400).json("Error: " + err));
+
+          Recipe.find({ dietTagList: "pescatarian" })
+            .then((recipes) => {
+              const shuffled = recipes.sort(() => 0.5 - Math.random());
+              let pescatarianRecipes = shuffled.slice(0, displayLength / 2);
+              query.pescatarian = pescatarianRecipes;
+              console.log("ADDED PESCATARIAN: ", query);
+              //res.send(query);
+              //res.send(JSON.parse('{"recipes" : ' + JSON.stringify(recipes) + "}"));
+
+              Recipe.find({ dietTagList: "calorie lite" })
+                .then((recipes) => {
+                  const shuffled = recipes.sort(() => 0.5 - Math.random());
+                  let calorieRecipes = shuffled.slice(0, displayLength);
+                  query.calorielite = calorieRecipes;
+                  console.log("ADDED CALORIE LIGHT: ", query);
+                  //res.send(query);
+                  //res.send(JSON.parse('{"recipes" : ' + JSON.stringify(recipes) + "}"));
+
+                  Recipe.find({ dietTagList: "keto friendly" })
+                    .then((recipes) => {
+                      const shuffled = recipes.sort(() => 0.5 - Math.random());
+                      let ketoRecipes = shuffled.slice(0, displayLength);
+                      query.keto = ketoRecipes;
+                      console.log("ADDED KETO : ", query);
+                      //res.send(query);
+                      //res.send(JSON.parse('{"recipes" : ' + JSON.stringify(recipes) + "}"));
+
+                      Recipe.find({ dietTagList: "vegan" })
+                        .then((recipes) => {
+                          const shuffled = recipes.sort(
+                            () => 0.5 - Math.random()
+                          );
+                          let veganRecipes = shuffled.slice(0, displayLength);
+                          query.vegan = veganRecipes;
+                          console.log("ADDED VEGAN : ", query);
+                          //res.send(query);
+                          //res.send(JSON.parse('{"recipes" : ' + JSON.stringify(recipes) + "}"));
+
+                          Recipe.find({ dietTagList: "calorie lite" })
+                            .then((recipes) => {
+                              const shuffled = recipes.sort(
+                                () => 0.5 - Math.random()
+                              );
+                              let calorieLiteRecipes = shuffled.slice(
+                                0,
+                                displayLength
+                              );
+                              query.calorielite = calorieLiteRecipes;
+                              console.log("ADDED Calorie Lite : ", query);
+                              res.send(query);
+                              //res.send(JSON.parse('{"recipes" : ' + JSON.stringify(recipes) + "}"));
+                            })
+                            .catch((err) =>
+                              res.status(400).json("Error: " + err)
+                            );
+                        })
+                        .catch((err) => res.status(400).json("Error: " + err));
+                    })
+                    .catch((err) => res.status(400).json("Error: " + err));
+                })
+                .catch((err) => res.status(400).json("Error: " + err));
+            })
+            .catch((err) => res.status(400).json("Error: " + err));
+
+          //res.send(JSON.parse('{"recipes" : ' + JSON.stringify(recipes) + "}"));
+        })
+        .catch((err) => res.status(400).json("Error: " + err));
+
+      //res.send(JSON.parse('{"recipes" : ' + JSON.stringify(recipes) + "}"));
+    })
     .catch((err) => res.status(400).json("Error: " + err));
 });
 
