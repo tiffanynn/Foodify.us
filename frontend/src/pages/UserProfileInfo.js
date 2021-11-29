@@ -13,18 +13,21 @@ function UserProfileInfo(props) {
     let [loggedInUserName, setLoggedInUserName] = useState(null);
 
     const {currentUser} = useAuth()
-    const user_id = currentUser.uid
-
+    
     useEffect(() => {
-        const username = props.ProfileData.userName
-
+        const username = props.ProfileData.userName            
         fetchUserData();
-        fetch(`http://localhost:5000/user/${user_id}`)
-          .then((response) => response.json())
-          .then((data) => {
-            console.log(data.user[0].userName)
-            setLoggedInUserName(data.user[0].userName)
+
+        if(currentUser !== null){
+            const user_id = currentUser.uid
+
+            fetch(`http://localhost:5000/user/${user_id}`)
+            .then((response) => response.json())
+            .then((data) => {
+                console.log(data.user[0].userName)
+                setLoggedInUserName(data.user[0].userName)
           })
+        }
       }, []);
 
     const fetchUserData = () => {
@@ -40,11 +43,13 @@ function UserProfileInfo(props) {
 
     const onClickHandler = () => {
         if(userData.user[0].followerUserNameList.includes(loggedInUserName)){
+            const user_id = currentUser.uid
           fetch(`http://localhost:5000/unfollow/${user_id}/${props.ProfileData.userName}`)
           .then(() => {setTimeout(() => {fetchUserData()}, 1000)});
         }
         else{
           console.log("follow user request " + user_id)
+          const user_id = currentUser.uid
           fetch(`http://localhost:5000/follow/${user_id}/${props.ProfileData.userName}`)
           .then(() => {setTimeout(() => {fetchUserData()}, 1000)});
         }

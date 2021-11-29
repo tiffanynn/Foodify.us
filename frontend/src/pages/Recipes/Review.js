@@ -15,7 +15,6 @@ export default function Reviews(){
     const {urlRecipeId}= useParams()
     let [userData, setUserData] = useState(null);
     const {currentUser} = useAuth()
-    const user_id = currentUser.uid
 
     const handleStateChange = (e, setState) => {
         setState(e.target.value)      
@@ -26,14 +25,17 @@ export default function Reviews(){
     }
   
     useEffect(() => {
-
+      if(currentUser !== null){
+      const user_id = currentUser.uid
       fetch(`http://localhost:5000/user/${user_id}`)
           .then((response) => response.json())
           // Setting recipe Data to the data that we received from the response above
           .then((data) => {
             console.log("RECIEVED API RESPONSE USER DATA: ", data);
             setUserData(data);
+
           });
+        }
       }, []);
 
     const handleSubmit = (e) => {

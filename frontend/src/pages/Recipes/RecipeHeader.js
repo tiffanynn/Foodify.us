@@ -13,17 +13,19 @@ export default function RecipeHeader(props) {
     let [loggedInUserName, setLoggedInUserName] = useState(null);
 
     const {currentUser} = useAuth()
-    const user_id = currentUser.uid
 
     useEffect(() => {
         const username = props.headerData.userName
         fetchUserData();
-        fetch(`http://localhost:5000/user/${user_id}`)
-          .then((response) => response.json())
-          .then((data) => {
-            console.log(data.user[0].userName)
-            setLoggedInUserName(data.user[0].userName)
-          })
+        if(currentUser !== null){
+          const user_id = currentUser.uid
+          fetch(`http://localhost:5000/user/${user_id}`)
+            .then((response) => response.json())
+            .then((data) => {
+              console.log(data.user[0].userName)
+              setLoggedInUserName(data.user[0].userName)
+            })}
+        
       }, []);
 
     const fetchUserData = () => {
@@ -39,11 +41,13 @@ export default function RecipeHeader(props) {
     
     const onClickHandler = () => {
       if(userData.user[0].followerUserNameList.includes(loggedInUserName)){
+        const user_id = currentUser.uid
         fetch(`http://localhost:5000/unfollow/${user_id}/${props.headerData.userName}`)
         .then(() => fetchUserData());
       }
       else{
         console.log("follow user request " + user_id)
+        const user_id = currentUser.uid
         fetch(`http://localhost:5000/follow/${user_id}/${props.headerData.userName}`)
         .then(() => fetchUserData());
       }
@@ -65,7 +69,7 @@ export default function RecipeHeader(props) {
                 }
                 <br></br>
                 {
-                  loggedInUserName === null ?
+                  loggedInUserName === null || currentUser === null ? 
                   <div></div>
                   :
                   <div>
