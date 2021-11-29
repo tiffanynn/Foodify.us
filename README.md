@@ -5,10 +5,11 @@ Contributed by Tiffany Nguyen, Christine Nguyen, Jia Cherng Ng, Mohammad Sleiman
 Foodify.us is an application that generates recipes recommendations based on users’ diet preferences, restrictions, calorie limit and etc.  Aside from being a recipe generator, Foodify.us also provides a platform for fellow foodies out there to share their recipes, and allow users to follow accounts that they are interested in. These interactions with the app would provide a more tailored experience for users, as it helps to improve the algorithm on what you would like best.
 
 ## Reference Acknowledgements 
-1. Firebase Authentication from Web Dev Simplified Tutorial: https://youtu.be/PKwu15ldZ7k
+Firebase Authentication from Web Dev Simplified Tutorial: https://youtu.be/PKwu15ldZ7k
 
 ## How to run the application with
-2 terminals need to be open in order to run the application. After cd frontend for both terminals:
+Two terminals need to be open in order to run the application. 
+For both terminals, change the directory to the frontend "cd frontend", then:
 
 1. Terminal 1: Type "nodemon server"
 
