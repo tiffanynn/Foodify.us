@@ -529,6 +529,139 @@ app.route("/searchuser/:filter").get((req, res) => {
  *
  *
  */
+/************************* FOLLOWER/FOLLOWING PROFILE RELATED ROUTES: **********************************/
+
+//USER ID's ACCOUNT FOLLOWS USERNAME'S ACCOUNT
+app.route("/follow/:userid/:username").get((req, res) => {
+  const userid = req.params.userid;
+  const username = req.params.username;
+  console.log(
+    "INCOMING FOLLOW USER REQUEST: USER ID: ",
+    userid,
+    " follow user: ",
+    username
+  );
+  var loggedInUserName = "";
+  /* ADD USERNAME TO USERID'S FOLLOWING LIST */
+  User.findOne({ userId: userid })
+    .then((user) => {
+      console.log("USERNAME: ", user.userName);
+      if (user.followingUserNameList.includes(username)) {
+        console.log("ALREADY FOLLOWING");
+        err = `logged in user:  ${userid} is already following user: ${username};`;
+        throw new Error(err);
+      }
+      user.followingUserNameList.push(username);
+      console.log("new followingUserNameList: ", user.followingUserNameList);
+      user.save(function (err) {
+        if (err) {
+          console.error("ERROR!");
+        }
+      });
+      loggedInUserName = user.userName;
+      console.log(
+        "ADDED: ",
+        username,
+        " to: ",
+        user.userName,
+        " 's Following List"
+      );
+
+      /* ADD USERID'S USERNAME TO USERNAMES FOLLOWERS LIST */
+
+      User.findOne({ userName: username })
+        .then((user1) => {
+          if (user1.followerUserNameList.includes(loggedInUserName)) {
+            console.log("ALREADY A FOLLOWER");
+            err = `user:  ${user1.usename} is already a follower of : ${loggedInUserName};`;
+            throw new Error(err);
+          }
+          user1.followerUserNameList.push(loggedInUserName);
+          console.log("USERNAME: ", user1.userName);
+          /*
+          if (!("followerUserNameList" in user1)) {
+            user1.followerUserNameList = [];
+          }*/
+          console.log("new followerUserNameList: ", user1.followerUserNameList);
+          user1.save(function (err) {
+            if (err) {
+              console.error("ERROR!");
+            }
+          });
+          console.log(
+            "ADDED: ",
+            loggedInUserName,
+            " to: ",
+            user1.userName,
+            " 's Followers List"
+          );
+
+          /* ADD USERID'S USERNAME TO USERNAMES FOLLOWERS LIST */
+        })
+        .catch((err) => res.status(400).json("Error: " + err));
+    })
+    .catch((err) => res.status(400).json("Error: " + err));
+});
+
+//USER ID's ACCOUNT UNFOLLOW USERNAME'S ACCOUNT
+app.route("/unfollow/:userid/:username").get((req, res) => {
+  var userid = req.params.userid;
+  var username = req.params.username;
+  console.log(
+    "INCOMING UNFOLLOW USER REQUEST: USER ID: ",
+    userid,
+    " unfollow user: ",
+    username
+  );
+  var loggedInUserName = "";
+  /* ADD USERNAME TO USERID'S FOLLOWING LIST */
+  User.findOne({ userId: userid })
+    .then((user) => {
+      var index = user.followingUserNameList.indexOf(username);
+      if (index !== -1) {
+        user.followingUserNameList.splice(index, 1);
+      }
+      //user.followingUserNameList.push(username);
+      user.save();
+      loggedInUserName = user.userName;
+      console.log(
+        "REMOVED: ",
+        username,
+        " FROM: ",
+        user.userName,
+        " 's Following List"
+      );
+
+      /* ADD USERID'S USERNAME TO USERNAMES FOLLOWERS LIST */
+
+      User.findOne({ userName: username })
+        .then((user1) => {
+          var index = user1.followerUserNameList.indexOf(loggedInUserName);
+          if (index !== -1) {
+            user1.followerUserNameList.splice(index, 1);
+          }
+          //user.followerUserNameList.push(loggedInUserName);
+          user1.save();
+          console.log(
+            "REMOED: ",
+            loggedInUserName,
+            " FROM: ",
+            user1.userName,
+            " 's Followers List"
+          );
+
+          /* ADD USERID'S USERNAME TO USERNAMES FOLLOWERS LIST */
+        })
+        .catch((err) => res.status(400).json("Error: " + err));
+    })
+    .catch((err) => res.status(400).json("Error: " + err));
+});
+
+/*
+ *
+ *
+ *
+ */
 /************************************* USER/PROFILE RELATED ROUTES: ************************************/
 
 // GET ALL USER DATA IN DB (FOR TESTING)
