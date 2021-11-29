@@ -46,7 +46,6 @@ export default function RecipeHeader(props) {
         .then(() => fetchUserData());
       }
       else{
-        console.log("follow user request " + user_id)
         const user_id = currentUser.uid
         fetch(`http://localhost:5000/follow/${user_id}/${props.headerData.userName}`)
         .then(() => fetchUserData());
