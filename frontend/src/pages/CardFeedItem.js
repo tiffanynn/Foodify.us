@@ -4,11 +4,9 @@ import { Button } from "@material-ui/core";
 import { useEffect, useState } from "react";
 import { Row, Col, Image } from "react-bootstrap";
 
-
 import { Link } from "react-router-dom";
 
 function CardFeedItem(props) {
-
   let [userData, setUserData] = useState(null);
 
   useEffect(() => {
@@ -17,7 +15,13 @@ function CardFeedItem(props) {
       // Setting recipe Data to the data that we received from the response above
       .then((data) => {
         console.log("RECIEVED API RESPONSE USER DATA: ", data);
-        setUserData(data);
+        if (data.user !== null) {
+          if (data.user.length > 0) {
+            if (data.user[0].profileImgUrl !== null) {
+              setUserData(data);
+            }
+          }
+        }
       });
   }, []);
 
@@ -26,15 +30,14 @@ function CardFeedItem(props) {
       <li className="cards__item">
         <Link className="cards__item__link" to={props.path}>
           <div className="recipe_header">
-          {
-                    userData != null &&
-                    <Image
-                        src={userData.user[0].profileImgUrl}
-                        width={50}
-                        height={50}
-                        roundedCircle
-                    />
-                }  
+            {userData !== null && (
+              <Image
+                src={userData.user[0].profileImgUrl}
+                width={50}
+                height={50}
+                roundedCircle
+              />
+            )}
             {props.username}
           </div>
           <figure className="cards__item__pic-wrap">
@@ -49,25 +52,15 @@ function CardFeedItem(props) {
             <h6 className="hashtags">{props.label}</h6>
             <div>
               {" "}
-                  {props.dietTags.map((tag) => (
-                    <p>
-                      {" "}
-                      
-                      <Button
-                        variant="outlined"
-                        id="outlined"
-                        className="tag"
-                      >
-                        {tag}
-                      </Button>
-                    </p>
-                  ))}
+              {props.dietTags.map((tag) => (
+                <p>
+                  {" "}
+                  <Button variant="outlined" id="outlined" className="tag">
+                    {tag}
+                  </Button>
+                </p>
+              ))}
             </div>
-
-
-
-
-
           </div>
         </Link>
       </li>
