@@ -12,8 +12,7 @@ function ProfileInfo(props) {
             <Col lg={2}>
                 <Image src={props.ProfileData.profileImgUrl} width={100} height= {100}
                 roundedCircle />
-                <br></br>   
-                <Button variant="outlined" id="outlined">Follow</Button><br></br>
+                <br></br>
                 {props.ProfileData.userName}
             </Col>
             <Col>

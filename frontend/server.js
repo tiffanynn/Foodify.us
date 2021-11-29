@@ -691,6 +691,7 @@ app.route("/follow/:userid/:username").get((req, res) => {
             user1.userName,
             " 's Followers List"
           );
+          res.status(200).json("Success!")
 
           /* ADD USERID'S USERNAME TO USERNAMES FOLLOWERS LIST */
         })
@@ -745,7 +746,7 @@ app.route("/unfollow/:userid/:username").get((req, res) => {
             user1.userName,
             " 's Followers List"
           );
-
+          res.status(200).json("Success!")
           /* ADD USERID'S USERNAME TO USERNAMES FOLLOWERS LIST */
         })
         .catch((err) => res.status(400).json("Error: " + err));
@@ -788,7 +789,7 @@ app.route("/user/:userid").get((req, res) => {
 
 //QUERY DB FOR USER BY USERNAME (FOR LOADING PROFILE):
 app.route("/user/username/:username").get((req, res) => {
-  console.log("INCOMING REQUEST FOR USER WITH USERID: ", req.params.username);
+  console.log("INCOMING REQUEST FOR USER WITH USERNAME: ", req.params.username);
   var queryUserName = req.params.username;
 
   // console.log(queryUserName);

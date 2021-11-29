@@ -15,6 +15,7 @@ import { AuthProvider } from "./config/Authentication.js";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 import Profile from "./pages/Profile";
+import UserProfile from "./pages/UserProfile";
 import UploadRecipe from "./pages/Recipes/Upload/Upload";
 import EditProfile from "./pages/EditProfile";
 
@@ -32,6 +33,7 @@ function App() {
             <Route path="/recipe" exact component={() => <Recipe />} />
             <Route path="/upload" exact component={() => <UploadRecipe />} />
             <Route path="/recipe/:urlRecipeId" component={() => <Recipe />} />
+            <Route path ="/profile/:userName" component={ () => <UserProfile /> } />
             <Route
               path="/edit-profile"
               exact

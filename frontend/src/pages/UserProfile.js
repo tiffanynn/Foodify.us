@@ -1,16 +1,16 @@
 import React from "react";
-import ProfileInfo from "./ProfileInfo";
+import UserProfileInfo from "./UserProfileInfo";
 import RecipeInfo from "./Recipes/RecipeInfo";
 import Comment from "./Comment";
 import { Container, Row, Col, Image } from "react-bootstrap";
 
+import { useParams } from "react-router-dom";
 import axios from 'axios';
 import { useEffect, useState } from "react";
-import {useAuth} from '../config/Authentication' 
 
-function Profile() {
-
-  const {currentUser} = useAuth()  
+function UserProfile() {
+  const { userName } = useParams();
+  console.log(userName)
   let [recipeStateData, setRecipeStateData] = useState([]); // recipeStateData Initialized to Null
   let [profileStateData, setProfileStateData] = useState([]);
   let [reviewStateData, setReviewStateData] = useState([]);
@@ -27,7 +27,7 @@ function Profile() {
     // setReviewStateData(reviewData.data);
   };
   useEffect(() => {
-    axios.get(`http://localhost:5000/user/${currentUser.uid}`)
+    axios.get(`http://localhost:5000/user/username/${userName}`)
     .then(response => {
       setProfileStateData(response.data);      
       setRecipes(response.data.user[0].recipeIdList)
@@ -60,14 +60,13 @@ function Profile() {
     console.log(recipeAndReviewData)
   }, [recipeAndReviewData])
 
-
     return (
       <Container className="mt-5">
         <Row>
           {profileStateData.length == 0 ? (
               <div>Loading Profile</div>
             ) : (
-              <ProfileInfo ProfileData={profileStateData.user[0]} />                            
+              <UserProfileInfo ProfileData={profileStateData.user[0]} />                            
             )}
         </Row>
 
@@ -104,4 +103,4 @@ function Profile() {
     );
   }
   
-  export default Profile;
+  export default UserProfile;
